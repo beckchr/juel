@@ -1,0 +1,9 @@
+#
+# required by juel
+#
+#el-api.jar = el-api-1.1.jar
+
+#
+# required by juel tests
+#
+#junit.jar = lib/junit.jar

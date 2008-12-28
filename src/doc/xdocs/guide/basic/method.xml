@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "../../../schema/dtd/document-v20.dtd">
+<document>
+	<header>
+		<title>Method Expressions</title>
+	</header>
+	<body>
+		<p>
+			Method expressions can be "invoked". A <code>javax.el.MethodExpression</code>
+			is invoked by calling its <code>invoke(ELContext, Object&lt;?>[])</code> method. The specification
+			also allows to treat literal text as a method expression.
+		</p>
+		<p>
+			A method expression is called a <em>literal method expression</em> if its underlying expression is
+			literal text (that is, <code>isLiteralText()</code> returns <code>true</code>).
+			All other method expressions are called <em>non-literal method expressions</em>.
+			Non-literal method expressions share the same syntax as <a href="site:value#lvalue">lvalue expressions</a>.
+		</p>
+		<p>
+			For literal method expressions
+		</p>
+		<ul>
+			<li>
+				<code>invoke(ELContext, Object&lt;?>[])</code> simply returns the expression string,
+				optionally coerced to the expected return type specified at creation time.
+			</li>
+			<li>
+				<code>getMethodInfo(ELContext)</code> always returns <code>null</code>.
+			</li>
+		</ul>
+		<p>
+			On the other hand, non-literal method expressions refer to a <code>java.lang.reflext.Method</code>
+			which can be invoked or used to create a <code>javax.el.MethodInfo</code> instance.
+			For non-literal method expressions
+		</p>
+		<ul>
+			<li>
+				<code>invoke(ELContext, Object&lt;?>[])</code> evaluates the expression to a
+				<code>java.lang.reflext.Method</code> and invokes that method, passing over the
+				given actual parameters.
+			</li>
+			<li>
+				the found method must match the expected return type (if it is not <code>null</code>)
+				and the argument types given at creation time; otherwise an exception is thrown.
+			</li>
+		</ul>
+		<section id="tree">
+			<title>Tree Method Expressions</title>
+			<p>
+				Class <code>de.odysseus.el.TreeMethodExpression</code> is a subclass of
+				<code>javax.el.MethodExpression</code>, which is used by <em>JUEL</em> to represent
+				method expressions. It is the return type of
+			</p>
+			<source>ExpressionFactoryImpl.createMethodExpression(ELContext, String, Class&lt;?>, Class&lt;?>[])</source>
+			<p>
+				In addition to the methods declared by <code>javax.el.MethodExpression</code>, it provides
+			</p>
+			<ul>
+				<li><code>void dump(java.io.PrintWriter writer)</code> &ndash; dump parse tree</li>
+				<li>
+					<code>boolean isDeferred()</code> &ndash; <code>true</code> if expression is
+					deferred (contains eval expressions <code>#{...}</code>)
+				</li>
+			</ul>
+			<source>import java.io.*;
+import de.odysseus.el.*;
+import de.odysseus.el.util.*;
+...
+ExpressionFactoryImpl factory = new ExpressionFactoryImpl();
+SimpleContext context = new SimpleContext(); // more on this <a href="site:../util/context">here</a>...
+TreeMethodExpression e =
+  factory.createMethodExpression(context, "#{x.toString}", String.class, new Class[]{});
+PrintWriter out = new PrintWriter(System.out);
+e.dump(out);
+// +- #{...}
+//   |
+//   +- . toString
+//      |
+//      +- x
+out.flush();
+System.out.println(e.isDeferred()); // true
+...</source>
+		</section>
+	</body>
+</document>

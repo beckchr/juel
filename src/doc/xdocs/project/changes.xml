@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE changes PUBLIC "-//APACHE//DTD Changes V2.0//EN" "../../schema/dtd/changes-v20.dtd">
+<changes>
+	<devs>
+		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
+	</devs>
+	<release version="2.1.1" date="2008/??/??">
+		<action dev="cbe" type="add" context="code">
+			Experimental support for syntax extensions. 
+		</action>
+		<action dev="cbe" type="add" context="code">
+			Added support for varargs.
+		</action>
+		<action dev="cbe" type="add" context="code">
+			Introduce <code>TypeConverter</code> to allow for customized coercion rules.
+		</action>
+		<action dev="cbe" type="update" context="docs">
+			Update to fop-0.95-beta and forrester-0.3.3.
+		</action>
+	</release>
+	<release version="2.1.0" date="2007/03/06">
+		<action dev="cbe" type="update" context="code">
+			Use <code>StringBuilder</code> instead of <code>StringBuffer</code> (performance).
+		</action>
+		<action dev="cbe" type="update" context="code">
+			Update API sources from glassfish.
+		</action>
+	</release>
+	<release version="2.1.0-rc3" date="2006/10/20">
+		<action dev="cbe" type="fix" context="code" due-to="Frédéric Esnault">
+			<code>ListELResolver</code> was missing in <code>SimpleResolver</code>'s
+			default chain of resolver delegates.
+		</action>
+		<action dev="cbe" type="update" context="code">
+			Update API sources from glassfish.
+		</action>
+		<action dev="cbe" type="update" context="code">
+			Minor performance improvements in type conversions and number operations.
+		</action>
+	</release>
+	<release version="2.1.0-rc2" date="2006/10/06">
+		<action dev="cbe" type="update" context="code">
+			Relaxed matching of return type for nonliteral <code>MethodExpression</code>'s.
+			The actual method return type is checked be assignable to the expression's expected
+			return type.
+		</action>
+		<action dev="cbe" type="add" context="code">
+			Let <code>ExpressionFactory</code>'s default constructor read properties from
+			<code>el.properties</code>.
+		</action>
+		<action dev="cbe" type="update" context="admin">
+			Updated API classes to include new API methods <code>ExpressionFactory.newInstance()</code>
+			and <code>ExpressionFactory.newInstance(java.util.Properties)</code>.
+		</action>
+		<action dev="cbe" type="add" context="build">
+			Package Jars with <code>META-INF/services/javax.el.ExpressionFactory</code> to
+			register <em>JUEL</em> as EL service provider.
+		</action>
+		<action dev="cbe" type="add" context="code">
+			Added <code>Builder.Feature.NULL_PROPERTIES</code> to resolve <code>${map[null]}</code>.
+		</action>
+		<action dev="cbe" type="update" context="code">
+			Generified <code>TypeConversions.coerceToEnum(...)</code>
+			and <code>TypeConversions.coerceToEnum(...)</code>.
+		</action>
+		<action dev="cbe" type="fix" context="code">
+			Coerce <code>null</code> function parameters whose type is primitive.
+		</action>
+		<action dev="cbe" type="update" context="code">Minor scanner cleanup.</action>
+		<action dev="cbe" type="update" context="code">Increased default cache size to 1000.</action>
+		<action dev="cbe" type="update" context="code">
+			<code>ExpressionFactoryImpl</code> no longer <code>final</code> to allow customization
+			by subclassing. E.g. using <em>JUEL</em> with JSF requires calling a default constructor.
+		</action>
+	</release>
+	<release version="2.1.0-rc1" date="2006/07/18">
+		<action dev="cbe" type="add" context="code">
+			Added support for method invocations as in <code>${foo.bar(1)}</code> (disabled by default).
+		</action>
+		<action dev="cbe" type="fix" context="code">Reject identifier <code>instanceof</code>.</action>
+		<action dev="cbe" type="add" context="docs">Added "Advanced Topics" section.</action>
+		<action dev="cbe" type="remove" context="code">
+			Removed support for system property <code>de.odysseus.el.factory.builder</code>.
+		</action>
+		<action dev="cbe" type="update" context="design">
+			Moved default tree cache implementation to package <code>de.odysseus.el.tree.impl</code>.
+		</action>
+		<action dev="cbe" type="update" context="design">
+			Moved node implementation classes to package <code>de.odysseus.el.tree.impl.ast</code>.
+		</action>
+		<action dev="cbe" type="remove" context="code">
+			Removed deprecated methods from <code>SimpleResolver</code>.
+		</action>
+		<action dev="cbe" type="update" context="code">Do not coerce <code>null</code> function parameters.</action>
+		<action dev="cbe" type="update" context="code">
+			Minor improvemnents in <code>BooleanOperations</code> and <code>TypeConversions</code>.
+		</action>
+		<action dev="cbe" type="update" context="code">Replaced JFlex scanner by handcoded scanner.</action>
+		<action dev="cbe" type="update" context="code">Lazy initialize parser's lookahead token list.</action>
+	</release>
+	<release version="2.1.0-b2" date="2006/07/01">
+		<action dev="cbe" type="add" context="docs">Added specification issues on number literals.</action>
+		<action dev="cbe" type="remove" context="code">Finally removed the old JavaCC parser.</action>
+		<action dev="cbe" type="add" context="docs">Added some more Javadocs.</action>
+		<action dev="cbe" type="fix" context="code">
+			Avoid <code>NumberFormatException</code> when parsing integer/floating point literals.
+		</action>
+		<action dev="cbe" type="remove" context="code">
+			Removed static<code>TreeBuilder.DEFAULT</code> constant.
+		</action>
+		<action dev="cbe" type="fix" context="code">
+			Take builder and expected type into account when comparing tree expressions.
+		</action>
+	</release>
+	<release version="2.1.0-b1" date="2006/06/18">
+		<action dev="cbe" type="add" context="docs">Added documentation (HTML and PDF).</action>
+		<action dev="cbe" type="add" context="code">Added <code>TreeValueExpression.isLeftValue()</code>.</action>
+		<action dev="cbe" type="remove" context="code">Removed <code>ExpressionNode.isLiteralValue()</code>.</action>
+		<action dev="cbe" type="add" context="build">Added more jar manifest attributes.</action>
+		<action dev="cbe" type="update" context="build">Let javac include line and source debug information.</action>
+		<action dev="cbe" type="add" context="code">
+			Added secondary cache (<code>WeakHashMap</code>) to <code>TreeCache.Default</code>.
+		</action>
+		<action dev="cbe" type="update" context="code">Lazy initialize <code>SimpleContext.ELResolver</code>.</action>
+		<action dev="cbe" type="add" context="code">
+			Configure default builder class via system property <code>de.odysseus.el.factory.builder</code>.
+		</action>
+		<action dev="cbe" type="update" context="code">Added @Override annotations.</action>
+		<action dev="cbe" type="add" context="code">Added SAX XML filter sample.</action>
+		<action dev="cbe" type="update" context="code">
+			Simplified <code>SimpleResolver</code> (now only handles top-level properties) .
+		</action>
+		<action dev="cbe" type="update" context="code">
+			Deprecated <code>SimpleContext.setValue(...)</code>
+			and <code>SimpleContext.setFunctions(...)</code>. These methods will be removed in 2.1.0.
+		</action>
+		<action dev="cbe" type="update" context="code">Lots of minor refactorings.</action>
+	</release>
+	<release version="2.1.0-a3" date="2006/06/04">
+		<action dev="cbe" type="fix" context="code">
+			Re-throw <code>NumberFormatException</code> in number coercion as <code>ELException</code>.
+		</action>
+		<action dev="cbe" type="fix" context="code">Expected type now mandatory for value expressions.</action>
+		<action dev="cbe" type="add" context="docs">Added SourceForge logo to <em>JUEL</em> home page.</action>
+		<action dev="cbe" type="add" context="code">Added a calculator sample.</action>
+		<action dev="cbe" type="update" context="code">
+			Now use a new hand crafted top-down parser and a JFlex generated scanner.
+			<em>This almost doubles parsing performance!</em>
+		</action>
+		<action dev="cbe" type="update" context="code">
+			Moved the Javacc parser to package <code>de.odysseus.el.tree.impl.javacc</code>.
+			By default, it is excluded from the <em>JUEL</em> jar file.
+		</action>
+	</release>
+	<release version="2.1.0-a2" date="2006/06/01">
+		<action dev="cbe" type="update" context="code">
+			Include EL api sources from glassfish now (the tomcat6 code was too buggy).
+			The sources are available under Sun's CDDL and are redistributed here.
+			Also added a note on that in the README.txt file.
+		</action>
+		<action dev="cbe" type="update" context="code">
+			Use pure Javacc parser. We no longer use the JJTree preprocessor.
+			The AST classes are now Javacc independent and could easily be reused with
+			other parser generators.
+		</action>
+		<action dev="cbe" type="update" context="code">Improved unit tests</action>
+		<action dev="cbe" type="add" context="docs">Added some documentation</action>
+		<action dev="cbe" type="update" context="code">Improved parse exception formatting</action>
+	</release>
+	<release version="2.1.0-a1" date="2006/05/13">
+		<action dev="cbe" type="add" context="admin">Initial Release</action>
+	</release>
+</changes>

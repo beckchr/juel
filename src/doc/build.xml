@@ -1,0 +1,49 @@
+<project default="site" basedir=".">
+
+	<property name="build.dir" value="build" />
+
+	<taskdef name="forrester" classname="de.odysseus.forrester.ant.ForresterTask">
+		<classpath>
+			<fileset dir="lib">
+				<include name="*.jar" />
+			</fileset>
+		</classpath>
+	</taskdef>
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="prepare">
+		<mkdir dir="${build.dir}" />
+	</target>
+
+	<target name="skin" depends="prepare">
+		<copy todir="${build.dir}/skin">
+			<fileset dir="skin/html/resources">
+				<include name="**" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="site" depends="skin">
+		<forrester context="context.xml" outdir="${build.dir}" variant="site">
+			<context2html />
+		</forrester>
+	</target>
+
+	<target name="html" depends="skin">
+		<forrester context="context.xml" outdir="${build.dir}" variant="html">
+			<context2html />
+		</forrester>
+	</target>
+
+	<target name="pdf" depends="skin">
+		<forrester context="context.xml" outdir="${build.dir}" variant="pdf">
+			<project2pdf project="juel" />
+		</forrester>
+	</target>
+
+	<target name="dist" depends="html,pdf" />
+
+</project>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "../../schema/dtd/document-v20.dtd">
+<document>
+	<header>
+		<title>Getting Started</title>
+	</header>
+	<body>
+		<p>
+			Here's all you need to use the EL in your application (assuming you added
+			<code>juel-2.1.x.jar</code> and <code>el-api-1.x.jar</code> to your classpath
+			and did <code>import javax.el.*</code>):
+		</p>
+		<ol>
+			<li>
+				<strong>Factory and Context</strong>
+				<source>// the ExpressionFactory implementation is de.odysseus.el.ExpressionFactoryImpl
+ExpressionFactory factory = new de.odysseus.el.ExpressionFactoryImpl();
+
+// package de.odysseus.el.util provides a ready-to-use subclass of ELContext
+de.odysseus.el.util.SimpleContext context = new de.odysseus.el.util.SimpleContext();</source>
+			</li>
+			<li>
+				<strong>Functions and Variables</strong>
+				<source>// map function math:max(int, int) to java.lang.Math.max(int, int)
+context.setFunction("math", "max", Math.class.getMethod("max", int.class, int.class));
+
+// map variable foo to 0
+context.setVariable("foo", factory.createValueExpression(0, int.class));</source>
+			</li>
+			<li>
+				<strong>Parse and Evaluate</strong>
+				<source>// parse our expression
+ValueExpression e = factory.createValueExpression(context, "${math:max(foo,bar)}", int.class);
+
+// set value for top-level property "bar" to 1
+factory.createValueExpression(context, "${bar}", int.class).setValue(context, 1);
+
+// get value for our expression
+System.out.println(e.getValue(context)); // --> 1</source>
+			</li>
+		</ol>
+	</body>
+</document>

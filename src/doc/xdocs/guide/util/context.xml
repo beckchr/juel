@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "../../../schema/dtd/document-v20.dtd">
+<document>
+	<header>
+		<title>Simple Context</title>
+	</header>
+	<body>
+		<p>
+			Class <code>de.odysseus.el.util.SimpleContext</code> is a simple context implementation.
+			It can be used at creation time as well as evaluation time.
+		</p>
+		<p>
+			For use at creation time, it provides the following methods.
+		</p>
+		<ul>
+			<li>
+				<code>setFunction(String prefix, String name, java.lang.reflect.Method method)</code> to define
+				a method as a function for the given prefix and name.
+				Functions without a namespace must pass in the empty string as <code>prefix</code>.
+				The supplied method must be declared as public and static.
+			</li>
+			<li>
+				<code>setVariable(String name, javax.el.ValueExpression expression)</code> to define a
+				value expression as a variable for the given name.
+			</li>
+		</ul>
+		<p>
+			When using these methods, an internal implementation instance of <code>javax.el.FunctionMapper</code>
+			and <code>javax.el.VariableMapper</code> will be created lazily. On the other hand, calling
+			<code>getFunctionMapper()</code> or <code>getVariableMapper()</code>
+			will not force the creation of a corresponding mapper instance.
+		</p>
+		<p>
+			The following example defines function <code>math:sin</code> and variable <code>pi</code> and
+			uses them in an expression.
+		</p>
+		<source>import javax.el.*;
+import de.odysseus.el.util.SimpleContext;
+import de.odysseus.el.ExpressionFactoryImpl;
+...
+ExpressionFactory factory = new ExpressionFactoryImpl();
+SimpleContext context = new SimpleContext();
+context.setFunction("math", "sin", Math.class.getMethod("sin", double.class));
+context.setVariable("pi", factory.createValueExpression(Math.PI, double.class));
+ValueExpression expr = factory.createValueExpression(context, "${math:sin(pi/2)}", double.class);
+System.out.println("math:sin(pi/2) = " + expr.getValue(context)); // 1.0</source>
+		<p>
+			At evaluation time, a <code>javax.el.ELResolver</code> is required for property resolution
+			and to resolve identifiers, that have not been bound to a variable.
+			The <code>getELResolver()</code> method is used at evaluation time
+			to access the context's resolver instance.
+		</p>
+		<p>
+			A resolver may be passed to a <code>SimpleContext</code> at construction time.
+			If the default constructor is used, calling <code>getELResolver()</code> will lazily
+			create an instance of <code>de.odysseus.el.util.SimpleResolver</code>.
+		</p>
+	</body>
+</document>

@@ -1,0 +1,60 @@
+<!--
+ ! Copyright 2004 Odysseus Software GmbH
+ !
+ ! Licensed under the Apache License, Version 2.0 (the "License");
+ ! you may not use this file except in compliance with the License.
+ ! You may obtain a copy of the License at
+ !
+ !     http://www.apache.org/licenses/LICENSE-2.0
+ !
+ ! Unless required by applicable law or agreed to in writing, software
+ ! distributed under the License is distributed on an "AS IS" BASIS,
+ ! WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ! See the License for the specific language governing permissions and
+ ! limitations under the License.
+ !-->
+<!ENTITY % common-charents PUBLIC
+    "-//APACHE//ENTITIES Common Character Entity Sets V1.0//EN"
+    "common-charents-v10.mod">
+%common-charents;
+
+<!-- element declarations -->
+<!ELEMENT project     (title?,item?,(document|group|link|external-ref)+)>
+<!ATTLIST project
+    name    NMTOKEN   #REQUIRED
+    index   NMTOKEN   #IMPLIED
+>
+
+<!ELEMENT title       (#PCDATA)>
+
+<!ELEMENT document    (item?)>
+<!ATTLIST document
+    name    NMTOKEN   #REQUIRED
+    includes NMTOKENS #IMPLIED
+    excludes NMTOKENS #IMPLIED
+>
+
+<!ELEMENT link        (item)>
+<!ATTLIST link
+    href    CDATA     #REQUIRED
+    target  NMTOKEN   #IMPLIED
+    includes NMTOKENS #IMPLIED
+    excludes NMTOKENS #IMPLIED
+>
+
+<!ELEMENT group       (title?,item,(document|group|link)+)>
+<!ATTLIST group
+    name    NMTOKEN   #REQUIRED
+    dir     CDATA     #IMPLIED
+    index   CDATA     #IMPLIED
+    includes NMTOKENS #IMPLIED
+    excludes NMTOKENS #IMPLIED
+>
+
+<!ELEMENT item        (#PCDATA)>
+
+<!ELEMENT external-ref EMPTY>
+<!ATTLIST external-ref
+    name    NMTOKEN   #REQUIRED
+    href    CDATA     #REQUIRED
+>

@@ -1,0 +1,128 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>de.odysseus.el</groupId>
+	<artifactId>juel</artifactId>
+	<packaging>jar</packaging>
+	<version>2.1.1-SNAPSHOT</version>
+	
+
+	<name>Java Unified Expression Language</name>
+	<description>
+	    Implementation of the Java Unified Expression Language as specified
+	    by the Expression Language Specification, Version 2.1: part of the
+	    JSP 2.1 standard (JSR-245).
+	</description>
+
+	<url>http://juel.sourceforge.net/</url>
+	<inceptionYear>2006</inceptionYear>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>Odysseus Software GmbH</name>
+		<url>http://www.odysseus.de/</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Christoph Beck</name>
+			<organization>Odysseus Software GmbH</organization>
+			<organizationUrl>http://www.odysseus.de/</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<contributors>
+		<contributor>
+			<name>Martin Ellis</name>
+			<organization>Scott Logic Ltd.</organization>
+			<organizationUrl>http://www.scottlogic.co.uk/</organizationUrl>
+			<roles>
+				<role>maven build</role>
+			</roles>
+		</contributor>
+	</contributors>
+
+	<scm>
+		<url>https://juel.svn.sourceforge.net/svnroot/juel</url>
+	</scm>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+			<version>1.1</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+					<optimize>true</optimize>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Implementation-Title>JUEL</Implementation-Title>
+							<Implementation-Version>${version}</Implementation-Version>
+							<Implementation-Vendor>Odysseus Software GmbH</Implementation-Vendor>
+							<Implementation-Vendor-Id>de.odysseus</Implementation-Vendor-Id>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>glassfish-repository</id>
+			<url>http://download.java.net/maven/glassfish</url>
+		</repository>
+		<repository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2</url>
+		</repository>
+	</repositories>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<bottom>Copyright &amp;copy; {inceptionYear}-{currentYear} {organizationName}.</bottom>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+</project>

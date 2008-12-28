@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "../../../schema/dtd/document-v20.dtd">
+<document>
+	<header>
+		<title>Value Expressions</title>
+	</header>
+	<body>
+		<p>
+			Value expressions are expressions that are evaluated in the "classical sense".
+			There are two kinds of value expressions: those created by parsing an expression string
+			and those simply wrapping an object.
+		</p>
+		<p>
+			A <code>javax.el.ValueExpression</code> is evaluated by calling its <code>getValue(ELContext)</code>
+			method. Value expressions can also be writable and provide methods <code>isReadOnly(ELContext)</code>,
+			<code>getType(ELContext)</code> and <code>setValue(ELContext, Object)</code>.
+		</p>
+		<anchor id="lvalue"/>
+		<p>
+			A value expression is called an <em>lvalue expression</em> if its expression string is an eval
+			expression (<code>#{...}</code> or <code>${...}</code>) consisting of a single identifier or a
+			nonliteral prefix (function, identifier or nested expression), followed by a sequence of property
+			operators (<code>.</code> or <code>[]</code>).
+			All other value expressions are called <em>non-lvalue expressions</em>.
+		</p>
+		<p>
+			For non-lvalue expressions
+		</p>
+		<ul>
+			<li>
+				<code>getType(ELContext)</code> method will always return <code>null</code>.
+			</li>
+			<li>
+				<code>isReadOnly(ELContext)</code> method will always return <code>true</code>.
+			</li>
+			<li>
+				<code>setValue(ELContext, Object)</code> method will always throw an exception.
+			</li>
+		</ul>
+		<section id="tree">
+			<title>Tree Value Expressions</title>
+			<p>
+				Creating a tree value expression involves
+			</p>
+			<ol>
+				<li>parsing an expression string and building an abstract syntax tree,</li>
+				<li>binding functions and variables using the mappers provided by the context.</li>
+			</ol>
+			<p>
+				Once created, a tree value expression can be evaluated using the <code>getValue(ELContext)</code>
+				method. The result is automatically coerced to the expected type given at creation time.
+			</p>
+			<p>
+				Class <code>de.odysseus.el.TreeValueExpression</code> is a subclass of
+				<code>javax.el.ValueExpression</code>, which is used by <em>JUEL</em> to represent
+				a value expression, that has been created from an expression string.
+				It is the return type of
+			</p>
+			<source>ExpressionFactoryImpl.createValueExpression(ELContext, String, Class&lt;?>)</source>
+			<p>
+				In addition to the methods available for <code>javax.el.ValueExpression</code>,
+				it provides methods
+			</p>
+			<ul>
+				<li><code>void dump(java.io.PrintWriter writer)</code> &ndash; dump parse tree</li>
+				<li>
+					<code>boolean isDeferred()</code> &ndash; <code>true</code> if expression is
+					deferred (contains eval expressions <code>#{...}</code>)
+				</li>
+				<li>
+					<code>boolean isLeftValue()</code> &ndash; <code>true</code> if expression is
+					an lvalue expression.
+				</li>
+			</ul>
+			<source>import java.io.*;
+import de.odysseus.el.*;
+import de.odysseus.el.util.*;
+...
+ExpressionFactoryImpl factory = new ExpressionFactoryImpl();
+SimpleContext context = new SimpleContext(); // more on this <a href="site:../util/context">here</a>...
+TreeValueExpression e = factory.createValueExpression(context, "#{pi/2}", Object.class);
+PrintWriter out = new PrintWriter(System.out);
+e.dump(out);
+// +- #{...}
+//    |
+//    +- '/'
+//       |
+//       +- pi
+//       |
+//       +- 2
+out.flush();
+System.out.println(e.isDeferred()); // true
+System.out.println(e.isLeftValue()); // false
+...</source>
+		</section>
+		<section id="object">
+			<title>Object Value Expressions</title>
+			<p>
+				An object value expression simply wraps an object giving it an "expression facade".
+				At the first place, object expressions are used to define variables.
+			</p>
+			<p>
+				Once created, an object value expression can be evaluated using the <code>getValue(ELContext)</code>
+				method, which simply returns the wrapped object, coerced to the expected type provided at
+				creation time.
+			</p>
+			<p>
+				Class <code>de.odysseus.el.ObjectValueExpression</code> is a subclass of
+				<code>javax.el.ValueExpression</code>, which is used by <em>JUEL</em> to represent
+				a value expression, that has been created from an object. It is the return type of
+			</p>
+			<source>ExpressionFactoryImpl.createValueExpression(Object, Class&lt;?>)</source>
+			<p>
+				This class provides no extra methods to those available for <code>javax.el.ValueExpression</code>.
+			</p>
+			<source>import java.io.*;
+import de.odysseus.el.*;
+import de.odysseus.el.util.*;
+...
+ExpressionFactoryImpl factory = new ExpressionFactoryImpl();
+SimpleContext context = new SimpleContext(); // more on this <a href="site:../util/context">here</a>...
+ObjectValueExpression e = factory.createValueExpression(Math.PI, Double.class);
+context.setVariable("pi", e);
+...</source>
+		</section>
+	</body>
+</document>

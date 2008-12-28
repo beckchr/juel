@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "../../../schema/dtd/document-v20.dtd">
+<document>
+	<header>
+		<title>Advanced Topics</title>
+	</header>
+	<body>
+		<p>
+			This section covers some advanced <em>JUEL</em> topics.
+		</p>
+		<section>
+			<title>Expression Trees</title>
+			<p>
+				An expression tree refers to the parsed representation of an expression string.
+				The basic classes and interfaces related to expression trees are contained in
+				package <code>de.odysseus.el.tree</code>. We won't cover all the tree related
+				classes here. Rather, we focus on the classes that can be used to provide a
+				customized tree cache and builder.
+			</p>
+			<ol>
+				<li>
+					<code>Tree</code> &ndash;
+					This class represents a parsed expression string.
+				</li>
+				<li>
+					<code>TreeBuilder</code> &ndash;
+					General interface containing a single <code>build(String)</code> method.
+					A tree builder must be thread safe. The default implementation is
+					<code>de.odysseus.el.tree.impl.Builder</code>.
+				</li>
+				<li>
+					<code>TreeCache</code> &ndash;
+					General interface containing methods <code>get(String)</code> and
+					<code>put(String, Tree)</code>.
+					A tree cache must be thread safe, too. The default implementation is
+					<code>de.odysseus.el.tree.impl.Cache</code>.
+				</li>
+				<li>
+					<code>TreeStore</code> &ndash;
+					This class just combines a builder and a cache and contains
+					a single <code>get(String)</code> method.
+				</li>
+			</ol>
+			<p>
+				The expression factory uses its tree store to create tree expressions.
+				The factory class provides a constructor which takes a tree store as an argument.
+			</p>
+			<section>
+				<title>Using a customized Builder</title>
+				<p>
+					It should be noted that one could write a builder by implementing the
+					<code>de.odysseus.el.tree.TreeBuilder</code> interface from scratch.
+					However, you may also want to subclass the <code>Builder</code> class
+					and override the <code>createParser()</code> to work with a modified
+					parser implementation.
+				</p>
+				<p>
+					Either way, the new tree builder can be passed to a factory via
+				</p>
+				<source>TreeStore store = new TreeStore(new MyBuilder(), new Cache(100));
+ExpressionFactory factory = new ExpressionFactoryImpl(store);</source>
+				<p>
+					As an alternative, you may set property
+				</p>
+				<source>de.odysseus.el.tree.TreeBuilder</source>
+				<p>
+					to the fully qualified class name of your builder implementation.
+				</p>
+			</section>
+			<section id="methodInvocations">
+				<title>Enabling Method Invocations</title>
+				<p>
+					Many people have noticed the lack of method invocations as a major weakness of
+					the unified expression language. When talking about method invocations, we mean
+					expressions like <code>${foo.matches('[0-9]+')}</code> that aren't supported by
+					the standard. However, <em>JUEL</em> provides support for method invocations in
+					value expressions as a proprietary extension.
+					To use them, you will have to do two things:
+				</p>
+				<ol>
+					<li>
+						Customize your builder to accept expressions using method invocations.
+					</li>
+					<li>
+						Provide an <code>ELResolver</code> to resolve the methods at evaluation time.
+					</li>
+				</ol>
+				<p>
+					The customized builder is created like this:
+				</p>
+				<source>TreeBuilder builder = new Builder(Builder.Feature.METHOD_INVOCATIONS, ...);</source>
+				<p>
+					As an alternative, you may set property
+				</p>
+				<source>javax.el.methodInvocations</source>
+				<p>
+					to <code>true</code>.
+				</p>
+				<p>
+					Methods are resolved just like properties. That is, when evaluating an expression
+					with a method invocation, your <code>ELResolver</code> will be asked to resolve the
+					method by calling its <code>getValue(...)</code> method and is expected to return
+					either a <code>java.lang.reflect.Method</code> or a <code>javax.el.MethodInfo</code>
+					object as a result. Having the method, evaluation proceeds as with function invocations.
+				</p>
+				<p>
+					A <code>de.odysseus.el.misc.MethodInvocation</code> is passed to the resolver's
+					<code>getValue(...)</code> method as property.
+				</p>
+				<p>
+					As an example, we show the <code>getValue(...)</code> method
+					of a resolver that is capable of resolving a single method that has been supplied
+					to it at construction time:
+				</p>
+				<source>@Override
+public Method getValue(ELContext context, Object base, Object prop) {
+  if (prop instanceof MethodInvocation) {
+    MethodInvocation call = (MethodInvocation)prop;
+    if (method.getDeclaringClass().isInstance(base) &amp;&amp; method.getName().equals(call.getName())) {
+      if (method.getParamTypes().length() == call.getParamCount()) {
+        context.setPropertyResolved(true);
+        return method;
+      }
+    }
+  }
+  return null;
+}</source>
+				<p>
+					A full example illustrating method invocations is distributed with <em>JUEL</em>
+					below <code>src/samples</code> in package <code>de.odysseus.el.samples.extensions</code>.
+				</p>
+			</section>
+			<section id="nullProperties">
+				<title>Enabling <code>null</code> Properties</title>
+				<p>
+					The EL specification describes the evaluation semantics of <code>base[property]</code>.
+					If <code>property</code> is <code>null</code>, the specification states not to resolve
+					<code>null</code> on <code>base</code>.
+					Rather, <code>null</code> should be returned if <code>getValue(...)</code> has been
+					called and a <code>PropertyNotFoundException</code> should be thrown else.
+					As a consequence, it is impossible to resolve <code>null</code> as a key in a map.
+					However, <em>JUEL</em>'s builder supports a feature <code>NULL_PROPERTIES</code> to
+					let you resolve <code>null</code> like any other property value.
+				</p>
+				<p>
+					Assume that identifier <code>map</code> resolves to a <code>java.util.Map</code>.
+				</p>
+				<ul>
+					<li>
+						If feature <code>NULL_PROPERTIES</code> has not been enabled, evaluating
+						<code>${base[null]}</code> as an rvalue (lvalue) will return <code>null</code>
+						(throw an exception).
+					</li>
+					<li>
+						If feature <code>NULL_PROPERTIES</code> has been enabled, evaluating
+						<code>${base[null]}</code> as an rvalue (lvalue) will get (put) the value for key
+						<code>null</code> in that map.
+					</li>
+				</ul>
+				<p>
+					The customized builder is created like this:
+				</p>
+				<source>TreeBuilder builder = new Builder(Builder.Feature.NULL_PROPERTIES, ...);</source>
+				<p>
+					As an alternative, you may set property
+				</p>
+				<source>javax.el.nullProperties</source>
+				<p>
+					to <code>true</code>.
+				</p>
+			</section>
+			<section id="varArgs">
+				<title>Enabling VarArgs</title>
+				<p>
+					The EL specification does not support function calls with variable argument lists.
+					That is, if we bind <code>String.format(String, Object...)</code> to function
+					<code>str:format</code>, the expression <code>${str:format('Hey %s','Joe')}</code>
+					will not work.
+					However, <em>JUEL</em>'s builder supports a feature <code>VARARGS</code> to fix this.
+				</p>
+				<p>
+					The customized builder is created like this:
+				</p>
+				<source>TreeBuilder builder = new Builder(Builder.Feature.VARARGS, ...);</source>
+				<p>
+					As an alternative, you may set property
+				</p>
+				<source>javax.el.varArgs</source>
+				<p>
+					to <code>true</code>.
+				</p>
+			</section>
+			<section>
+				<title>Using a customized Cache</title>
+				<p>
+					The default lru cache implementation can be customized by specifying a maximum
+					cache size. However, it might be desired to use a different caching mechanism.
+					Doing this means to provide a class that implements the <code>TreeCache</code> interface.
+				</p>
+				<p>
+					Now, having a new cache implementatation, it can be passed to a factoy via
+				</p>
+				<source>TreeStore store = new TreeStore(new Builder(), new MyCache());
+ExpressionFactory factory = new ExpressionFactoryImpl(store);</source>
+			</section>
+		</section>
+		<section>
+			<title>Tree Expressions</title>
+			<p>
+				In the basics section, we already presented the
+				<code>TreeValueExpression</code> and <code>TreeMethodExpression</code> classes,
+				which are used to represent parsed expressions.
+			</p>
+			<section>
+				<title>Equality</title>
+				<p>
+					As for all objects, the <code>equals(Object)</code> method is used to test
+					for equality. The specification notes that two expressions of the same
+					type are equal if and only if they have an identical parsed representation.
+				</p>
+				<p>
+					This makes clear, that the expression string cannot serve as a sufficient condition
+					for equality testing. Consider expression string <code>${foo}</code>. When creating
+					tree expressions from that string using different variable mappings for <code>foo</code>,
+					these expressions must not be considered equal. Similar, an expression string using
+					function invocations may be used to create tree expressions with different function
+					mappings. Even worse, <code>${foo()}</code> and <code>${bar()}</code> may be equal if
+					<code>foo</code> and <code>bar</code> refered to the same method at creation time.
+				</p>
+				<p>
+					To handle these requirements, <em>JUEL</em> separates the variable and function bindings
+					from the pure parse tree. The tree only depends on the expression string and can therefore
+					be reused by all expressions created from a string. The bindings are then created from
+					the tree, variable mapper and function mapper. Together, the tree and bindings form the
+					core of a tree expression.
+				</p>
+				<p>
+					When comparing tree expressions, the trees are structurally compared, ignoring the
+					names of functions and variables. Instead, the corresponding methods and value
+					expressions bound to them are compared.
+				</p>
+			</section>
+			<section>
+				<title>Serialization</title>
+				<p>
+					As required by the specification, all expressions have to be serializable.
+					When serializing a tree expression, the expression string is serialized, not the tree.
+					On deserialization, the tree is rebuilt from the expression string.
+				</p>
+			</section>
+		</section>
+	</body>
+</document>

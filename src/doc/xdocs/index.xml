@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "../schema/dtd/document-v20.dtd">
+<document>
+	<header>
+		<title>Welcome to JUEL!</title>
+		<meta name="version">2.1.0-rc3</meta>
+		<meta name="keywords">Unified Expression Language, Unified EL, EL, JUEL, javax.el, JSP, JSF</meta>
+  	<meta name="description">JUEL is an implementation of the Unified Expression Language (EL), specified as part of the JSP 2.1 standard (JSR-245).</meta>
+	</header>
+	<body>
+		<p>
+			<em>JUEL</em> is an implementation of the Unified Expression Language (EL), specified as
+			part of the JSP 2.1 standard (<a href="ext:jcp.com.jsr245">JSR-245</a>).
+		</p>
+		<section>
+			<title>Motivation</title>
+			<p>
+				Once, the EL started as part of JSTL. Then, the EL made its way into the JSP 2.0 standard.
+				Now, though part of JSP 2.1, the EL API has been separated into package <code>javax.el</code>
+				and all dependencies to the core JSP classes have been removed.
+			</p>
+			<p>
+				In other words: the EL is ready for use in non-JSP applications!
+			</p>
+		</section>
+		<section>
+			<title>Features</title>
+			<p>
+				<em>JUEL</em> provides a lightweight and efficient implementation of the
+				Unified Expression Language.
+			</p>
+			<ul>
+				<li>
+					High Performance &ndash;
+					Parsing expressions is certainly the expected performance bottleneck.
+					<em>JUEL</em> uses a hand-coded parser which is up to 10 times faster
+					than the previously used (javacc) generated parser!
+					Once built, expression trees are evaluated at highest speed.
+				</li>
+				<li>
+					Pluggable Cache &ndash;
+					Even if <em>JUEL</em>s parser is fast, parsing expressions is relative
+					expensive. Therefore, it's best to parse an expression string only once.
+					<em>JUEL</em> provides a default caching mechanism which should be sufficient
+					in most cases. However, <em>JUEL</em> allows to plug in your own cache easily.
+				</li>
+				<li>
+					Small Footprint &ndash;
+					<em>JUEL</em> has been carefully designed to minimize memory usage as well as
+					code size.
+				</li>
+				<li>
+					Method Invocations &ndash;
+					As an extension to the standard, <em>JUEL</em> can be configured to enable
+					method invocations as in <code>${foo.matches('[0-9]+')}</code>.
+				</li>
+				<li>
+					VarArg function/method calls &ndash;
+					As another extension to the standard, <em>JUEL</em> can be configured to
+					Java 5 VarArgs. E.g., binding <code>String.format(String, String...)</code>
+					to function <code>format</code> allows for <code>${format('Hey %s','Joe')}</code>.
+				</li>
+				<li>
+					Pluggable EL&ndash;
+					The <em>JUEL</em> jar has been setup to be transparently detected as EL
+					implementation by a Java runtime environment or JEE5 application server.
+					Using <em>JUEL</em> does not require an application to explicitly
+					reference any of the <em>JUEL</em> specific implementation classes.
+				</li>
+			</ul>
+		</section>
+		<section>
+			<title>Status</title>
+			<p>
+				<em>JUEL</em> is considered production stable. The code is well tested and feature complete.
+			</p>
+		</section>
+		<section>
+			<title>Availability</title>
+			<p>
+				<em>JUEL</em> is licensed under the <a href="ext:apache.org.license">Apache License 2.0</a>.
+			</p>
+		</section>
+		<section>
+			<title>Requirements</title>
+			<p>
+				<em>JUEL</em> depends on the <code>javax.el.*</code> API. A <code>el-api-1.x.jar</code>
+				is included in the distribution, taken from <a href="ext:uel.dev.java.net"> GlassFish</a>
+				project. Using <em>JUEL</em> as EL implementation in JSP/JSF Web applications requires
+				GlassFish v2 or later. 
+			</p>
+		</section>
+	</body>
+</document>

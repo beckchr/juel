@@ -1,0 +1,42 @@
+<fop version="1.0">
+
+	<renderers>
+		<renderer mime="application/pdf">
+			<filterList>
+				<!-- provides compression using zlib flate (default is on) -->
+				<value>flate</value>
+			</filterList>
+			<fonts>
+				<auto-detect/>
+				<!-- 
+				<directory>fonts</directory>
+				<font metrics-url="vera.xml" kerning="yes" embed-url="vera.ttf">
+					<font-triplet name="Vera" style="normal" weight="normal" />
+				</font>
+				<font metrics-url="verait.xml" kerning="yes" embed-url="verait.ttf">
+					<font-triplet name="Vera" style="italic" weight="normal" />
+				</font>
+				<font metrics-url="verabd.xml" kerning="yes" embed-url="verabd.ttf">
+					<font-triplet name="Vera" style="normal" weight="bold" />
+				</font>
+				<font metrics-url="verabi.xml" kerning="yes" embed-url="verabi.ttf">
+					<font-triplet name="Vera" style="italic" weight="bold" />
+				</font>
+
+				<font metrics-url="veramono.xml" kerning="yes" embed-url="veramono.ttf">
+					<font-triplet name="VeraMono" style="normal" weight="normal" />
+				</font>
+				<font metrics-url="veramoit.xml" kerning="yes" embed-url="veramoit.ttf">
+					<font-triplet name="VeraMono" style="italic" weight="normal" />
+				</font>
+				<font metrics-url="veramobd.xml" kerning="yes" embed-url="veramobd.ttf">
+					<font-triplet name="VeraMono" style="normal" weight="bold" />
+				</font>
+				<font metrics-url="veramobi.xml" kerning="yes" embed-url="veramobi.ttf">
+					<font-triplet name="VeraMono" style="italic" weight="bold" />
+				</font>
+				 -->
+			</fonts>
+		</renderer>
+	</renderers>
+</fop>

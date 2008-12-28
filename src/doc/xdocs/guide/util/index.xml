@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "../../../schema/dtd/document-v20.dtd">
+<document>
+	<header>
+		<title>Utility Classes</title>
+	</header>
+	<body>
+		<p>
+			When creating and evaluating expressions, some other important classes come into play:
+			a <code>javax.el.ELContext</code> is required at creation time and evaluation time. It
+			contains methods to access a function mapper (<code>javax.el.FunctionMapper</code>), a variable
+			mapper (<code>javax.el.VariableMapper</code>) and a resolver (<code>javax.el.ELResolver</code>).
+		</p>
+		<ul>
+			<li>
+				At creation time, the context's function mapper and variable mapper are used to bind
+				function invocations to static methods and identifiers (variables) to value expressions.
+				The context's resolver is <em>not</em> used at creation time.
+			</li>
+			<li>
+				At evaluation time, the context's resolver is used for property resolutions and to resolve
+				unbound identifiers (top-level properties).
+				The context's function mapper and variable mapper are <em>not</em> used at evaluation time.
+			</li>
+		</ul>
+		<p>
+			<em>JUEL</em> provides simple implementations of these classes to get you using the unified EL
+			"out of the box".
+		</p>
+	</body>
+</document>

@@ -1,0 +1,150 @@
+<project name="juel" default="jar" basedir=".">
+	<property name="version" value="2.1.1-SNAPSHOT"/>
+
+	<property file="build.properties"/>
+
+	<property name="build.dir" value="build"/>
+	<property name="dist.dir" value="dist"/>
+	
+	<property name="el-api.jar" value="lib/el-api-1.1.jar"/>
+	<property name="el-api-sources.jar" value="lib/el-api-1.1-sources.jar"/>
+
+	<property name="junit.jar" value="lib/junit.jar"/>
+	
+	<property name="debug.level" value="source,lines"/>
+	
+	<target name="prepare">
+		<available property="junit.present" classname="junit.framework.TestCase">
+			<classpath>
+		    <pathelement location="${junit.jar}"/>
+			</classpath>
+		</available>
+		<available property="el-api-sources.present" file="${el-api-sources.jar}" />
+		<mkdir dir="${build.dir}"/>
+	</target>
+
+	<target name="clean" description="cleanup build directory">
+		<delete dir="${build.dir}"/>
+	</target>
+
+	<target name="compile" depends="prepare" description="compile java sources">
+		<mkdir dir="${build.dir}/classes"/>
+		<javac srcdir="src/main/java" destdir="${build.dir}/classes"
+			debug="true" debuglevel="${debug.level}" optimize="true">
+			<classpath>
+			    <pathelement location="${el-api.jar}"/>
+			</classpath>
+		</javac>
+		<copy todir="${build.dir}/classes">
+			<fileset dir="src/main/resources">
+				<include name="**/*.properties"/>
+				<include name="META-INF/services/*"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="jar" depends="compile" description="create juel jar (el implementation)">
+		<jar jarfile="${build.dir}/juel-${version}.jar">
+			<fileset dir="${build.dir}/classes">
+				<include name="de/odysseus/el/**"/>
+				<include name="META-INF/services/*"/>
+			</fileset>
+			<manifest>
+				<attribute name="Implementation-Title" value="JUEL"/>
+				<attribute name="Implementation-Version" value="${version}"/>
+				<attribute name="Implementation-Vendor" value="Odysseus Software GmbH"/>
+				<attribute name="Implementation-Vendor-Id" value="de.odysseus"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="javadoc-all" depends="prepare" if="el-api-sources.present">
+		<mkdir dir="${build.dir}/javadoc"/>
+		<mkdir dir="${build.dir}/javadoc-sources"/>
+		<unjar src="${el-api-sources.jar}" dest="${build.dir}/el-api-sources"/>
+		<javadoc destdir="${build.dir}/javadoc"
+	            access="protected"
+	            doctitle="&lt;h2&gt;JUEL version ${version}&lt;/h2&gt;"
+	       windowtitle="JUEL version ${version})"
+	            footer="Copyright &amp;copy; 2006-2009 Odysseus Software GmbH.">
+			<fileset dir="src/main/java">
+				<include name="de/odysseus/el/**/*.java"/>
+			</fileset>
+		  	<fileset dir="${build.dir}/javadoc-sources">
+				<include name="javax/el/*.java"/>
+			</fileset>
+		</javadoc>
+	</target>
+
+	<target name="javadoc-impl" depends="prepare" unless="el-api-sources.present">
+		<mkdir dir="${build.dir}/javadoc"/>
+		<javadoc destdir="${build.dir}/javadoc"
+	            access="protected"
+	            doctitle="&lt;h2&gt;JUEL version ${version}&lt;/h2&gt;"
+	       windowtitle="JUEL version ${version})"
+	            footer="Copyright &amp;copy; 2006-2009 Odysseus Software GmbH.">
+			<classpath>
+			    <pathelement location="${el-api.jar}"/>
+			</classpath>
+			<fileset dir="src/main/java">
+				<include name="de/odysseus/el/**/*.java"/>
+			</fileset>
+		</javadoc>
+	</target>
+
+	<target name="javadoc" depends="javadoc-all,javadoc-impl" description="generate javadoc"/>
+
+	<target name="test" depends="compile" if="junit.present" description="compile and run unit tests">
+		<mkdir dir="${build.dir}/test-classes"/>
+		<javac srcdir="src/test/java" destdir="${build.dir}/test-classes" debug="true">
+		  <classpath>
+		    <pathelement location="${junit.jar}"/>
+		    <pathelement location="${el-api.jar}"/>
+		    <pathelement location="${build.dir}/classes"/>
+		  </classpath>
+		</javac>
+		<junit printsummary="false" haltonfailure="true">
+		  <classpath>
+		    <pathelement location="${junit.jar}"/>
+		    <pathelement location="${el-api.jar}"/>
+		    <pathelement location="${build.dir}/classes"/>
+		    <pathelement location="${build.dir}/test-classes"/>
+		  </classpath>
+		  <test name="de.odysseus.el.AllSuites">
+			  <formatter type="plain" usefile="false"/>
+		  </test>
+		</junit>
+	</target>
+	
+	<target name="dist" depends="clean,test,jar,javadoc" description="build juel distribution">
+		<ant antfile="src/doc/build.xml" inheritall="false" target="dist">
+			<property name="build.dir" location="${build.dir}/doc"/>
+		</ant>
+		<zip destfile="${build.dir}/juel-${version}.zip">
+			<zipfileset prefix="juel-${version}" dir=".">
+				<include name="LICENSE.txt"/>
+				<include name="README.txt"/>
+				<include name="build.xml"/>
+				<include name="build.properties.sample"/>
+				<include name="build.xml"/>
+				<include name="pom.xml"/>
+				<include name="src/main/**"/>
+				<include name="src/test/**"/>
+				<include name="src/samples/**"/>
+				<include name="${el-api.jar}"/>
+				<include name="${el-api-sources.jar}"/>
+				<exclude name="**/.*"/>
+			</zipfileset>
+			<zipfileset prefix="juel-${version}" dir="${build.dir}">
+				<include name="juel-${version}.jar"/>
+			</zipfileset>
+			<zipfileset prefix="juel-${version}/doc" dir="${build.dir}/doc">
+				<include name="**"/>
+			</zipfileset>
+			<zipfileset prefix="juel-${version}/doc/api" dir="${build.dir}/javadoc">
+				<include name="**"/>
+			</zipfileset>
+		</zip>
+	</target>
+
+</project>

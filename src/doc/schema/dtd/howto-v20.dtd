@@ -1,0 +1,121 @@
+<!--
+  Copyright 2002-2004 The Apache Software Foundation or its licensors,
+  as applicable.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- ===================================================================
+
+     Apache How-To DTD (Version 1.2)
+
+PURPOSE:
+  This DTD was developed to create a simple yet powerful document
+  type for software How-Tos for use with the Apache projects.
+  It is an XML-compliant DTD and is maintained by the Apache XML project.
+
+TYPICAL INVOCATION:
+
+  <!DOCTYPE document PUBLIC
+       "-//APACHE//DTD How-To Vx.y//EN"
+       "howto-vxy.dtd">
+
+  where
+
+    x := major version
+    y := minor version
+
+NOTES:
+  How-Tos help software users accomplish a specific task with clear
+  and consise instructions.
+
+FIXME:
+
+CHANGE HISTORY:
+  20020515 Initial version. (DS)
+  20020521 Added feedback element. (DS)
+  20020613 Include the module of ISO character entity sets (DC)
+[Version 1.2]
+  20030424 Adopt the loosened content model from document-v12 (JT)
+  20040614 Stay current with latest document-v13 (class attribute)
+[Version 2.0]
+  20040626 Stay current with latest document-v20 (RT)
+
+==================================================================== -->
+
+<!-- =============================================================== -->
+<!-- Local entities -->
+<!-- =============================================================== -->
+
+<!ENTITY % local.headers ", last-modified-content-date">
+
+<!-- =============================================================== -->
+<!-- Include other DTD modules and entity sets -->
+<!-- =============================================================== -->
+
+<!ENTITY % document PUBLIC
+    "-//APACHE//ENTITIES Documentation V2.0//EN"
+    "document-v20.mod">
+%document;
+
+<!ENTITY % faq PUBLIC
+    "-//APACHE//ENTITIES FAQ V2.0//EN"
+    "faq-v20.mod">
+%faq;
+
+<!ENTITY % common-charents PUBLIC
+    "-//APACHE//ENTITIES Common Character Entity Sets V1.0//EN"
+    "common-charents-v10.mod">
+%common-charents;
+
+<!-- =============================================================== -->
+<!-- Document Type Definition -->
+<!-- =============================================================== -->
+
+<!ELEMENT howto (header, audience?, purpose?, prerequisites?, steps,
+    extension?, faqs?, tips?, references?, feedback? )>
+<!ATTLIST howto %common.att;>
+
+
+    <!ELEMENT overview (%blocks;)* >
+    <!ATTLIST overview %title.att; %common.att;>
+
+    <!ELEMENT purpose (%blocks;)* >
+    <!ATTLIST purpose %title.att; %common.att;>
+
+    <!ELEMENT prerequisites (section | %blocks;)* >
+    <!ATTLIST prerequisites %title.att; %common.att;>
+
+    <!ELEMENT audience (%blocks;)* >
+    <!ATTLIST audience %title.att; %common.att;>
+
+    <!ELEMENT steps (section | %blocks;)* >
+    <!ATTLIST steps %title.att; %common.att;>
+
+    <!ELEMENT extension (%blocks;)* >
+    <!ATTLIST extension %title.att; %common.att;>
+
+    <!ELEMENT tips (section | %blocks;)* >
+    <!ATTLIST tips %title.att; %common.att;>
+
+    <!ELEMENT references (section | %blocks;)* >
+    <!ATTLIST references %title.att; %common.att;>
+
+    <!ELEMENT feedback (%blocks;)* >
+    <!ATTLIST feedback %title.att; %common.att;>
+
+    <!ELEMENT last-modified-content-date EMPTY >
+    <!ATTLIST last-modified-content-date date CDATA #REQUIRED>
+
+<!-- =============================================================== -->
+<!-- End of DTD -->
+<!-- =============================================================== -->

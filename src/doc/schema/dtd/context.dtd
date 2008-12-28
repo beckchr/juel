@@ -1,0 +1,59 @@
+<!--
+ ! Copyright 2005 Odysseus Software GmbH
+ !
+ ! Licensed under the Apache License, Version 2.0 (the "License");
+ ! you may not use this file except in compliance with the License.
+ ! You may obtain a copy of the License at
+ !
+ !     http://www.apache.org/licenses/LICENSE-2.0
+ !
+ ! Unless required by applicable law or agreed to in writing, software
+ ! distributed under the License is distributed on an "AS IS" BASIS,
+ ! WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ! See the License for the specific language governing permissions and
+ ! limitations under the License.
+ !-->
+<!ENTITY % common-charents PUBLIC
+    "-//APACHE//ENTITIES Common Character Entity Sets V1.0//EN"
+    "common-charents-v10.mod">
+%common-charents;
+
+<!ELEMENT context (title?,item?,project-ref+,skin?,trail?,tabs?,external-ref*)>
+<!ATTLIST context
+    name    NMTOKEN   #REQUIRED
+>
+
+<!ELEMENT title       (#PCDATA)>
+
+<!ELEMENT project-ref EMPTY>
+<!ATTLIST project-ref
+    file    CDATA     #REQUIRED
+    path    CDATA     #IMPLIED
+    xdocs   CDATA     #REQUIRED
+>
+
+<!ELEMENT skin EMPTY>
+<!ATTLIST skin
+    name    NMTOKEN   #IMPLIED
+    home    CDATA     #IMPLIED
+    href    CDATA     #REQUIRED
+>
+
+<!ELEMENT tabs (link*)>
+
+<!ELEMENT trail (link*)>
+
+<!ELEMENT link        (item)>
+<!ATTLIST link
+    href    CDATA     #REQUIRED
+    target  NMTOKEN   #IMPLIED
+    includes NMTOKENS #IMPLIED
+>
+
+<!ELEMENT item        (#PCDATA)>
+
+<!ELEMENT external-ref EMPTY>
+<!ATTLIST external-ref
+    name    NMTOKEN   #REQUIRED
+    href    CDATA     #REQUIRED
+>

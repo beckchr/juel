@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "../../../schema/dtd/document-v20.dtd">
+<document>
+	<header>
+		<title>Simple Resolver</title>
+	</header>
+	<body>
+		<p>
+			<em>JUEL</em> provides the <code>de.odysseus.el.util.SimpleResolver</code> class for
+			use as a simple resolver, suitable to resolve top-level identifiers and to delegate
+			to another resolver provided at construction time.
+		</p>
+		<p>
+			If no resolver delegate is supplied, a composite resolver will be used as default, capable
+			of resolving bean properties, array values, list values, resource values and map values.
+		</p>
+		<p>
+			A resolver is made to resolve properties. It operates on a pair of objects, called
+			<em>base</em> and <em>property</em>. <em>JUEL</em>'s simple resolver maintains a map
+			to directly resolve top-level properties, that is <code>base == null</code>.
+			Resolution for base/property pairs with <code>base != null</code> is delegated.
+		</p>
+		<p>
+			Finally, a simple resolver may also be flagged as "read-only".
+			In this case, invoking the <code>setValue(ELContext, Object, Object, Object)</code>
+			method will throw an exception.
+		</p>
+		<source>import java.util.Date;
+import javax.el.*;
+import de.odysseus.el.util.SimpleContext;
+import de.odysseus.el.util.SimpleResolver;
+import de.odysseus.el.ExpressionFactoryImpl;
+...
+ExpressionFactory factory = new ExpressionFactoryImpl();
+SimpleContext context = new SimpleContext(new SimpleResolver());
+
+// resolve top-level property
+factory.createValueExpression(context, "#{pi}", double.class).setValue(context, Math.PI);
+ValueExpression expr1 = factory.createValueExpression(context, "${pi/2}", double.class);
+System.out.println("pi/2 = " + expr1.getValue(context)); // 1.5707963...
+
+// resolve bean property
+factory.createValueExpression(context, "#{current}", Date.class).setValue(context, new Date());
+ValueExpression expr2 = factory.createValueExpression(context, "${current.time}", long.class);
+System.out.println("current.time = " + expr2.getValue(context));</source>
+	</body>
+</document>
