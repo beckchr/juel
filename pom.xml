@@ -55,7 +55,8 @@
 	</contributors>
 
 	<scm>
-		<url>https://juel.svn.sourceforge.net/svnroot/juel</url>
+		<connection>scm:svn:https://juel.svn.sourceforge.net/svnroot/juel/trunk</connection>
+		<url>http://juel.svn.sourceforge.net/viewvc/juel/trunk/</url>
 	</scm>
 
 	<dependencies>
