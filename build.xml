@@ -61,7 +61,7 @@
 	<target name="javadoc-all" depends="prepare" if="el-api-sources.present">
 		<mkdir dir="${build.dir}/javadoc"/>
 		<mkdir dir="${build.dir}/javadoc-sources"/>
-		<unjar src="${el-api-sources.jar}" dest="${build.dir}/el-api-sources"/>
+		<unjar src="${el-api-sources.jar}" dest="${build.dir}/javadoc-sources"/>
 		<javadoc destdir="${build.dir}/javadoc"
 	            access="protected"
 	            doctitle="&lt;h2&gt;JUEL version ${version}&lt;/h2&gt;"
