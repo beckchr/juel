@@ -29,8 +29,23 @@ import de.odysseus.el.misc.LocalMessages;
 import de.odysseus.el.misc.MethodInvocation;
 import de.odysseus.el.tree.Bindings;
 
-public class AstMethod extends AstInvocation implements MethodInvocation {
+public class AstMethod extends AstInvocation {
 	protected final AstNode prefix;
+	protected final MethodInvocation property = new MethodInvocation() {
+		public String getName() {
+			return AstMethod.this.getName();
+		}
+		public int getParamCount() {
+			return AstMethod.this.getParamCount();
+		}
+		public boolean isVarArgs() {
+			return AstMethod.this.isVarArgs();
+		}
+		@Override
+		public String toString() {
+			return AstMethod.this.getName();
+		}
+	};
 
 	public AstMethod(AstNode prefix, String name, List<AstNode> nodes, boolean varargs) {
 		super(name, nodes, varargs);
@@ -47,7 +62,7 @@ public class AstMethod extends AstInvocation implements MethodInvocation {
 	protected Method resolveMethod(ELContext context, Object base) throws MethodNotFoundException {
 		Object value = null;
 		try {
-			value = context.getELResolver().getValue(context, base, this);
+			value = context.getELResolver().getValue(context, base, property);
 		} catch (PropertyNotFoundException e) {
 			throw new MethodNotFoundException(LocalMessages.get("error.property.method.resolve", name, base.getClass()));
 		}
