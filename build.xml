@@ -118,7 +118,7 @@
 	
 	<target name="dist" depends="clean,test,jar,javadoc" description="build juel distribution">
 		<ant antfile="src/doc/build.xml" inheritall="false" target="dist">
-			<property name="build.dir" location="${build.dir}/doc"/>
+			<property name="build.dir" location="${build.dir}/forrester"/>
 		</ant>
 		<zip destfile="${build.dir}/juel-${version}.zip">
 			<zipfileset prefix="juel-${version}" dir=".">
@@ -136,7 +136,7 @@
 			<zipfileset prefix="juel-${version}" dir="${build.dir}">
 				<include name="juel-${version}.jar"/>
 			</zipfileset>
-			<zipfileset prefix="juel-${version}/doc" dir="${build.dir}/doc">
+			<zipfileset prefix="juel-${version}/doc" dir="${build.dir}/forrester">
 				<include name="**"/>
 			</zipfileset>
 			<zipfileset prefix="juel-${version}/doc/api" dir="${build.dir}/javadoc">

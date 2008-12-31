@@ -4,9 +4,19 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
-	<release version="2.1.1" date="2008/??/??">
+	<release version="2.1.1-SNAPSHOT" date="2008/??/??">
 		<action dev="cbe" type="add" context="code">
 			Experimental support for syntax extensions. 
+		</action>
+		<action dev="cbe" type="update" context="admin">
+			Moved to SVN.
+		</action>
+		<action dev="cbe" type="update" context="build">
+			Reorganized project structure to meet maven's standard layout. 
+		</action>
+		<action dev="cbe" type="update" context="code">
+			Improved method invocation support by passing <code>de.odysseus.el.misc.MethodInvocation</code>
+			as property to <code>ELResolver.getValue(..., Object property)</code>.
 		</action>
 		<action dev="cbe" type="add" context="code">
 			Added support for varargs.
