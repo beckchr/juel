@@ -125,8 +125,6 @@
 				<include name="LICENSE.txt"/>
 				<include name="README.txt"/>
 				<include name="build.xml"/>
-				<include name="build.properties.sample"/>
-				<include name="build.xml"/>
 				<include name="pom.xml"/>
 				<include name="src/main/**"/>
 				<include name="src/test/**"/>
