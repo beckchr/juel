@@ -1,4 +1,4 @@
-package de.odysseus.el.samples.extensions;
+package de.odysseus.el.samples.experimental;
 
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
@@ -68,7 +68,7 @@ public class SyntaxExtension extends Builder {
 			return new Scanner(expression) {
 				@Override
 				protected Token keyword(String s) {
-					if (KEYWORD.getImage().equals(s)) {
+					if ("matches".equals(s)) {
 						return KEYWORD;
 					}
 					return super.keyword(s);
