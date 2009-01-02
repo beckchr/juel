@@ -6,7 +6,7 @@
 	<groupId>de.odysseus.el</groupId>
 	<artifactId>juel</artifactId>
 	<packaging>jar</packaging>
-	<version>2.1.1-SNAPSHOT</version>
+	<version>2.1.1-rc1</version>
 	
 
 	<name>Java Unified Expression Language</name>
