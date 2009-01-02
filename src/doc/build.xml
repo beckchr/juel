@@ -1,6 +1,6 @@
 <project default="site" basedir=".">
 
-	<property name="build.dir" value="build" />
+	<property name="build.dir" value="../../build/site" />
 
 	<taskdef name="forrester" classname="de.odysseus.forrester.ant.ForresterTask">
 		<classpath>
