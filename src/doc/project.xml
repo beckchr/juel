@@ -18,10 +18,6 @@
 			<item>Quickstart</item>
 		</document>
 
-		<document name="service">
-			<item>Plugin JUEL</item>
-		</document>
-
 		<group name="basic" dir="basic" index="index">
 			<item>Basic Classes</item>
 			<document name="index"/>
@@ -46,6 +42,10 @@
 				<item>Simple Resolver</item>
 			</document>
 		</group>
+
+		<document name="service">
+			<item>Plugin JUEL</item>
+		</document>
 
 		<group name="advanced" dir="advanced" index="index">
 			<item>Advanced Topics</item>
