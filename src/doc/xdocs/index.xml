@@ -55,8 +55,8 @@
 					method invocations as in <code>${foo.matches('[0-9]+')}</code>.
 				</li>
 				<li>
-					VarArg function/method calls &ndash;
-					As another extension to the standard, <em>JUEL</em> can be configured to
+					VarArg Calls &ndash;
+					As another extension to the standard, <em>JUEL</em> can be configured to support
 					Java 5 VarArgs. E.g., binding <code>String.format(String, String...)</code>
 					to function <code>format</code> allows for <code>${format('Hey %s','Joe')}</code>.
 				</li>
@@ -84,10 +84,8 @@
 		<section>
 			<title>Requirements</title>
 			<p>
-				<em>JUEL</em> depends on the <code>javax.el.*</code> API. A <code>el-api-1.x.jar</code>
-				is included in the distribution, taken from <a href="ext:uel.dev.java.net"> GlassFish</a>
-				project. Using <em>JUEL</em> as EL implementation in JSP/JSF Web applications requires
-				GlassFish v2 or later. 
+				<em>JUEL</em> depends on the <code>javax.el.*</code> API. An <code>el-api-1.x.jar</code>
+				(taken from <a href="ext:uel.dev.java.net">GlassFish</a>) is included in the distribution.
 			</p>
 		</section>
 	</body>

@@ -4,7 +4,7 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
-	<release version="2.1.1-SNAPSHOT" date="2008/??/??">
+	<release version="2.1.1-rc1" date="2009/01/02">
 		<action dev="cbe" type="add" context="code">
 			Experimental support for syntax extensions. 
 		</action>
