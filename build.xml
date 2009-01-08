@@ -1,5 +1,5 @@
 <project name="juel" default="jar" basedir=".">
-	<property name="version" value="2.1.1-rc1"/>
+	<property name="version" value="2.1.1-rc2"/>
 
 	<property file="build.properties"/>
 
@@ -30,7 +30,7 @@
 	<target name="compile" depends="prepare" description="compile java sources">
 		<mkdir dir="${build.dir}/classes"/>
 		<javac srcdir="src/main/java" destdir="${build.dir}/classes"
-			debug="true" debuglevel="${debug.level}" optimize="true">
+			debug="true" debuglevel="${debug.level}" optimize="true" source="1.5" target="1.5">
 			<classpath>
 			    <pathelement location="${el-api.jar}"/>
 			</classpath>
