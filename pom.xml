@@ -4,10 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.odysseus.el</groupId>
-	<artifactId>juel</artifactId>
+	<artifactId>juel-impl</artifactId>
 	<packaging>jar</packaging>
-	<version>2.1.1-rc2</version>
-	
+	<version>2.1.1-rc3</version>
 
 	<name>Java Unified Expression Language</name>
 	<description>
@@ -42,17 +41,6 @@
 			</roles>
 		</developer>
 	</developers>
-
-	<contributors>
-		<contributor>
-			<name>Martin Ellis</name>
-			<organization>Scott Logic Ltd.</organization>
-			<organizationUrl>http://www.scottlogic.co.uk/</organizationUrl>
-			<roles>
-				<role>maven build</role>
-			</roles>
-		</contributor>
-	</contributors>
 
 	<scm>
 		<connection>scm:svn:https://juel.svn.sourceforge.net/svnroot/juel/trunk</connection>
