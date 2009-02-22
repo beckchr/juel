@@ -9,7 +9,7 @@
 			fixed: <code>SimpleContext.getVariableMapper()</code> returns <code>null</code>
 		</action>
 		<action dev="cbe" type="update" context="build">
-			Changed maven artifact id to <code>juel-impl</code>.
+			Changed jar base name (and maven artifact id) to <code>juel-impl</code>.
 		</action>
 	</release>
 	<release version="2.1.1-rc2" date="2009/01/08">
