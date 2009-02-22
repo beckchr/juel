@@ -134,7 +134,7 @@
 				<exclude name="**/.*"/>
 			</zipfileset>
 			<zipfileset prefix="juel-${version}" dir="${build.dir}">
-				<include name="juel-${version}.jar"/>
+				<include name="juel-impl-${version}.jar"/>
 			</zipfileset>
 			<zipfileset prefix="juel-${version}/doc" dir="${build.dir}/forrester">
 				<include name="**"/>
