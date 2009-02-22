@@ -21,15 +21,10 @@
 			</li>
 			<li>
 				<code>setVariable(String name, javax.el.ValueExpression expression)</code> to define a
-				value expression as a variable for the given name.
+				value expression as a variable for the given name. (This is equivalent to
+				<code>getVariableMapper().setVariable(String name, javax.el.ValueExpression expression)</code>.)
 			</li>
 		</ul>
-		<p>
-			When using these methods, an internal implementation instance of <code>javax.el.FunctionMapper</code>
-			and <code>javax.el.VariableMapper</code> will be created lazily. On the other hand, calling
-			<code>getFunctionMapper()</code> or <code>getVariableMapper()</code>
-			will not force the creation of a corresponding mapper instance.
-		</p>
 		<p>
 			The following example defines function <code>math:sin</code> and variable <code>pi</code> and
 			uses them in an expression.
