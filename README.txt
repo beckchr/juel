@@ -9,6 +9,6 @@ Java Unified Expression Language (JUEL)
 
 - The EL API (el-api-1.x.jar) has been taken from Glassfish UEL (https://uel.dev.java.net).
 
-- The JUEL jar (juel-2.1.x.jar) contains the EL implementation classes.
+- The JUEL jar (juel-impl-2.1.x.jar) contains the EL implementation classes.
 
 - Enjoy!
