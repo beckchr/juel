@@ -5,7 +5,7 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/samples/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/el-api-1.1.jar" sourcepath="lib/el-api-1.1-sources.jar"/>
+	<classpathentry kind="lib" path="lib/el-api-1.1.jar" sourcepath="lib/el-api-sources-1.1.zip"/>
 	<classpathentry kind="lib" path="lib/junit.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -7,7 +7,7 @@
 	<property name="dist.dir" value="dist"/>
 	
 	<property name="el-api.jar" value="lib/el-api-1.1.jar"/>
-	<property name="el-api-sources.jar" value="lib/el-api-1.1-sources.jar"/>
+	<property name="el-api-sources.jar" value="lib/el-api-sources-1.1.zip"/>
 
 	<property name="junit.jar" value="lib/junit.jar"/>
 	
