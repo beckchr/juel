@@ -416,29 +416,13 @@ public class Scanner {
 	}
 	
 	protected Token nextToken() throws ScanException {
-		if (token != null) {
-			position += token.getSize();
-		}
-	
-		int length = input.length();
-				
-		if (isEval()) {
-			while (position < length && Character.isWhitespace(input.charAt(position))) {
-				position++;
-			}
-		}
-
-		if (position == length) {
-			return fixed(Symbol.EOF);
-		}
-
 		if (isEval()) {
 			if (input.charAt(position) == '}') {
 				return fixed(Symbol.END_EVAL);
 			}
 			return nextEval();
 		} else {
-			if (position+1 < length && input.charAt(position+1) == '{') {
+			if (position+1 < input.length() && input.charAt(position+1) == '{') {
 				switch (input.charAt(position)) {
 					case '#':
 						return fixed(Symbol.START_EVAL_DEFERRED);
@@ -457,6 +441,22 @@ public class Scanner {
 	 * @return scanned token
 	 */
 	public Token next() throws ScanException {
+		if (token != null) {
+			position += token.getSize();
+		}
+	
+		int length = input.length();
+				
+		if (isEval()) {
+			while (position < length && Character.isWhitespace(input.charAt(position))) {
+				position++;
+			}
+		}
+
+		if (position == length) {
+			return token = fixed(Symbol.EOF);
+		}
+
 		return token = nextToken();
 	}
 }
