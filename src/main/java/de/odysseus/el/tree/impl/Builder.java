@@ -20,6 +20,7 @@ import java.util.EnumSet;
 
 import javax.el.ELException;
 
+import de.odysseus.el.tree.Bindings;
 import de.odysseus.el.tree.NodePrinter;
 import de.odysseus.el.tree.Tree;
 import de.odysseus.el.tree.TreeBuilder;
@@ -139,7 +140,7 @@ public class Builder implements TreeBuilder {
 		if (!tree.getFunctionNodes().iterator().hasNext() && !tree.getIdentifierNodes().iterator().hasNext()) {
 			out.print(">> ");
 			try {
-				out.println(tree.getRoot().getValue(null, new SimpleContext(), null));
+				out.println(tree.getRoot().getValue(new Bindings(null, null), new SimpleContext(), null));
 			} catch (ELException e) {
 				out.println(e.getMessage());
 			}
