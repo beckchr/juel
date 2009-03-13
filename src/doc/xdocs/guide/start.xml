@@ -7,7 +7,7 @@
 	<body>
 		<p>
 			Here's all you need to use the EL in your application (assuming you added
-			<code>juel-impl-2.1.x.jar</code> and <code>el-api-1.x.jar</code> to your classpath
+			<code>juel-impl-2.1.x.jar</code> and <code>juel-api-2.1.x.jar</code> to your classpath
 			and did <code>import javax.el.*</code>):
 		</p>
 		<ol>

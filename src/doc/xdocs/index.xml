@@ -84,9 +84,7 @@
 		<section>
 			<title>Requirements</title>
 			<p>
-				<em>JUEL</em>'s Unified EL implementation (packaged into <code>juel-impl-2.1.x.jar</code>)
-				depends on the <code>javax.el.*</code> API classes. An <code>el-api-1.x.jar</code> (taken
-				from <a href="ext:uel.dev.java.net">GlassFish</a>) is included in the distribution.
+				<em>JUEL</em> requires Java 5 or later.
 			</p>
 		</section>
 	</body>
