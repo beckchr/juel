@@ -18,7 +18,7 @@
 			<xsl:call-template name="items"/>
 			<xsl:if test="$variant = 'site' and $selection = 'juel/index'">
 			  <p/>
-			  <a href="http://sourceforge.net">
+			  <a href="http://sourceforge.net/projects/juel/">
 			  	<img src="http://sflogo.sourceforge.net/sflogo.php?group_id=165179&amp;type=2"
 			  		width="125" height="37" border="0" alt="SF.net"/>
 			  </a>
