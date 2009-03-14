@@ -166,8 +166,8 @@ public class Scanner {
 
 	private Token token;  // current token
  	private int position; // start position of current token
-
-	protected final String input;
+	private final String input;
+	
 	protected final StringBuilder builder = new StringBuilder();
 	
 	/**
@@ -178,17 +178,21 @@ public class Scanner {
 		this.input = input;
 	}
 
+	public String getInput() {
+		return input;
+	}
+	
 	/**
 	 * @return current token
 	 */
-	protected Token getToken() {
+	public Token getToken() {
 		return token;
 	}
 
 	/**
 	 * @return current input position
 	 */
-	protected int getPosition() {
+	public int getPosition() {
 		return position;
 	}
 

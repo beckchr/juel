@@ -76,7 +76,7 @@ public class SyntaxExtension extends Builder {
 				
 				@Override
 				protected Token nextEval() throws ScanException {
-					if (input.charAt(getPosition()) == '~') {
+					if (getInput().charAt(getPosition()) == '~') {
 						return TILDE;
 					}
 					return super.nextEval();
