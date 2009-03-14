@@ -8,6 +8,9 @@
 		<action dev="cbe" type="add" context="code">
 			Added implementation of <code>javax.el</code> api classes.
 		</action>
+		<action dev="cbe" type="update" context="build">
+			Updated <code>pom.xml</code> to package all <em>JUEL</em> jar files.
+		</action>
 	</release>
 	<release version="2.1.1-rc3" date="2009/02/22">
 		<action dev="cbe" type="fix" context="code" fixes-bug="2590830" due-to="Adam Winer">

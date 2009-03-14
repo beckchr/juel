@@ -76,7 +76,7 @@
 	</target>
 
 	<target name="jar-api" depends="compile-api" description="create juel api jar (javax.el)">
-		<jar jarfile="${build.dir}/juel-api-${version}.jar">
+		<jar jarfile="${build.dir}/juel-${version}-api.jar">
 			<fileset dir="${build.dir}/classes-api">
 				<include name="javax/el/**" />
 			</fileset>
@@ -93,12 +93,15 @@
 	</target>
 
 	<target name="jar-impl" depends="compile-impl" description="create juel impl jar (de.odysseus.el)">
-		<jar jarfile="${build.dir}/juel-impl-${version}.jar">
+		<jar jarfile="${build.dir}/juel-${version}-impl.jar">
 			<fileset dir="${build.dir}/classes-impl">
 				<include name="de/odysseus/el/**" />
 				<include name="META-INF/services/*" />
 			</fileset>
 			<manifest>
+				<attribute name="Specification-Title" value="Expression Language" />
+				<attribute name="Specification-Version" value="2.1" />
+				<attribute name="Specification-Vendor" value="Sun Microsystems Inc." />
 				<attribute name="Implementation-Title" value="JUEL" />
 				<attribute name="Implementation-Version" value="${version}" />
 				<attribute name="Implementation-Vendor" value="Odysseus Software GmbH" />
@@ -107,7 +110,16 @@
 		</jar>
 	</target>
 
-	<target name="jars" depends="jar,jar-api,jar-impl" description="create juel jars" />
+	<target name="jar-sources" depends="prepare" description="create juel source jar (javax.el + de.odysseus.el)">
+		<jar jarfile="${build.dir}/juel-${version}-sources.jar">
+			<fileset dir="src/main/java">
+				<include name="de/odysseus/el/**" />
+				<include name="META-INF/services/*" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="jars" depends="jar,jar-api,jar-impl,jar-sources" description="create juel jars" />
 
 	<target name="javadoc" depends="prepare" unless="el-api-sources.present">
 		<mkdir dir="${build.dir}/javadoc" />
@@ -159,6 +171,7 @@
 				<include name="README.txt" />
 				<include name="build.xml" />
 				<include name="pom.xml" />
+				<include name="src/assemble/**" />
 				<include name="src/main/**" />
 				<include name="src/test/**" />
 				<include name="src/samples/**" />
@@ -166,8 +179,9 @@
 			</zipfileset>
 			<zipfileset prefix="juel-${version}" dir="${build.dir}">
 				<include name="juel-${version}.jar" />
-				<include name="juel-api-${version}.jar" />
-				<include name="juel-impl-${version}.jar" />
+				<include name="juel-${version}-api.jar" />
+				<include name="juel-${version}-impl.jar" />
+				<include name="juel-${version}-sources.jar" />
 			</zipfileset>
 			<zipfileset prefix="juel-${version}/doc" dir="${build.dir}/forrester">
 				<include name="**" />

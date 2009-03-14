@@ -3,16 +3,16 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.odysseus.el</groupId>
-	<artifactId>juel-impl</artifactId>
+	<groupId>de.odysseus.juel</groupId>
+	<artifactId>juel</artifactId>
 	<packaging>jar</packaging>
-	<version>2.1.1-rc3</version>
+	<version>2.1.1-SNAPSHOT</version>
 
 	<name>Java Unified Expression Language</name>
 	<description>
-	    Implementation of the Java Unified Expression Language as specified
-	    by the Expression Language Specification, Version 2.1: part of the
-	    JSP 2.1 standard (JSR-245).
+    Implementation of the Java Unified Expression Language as specified
+    by the Expression Language Specification, Version 2.1: part of the
+    JSP 2.1 standard (JSR-245).
 	</description>
 
 	<url>http://juel.sourceforge.net/</url>
@@ -54,12 +54,6 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.el</groupId>
-			<artifactId>el-api</artifactId>
-			<version>1.1</version>
-			<scope>compile</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -79,24 +73,69 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
 						<manifestEntries>
+							<Specification-Title>Expression Language</Specification-Title>
+							<Specification-Version>2.1</Specification-Version>
+							<Specification-Vendor>Sun Microsystems Inc.</Specification-Vendor>
 							<Implementation-Title>JUEL</Implementation-Title>
 							<Implementation-Version>${version}</Implementation-Version>
 							<Implementation-Vendor>Odysseus Software GmbH</Implementation-Vendor>
 							<Implementation-Vendor-Id>de.odysseus</Implementation-Vendor-Id>
+							<Main-Class>de.odysseus.el.tree.impl.Builder</Main-Class>
 						</manifestEntries>
 					</archive>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+					</archive>
+					<descriptors>
+						<!-- api classes -->
+						<descriptor>src/main/assembly/juel-api.xml</descriptor>
+						<!-- impl classes -->
+						<descriptor>src/main/assembly/juel-impl.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!-- mvn source:jar -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<configuration>
+					<excludeResources>true</excludeResources>
+				</configuration>
+				<!--
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+				-->
+			</plugin>
 		</plugins>
 	</build>
-
-	<repositories>
-		<repository>
-			<id>glassfish-repository</id>
-			<url>http://download.java.net/maven/glassfish</url>
-		</repository>
-	</repositories>
 
 	<reporting>
 		<plugins>
@@ -109,4 +148,5 @@
 			</plugin>
 		</plugins>
 	</reporting>
+
 </project>
