@@ -119,7 +119,7 @@
 		</jar>
 	</target>
 
-	<target name="jars" depends="jar,jar-api,jar-impl,jar-sources" description="create juel jars" />
+	<target name="jars" depends="jar,jar-api,jar-impl" description="create juel jars" />
 
 	<target name="javadoc" depends="prepare" unless="el-api-sources.present">
 		<mkdir dir="${build.dir}/javadoc" />
@@ -181,7 +181,6 @@
 				<include name="juel-${version}.jar" />
 				<include name="juel-${version}-api.jar" />
 				<include name="juel-${version}-impl.jar" />
-				<include name="juel-${version}-sources.jar" />
 			</zipfileset>
 			<zipfileset prefix="juel-${version}/doc" dir="${build.dir}/forrester">
 				<include name="**" />
