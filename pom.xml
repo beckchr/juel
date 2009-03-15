@@ -6,9 +6,9 @@
 	<groupId>de.odysseus.juel</groupId>
 	<artifactId>juel</artifactId>
 	<packaging>jar</packaging>
-	<version>2.1.1-rc4</version>
 
 	<name>Java Unified Expression Language</name>
+	<version>2.1.1-rc4</version>
 	<description>
     Implementation of the Java Unified Expression Language as specified
     by the Expression Language Specification, Version 2.1: part of the
@@ -133,17 +133,6 @@
 				<configuration>
 					<excludeResources>true</excludeResources>
 				</configuration>
-				<!--
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>package</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-				-->
 			</plugin>
 		</plugins>
 	</build>
@@ -151,6 +140,7 @@
 	<reporting>
 		<plugins>
 			<plugin>
+				<!-- mvn javadoc:jar -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
