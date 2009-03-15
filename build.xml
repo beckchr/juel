@@ -113,8 +113,8 @@
 	<target name="jar-sources" depends="prepare" description="create juel source jar (javax.el + de.odysseus.el)">
 		<jar jarfile="${build.dir}/juel-${version}-sources.jar">
 			<fileset dir="src/main/java">
+				<include name="javax/el/**" />
 				<include name="de/odysseus/el/**" />
-				<include name="META-INF/services/*" />
 			</fileset>
 		</jar>
 	</target>
