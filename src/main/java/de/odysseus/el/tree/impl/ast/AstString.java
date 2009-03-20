@@ -33,7 +33,7 @@ public final class AstString extends AstLiteral {
 
 	@Override
 	public String toString() {
-		return " \"" + value + "\"";
+		return "\"" + value + "\"";
 	}	
 
 	@Override 
