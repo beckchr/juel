@@ -8,7 +8,7 @@
 	<packaging>jar</packaging>
 
 	<name>Java Unified Expression Language</name>
-	<version>2.1.1-rc4</version>
+	<version>2.1.1-SNAPSHOT</version>
 	<description>
     Implementation of the Java Unified Expression Language as specified
     by the Expression Language Specification, Version 2.1: part of the
