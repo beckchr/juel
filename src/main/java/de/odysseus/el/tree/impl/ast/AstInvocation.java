@@ -27,9 +27,9 @@ import de.odysseus.el.tree.Bindings;
 public abstract class AstInvocation extends AstRightValue {
 	protected final List<AstNode> nodes;
 	protected final boolean varargs;
-	protected final String name;
+	protected final AstNode name;
 
-	public AstInvocation(String name, List<AstNode> nodes, boolean varargs) {
+	public AstInvocation(AstNode name, List<AstNode> nodes, boolean varargs) {
 		this.name = name;
 		this.nodes = nodes;
 		this.varargs = varargs;
@@ -94,8 +94,8 @@ public abstract class AstInvocation extends AstRightValue {
 		return method.invoke(base, params);
 	}
 	
-	public String getName() {
-		return name;
+	protected String getName(Bindings bindings, ELContext context) {
+		return (String)name.getValue(bindings, context, String.class);
 	}
 	
 	public int getParamCount() {

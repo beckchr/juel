@@ -34,7 +34,7 @@ public class AstFunction extends AstInvocation implements FunctionNode {
 	}
 
 	public AstFunction(String name, int index, List<AstNode> nodes, boolean varargs) {
-		super(name, nodes, varargs);
+		super(new AstObject(name), nodes, varargs);
 		this.index = index;
 	}
 
@@ -74,7 +74,7 @@ public class AstFunction extends AstInvocation implements FunctionNode {
 	}
 
 	public String getName() {
-		return name;
+		return name.toString();
 	}
 
 	public int getCardinality() {

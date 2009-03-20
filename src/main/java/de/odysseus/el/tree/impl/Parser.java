@@ -201,7 +201,7 @@ public class Parser {
 		return new AstIdentifier(name, index);
 	}
 
-	protected AstMethod createAstMethod(AstNode prefix, String name, List<AstNode> nodes) {
+	protected AstMethod createAstMethod(AstNode prefix, AstNode name, List<AstNode> nodes) {
 		return new AstMethod(prefix, name, nodes, context.isEnabled(Feature.VARARGS));
 	}
 	
@@ -606,7 +606,7 @@ public class Parser {
 					String name = consumeToken(IDENTIFIER).getImage();
 					if (token.getSymbol() == LPAREN && context.isEnabled(METHOD_INVOCATIONS)) {
 						consumeToken();
-						v = createAstMethod(v, name, list());
+						v = createAstMethod(v, new AstObject(name), list());
 						consumeToken(RPAREN);
 					} else {
 						v = createAstDot(v, name, lvalue);
@@ -616,8 +616,14 @@ public class Parser {
 					consumeToken();
 					AstNode property = expr(true);
 					boolean strict = !context.isEnabled(NULL_PROPERTIES);
-					v = createAstBracket(v, property, lvalue, strict);
 					consumeToken(RBRACK);
+					if (token.getSymbol() == LPAREN && context.isEnabled(METHOD_INVOCATIONS)) {
+						consumeToken();
+						v = createAstMethod(v, property, list());
+						consumeToken(RPAREN);
+					} else {
+						v = createAstBracket(v, property, lvalue, strict);
+					}
 					break;
 				default:
 					return v;

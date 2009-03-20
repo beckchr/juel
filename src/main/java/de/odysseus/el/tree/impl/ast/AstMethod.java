@@ -31,23 +31,8 @@ import de.odysseus.el.tree.Bindings;
 
 public class AstMethod extends AstInvocation {
 	protected final AstNode prefix;
-	protected final MethodInvocation property = new MethodInvocation() {
-		public String getName() {
-			return AstMethod.this.getName();
-		}
-		public int getParamCount() {
-			return AstMethod.this.getParamCount();
-		}
-		public boolean isVarArgs() {
-			return AstMethod.this.isVarArgs();
-		}
-		@Override
-		public String toString() {
-			return AstMethod.this.getName();
-		}
-	};
 
-	public AstMethod(AstNode prefix, String name, List<AstNode> nodes, boolean varargs) {
+	public AstMethod(AstNode prefix, AstNode name, List<AstNode> nodes, boolean varargs) {
 		super(name, nodes, varargs);
 		this.prefix = prefix;
 	}
@@ -59,10 +44,24 @@ public class AstMethod extends AstInvocation {
 	 * @return either a <code>java.lang.reflect.Method</code> or a <code>javax.el.MethodInfo</code>
 	 * @throws PropertyNotFoundException
 	 */
-	protected Method resolveMethod(ELContext context, Object base) throws MethodNotFoundException {
+	protected Method resolveMethod(ELContext context, Object base, final String name) throws MethodNotFoundException {
 		Object value = null;
 		try {
-			value = context.getELResolver().getValue(context, base, property);
+			value = context.getELResolver().getValue(context, base, new MethodInvocation() {
+				public String getName() {
+					return name;
+				}
+				public int getParamCount() {
+					return AstMethod.this.getParamCount();
+				}
+				public boolean isVarArgs() {
+					return AstMethod.this.isVarArgs();
+				}
+				@Override
+				public String toString() {
+					return getName();
+				}
+			});
 		} catch (PropertyNotFoundException e) {
 			throw new MethodNotFoundException(LocalMessages.get("error.property.method.resolve", name, base.getClass()));
 		}
@@ -90,7 +89,11 @@ public class AstMethod extends AstInvocation {
 		if (base == null) {
 			throw new MethodNotFoundException(LocalMessages.get("error.property.base.null", prefix));
 		}
-		Method method = resolveMethod(context, base);
+		String name = getName(bindings, context);
+		if (name == null || name.length() == 0) {
+			throw new MethodNotFoundException(LocalMessages.get("error.property.method.notfound", name, base.getClass()));
+		}
+		Method method = resolveMethod(context, base, name);
 		if (varargs && method.isVarArgs()) {
 			if (method.getParameterTypes().length > getParamCount() + 1) {
 				throw new ELException(LocalMessages.get("error.property.method.invocation", name, base.getClass()));
