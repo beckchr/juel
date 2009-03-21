@@ -249,5 +249,30 @@ ExpressionFactory factory = new ExpressionFactoryImpl(store);</source>
 				</p>
 			</section>
 		</section>
+		<section>
+			<title>Customizing Type Conversions</title>
+			<p>
+				The rules to apply when coercing objects is described in the specification.
+				However, in a non-JEE environment, it might be desired to apply application-specific
+				or additional type conversions. To do this, you must provide <em>JUEL</em>'s
+				expression factory with an implementation of 
+			</p>
+			<source>de.odysseus.el.misc.TypeConverter</source>
+			<p>which defines a single method:</p>
+			<source>public &lt;T&gt; T convert(Object value, Class&lt;T&gt; type) throws ELException</source>
+			<p>
+				The default converter is implemented in <code>de.odysseus.el.misc.TypeConverterImpl</code>.
+				To use your new type converter, pass an instance of it to the factory constructor
+			</p>
+			<source>ExpressionFactoryImpl(TreeStore store, TypeConverter converter)</source>
+			<p>
+				As an alternative, you may set property
+			</p>
+			<source>de.odysseus.el.misc.TypeConverter</source>
+			<p>
+				to the fully qualified name of your converter class (requires your class to
+				provide a default constructor).
+			</p>
+		</section>
 	</body>
 </document>
