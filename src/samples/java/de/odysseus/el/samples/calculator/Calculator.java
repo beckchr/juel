@@ -67,8 +67,11 @@ public class Calculator {
 		Object display = 0;
 		while (true) {
 			System.out.print("< ");
-			String line = reader.readLine().trim();
-			if (line.length() == 0) {
+			String line = reader.readLine();
+			if (line != null) {
+				line = line.trim();
+			}
+			if (line == null || line.length() == 0) {
 				System.out.println("> Good bye.");
 				System.exit(0);
 			}

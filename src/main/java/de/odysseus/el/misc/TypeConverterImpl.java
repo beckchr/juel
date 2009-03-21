@@ -36,7 +36,6 @@ public class TypeConverterImpl implements TypeConverter {
 	
 	static {
 		HashMap<Class<?>,Class<?>> wrapperTypes = new HashMap<Class<?>, Class<?>>();
-		wrapperTypes = new HashMap<Class<?>,Class<?>>();
 		wrapperTypes.put(Boolean.TYPE, Boolean.class);
 		wrapperTypes.put(Character.TYPE, Character.class);
 		wrapperTypes.put(Byte.TYPE, Byte.class);
@@ -69,10 +68,10 @@ public class TypeConverterImpl implements TypeConverter {
 			return (Character)value;
 		}
 		if (value instanceof Number) {
-			return new Character((char)((Number)value).shortValue());
+			return Character.valueOf((char)((Number)value).shortValue());
 		}
 		if (value instanceof String) {
-			return new Character(((String)value).charAt(0));
+			return Character.valueOf(((String)value).charAt(0));
 		}
 		throw new ELException(LocalMessages.get("error.coerce.type", value.getClass(), Character.class));
 	}

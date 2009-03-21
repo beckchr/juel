@@ -53,7 +53,7 @@ public class SyntaxExtension extends Builder {
 	/**
 	 * Here's our extended parser implementation.
 	 */
-	public class ExtendedParser extends Parser {		
+	static class ExtendedParser extends Parser {		
 		public ExtendedParser(Builder context, String input) {
 			super(context, input);
 			putExtensionHandler(TILDE, HANDLER);

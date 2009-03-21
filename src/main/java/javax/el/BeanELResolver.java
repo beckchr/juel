@@ -102,7 +102,8 @@ public class BeanELResolver extends ELResolver {
 					if (mth != null) {
 						return mth;
 					}
-				} catch (Exception e) {
+				} catch (NoSuchMethodException e) {
+					// do nothing
 				}
 			}
 			Class<?> cls = clazz.getSuperclass();
@@ -114,7 +115,8 @@ public class BeanELResolver extends ELResolver {
 					if (mth != null) {
 						return mth;
 					}
-				} catch (Exception e) {
+				} catch (NoSuchMethodException e) {
+					// do nothing
 				}
 			}
 			return null;

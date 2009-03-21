@@ -18,6 +18,7 @@ package javax.el;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
@@ -116,29 +117,54 @@ public abstract class ExpressionFactory {
 		String className = null;
 
 		String serviceId = "META-INF/services/" + ExpressionFactory.class.getName();
+		InputStream input = classLoader.getResourceAsStream(serviceId);
 		try {
-			InputStream input = classLoader.getResourceAsStream(serviceId);
 			if (input != null) {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(input, "UTF-8"));
 				className = reader.readLine();
 				reader.close();
 			}
-		} catch (Exception e) {
+		} catch (IOException e) {
 			// do nothing
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (Exception io) {
+					// do nothing
+				} finally {
+					input = null;
+				}
+			}
 		}
 
 		if (className == null || className.trim().length() == 0) {
 			try {
 				String home = System.getProperty("java.home");
-				String path = home + File.separator + "lib" + File.separator + "el.properties";
-				File file = new File(path);
-				if (file.exists()) {
-					Properties props = new Properties();
-					props.load(new FileInputStream(file));
-					className = props.getProperty(ExpressionFactory.class.getName());
+				if (home != null) {
+					String path = home + File.separator + "lib" + File.separator + "el.properties";
+					File file = new File(path);
+					if (file.exists()) {
+						input = new FileInputStream(file);
+						Properties props = new Properties();
+						props.load(input);
+						className = props.getProperty(ExpressionFactory.class.getName());
+					}
 				}
-			} catch (Exception ex) {
+			} catch (IOException e) {
 				// do nothing
+			} catch (SecurityException e) {
+				// do nothing
+			} finally {
+				if (input != null) {
+					try {
+						input.close();
+					} catch (IOException io) {
+						// do nothing
+					} finally {
+						input = null;
+					}
+				}
 			}
 		}
 
