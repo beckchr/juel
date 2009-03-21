@@ -35,6 +35,9 @@ import javax.el.ResourceBundleELResolver;
 
 /**
  * Simple resolver implementation.
+ * This resolver handles root properties (<code>base == null</code>), which are
+ * stored in a map. Resolving "real" properties (<code>base != null</code>) is
+ * delegated to a resolver specified at construction time.
  *
  * @author Christoph Beck
  */
@@ -71,7 +74,7 @@ public class SimpleResolver extends ELResolver {
 	}
 
 	/**
-	 * Create a read/write resolver capable of resolving top-level identifiers.
+	 * Create a read-write resolver capable of resolving top-level identifiers.
 	 * Everything else is passed to the supplied delegate.
 	 */
 	public SimpleResolver(ELResolver delegate) {
@@ -80,7 +83,7 @@ public class SimpleResolver extends ELResolver {
 
 	/**
 	 * Create a resolver capable of resolving top-level identifiers,
-	 * bean properties, array values, list values, map values and resource values.
+	 * array values, list values, map values, resource values and bean properties.
 	 */
 	public SimpleResolver(boolean readOnly) {
 		this(readOnly ? DEFAULT_RESOLVER_READ_ONLY : DEFAULT_RESOLVER_READ_WRITE, readOnly);
@@ -88,7 +91,7 @@ public class SimpleResolver extends ELResolver {
 
 	/**
 	 * Create a read/write resolver capable of resolving top-level identifiers,
-	 * bean properties, array values, list values, map values and resource values.
+	 * array values, list values, map values, resource values and bean properties.
 	 */
 	public SimpleResolver() {
 		this(DEFAULT_RESOLVER_READ_WRITE, false);
