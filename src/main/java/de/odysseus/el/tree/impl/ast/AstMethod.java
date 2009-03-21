@@ -47,6 +47,7 @@ public class AstMethod extends AstInvocation {
 	protected Method resolveMethod(ELContext context, Object base, final String name) throws MethodNotFoundException {
 		Object value = null;
 		try {
+			context.setPropertyResolved(false);
 			value = context.getELResolver().getValue(context, base, new MethodInvocation() {
 				public String getName() {
 					return name;

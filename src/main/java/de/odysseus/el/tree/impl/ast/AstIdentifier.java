@@ -44,6 +44,7 @@ public class AstIdentifier extends AstNode implements IdentifierNode {
 		if (expression != null) {
 			return expression.getType(context);
 		}
+		context.setPropertyResolved(false);
 		Class<?> result = context.getELResolver().getType(context, null, name);
 		if (!context.isPropertyResolved()) {
 			throw new PropertyNotFoundException(LocalMessages.get("error.identifier.property.notfound", name));
@@ -66,6 +67,7 @@ public class AstIdentifier extends AstNode implements IdentifierNode {
 		if (expression != null) {
 			return expression.getValue(context);
 		}
+		context.setPropertyResolved(false);
 		Object result = context.getELResolver().getValue(context, null, name);
 		if (!context.isPropertyResolved()) {
 			throw new PropertyNotFoundException(LocalMessages.get("error.identifier.property.notfound", name));
@@ -78,6 +80,7 @@ public class AstIdentifier extends AstNode implements IdentifierNode {
 		if (expression != null) {
 			expression.setValue(context, value);
 		}
+		context.setPropertyResolved(false);
 		context.getELResolver().setValue(context, null, name, value);
 		if (!context.isPropertyResolved()) {
 			throw new PropertyNotFoundException(LocalMessages.get("error.identifier.property.notfound", name));
@@ -89,6 +92,7 @@ public class AstIdentifier extends AstNode implements IdentifierNode {
 		if (expression != null) {
 			return expression.isReadOnly(context);
 		}
+		context.setPropertyResolved(false);
 		boolean result = context.getELResolver().isReadOnly(context, null, name);
 		if (!context.isPropertyResolved()) {
 			throw new PropertyNotFoundException(LocalMessages.get("error.identifier.property.notfound", name));

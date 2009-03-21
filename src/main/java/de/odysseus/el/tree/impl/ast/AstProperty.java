@@ -50,6 +50,7 @@ public abstract class AstProperty extends AstNode {
 		if (property == null && strict) {
 			return null;
 		}
+		context.setPropertyResolved(false);
 		Object result = context.getELResolver().getValue(context, base, property);
 		if (!context.isPropertyResolved()) {
 			throw new PropertyNotFoundException(LocalMessages.get("error.property.property.notfound", property, base));
@@ -77,6 +78,7 @@ public abstract class AstProperty extends AstNode {
 		if (property == null && strict) {
 			throw new PropertyNotFoundException(LocalMessages.get("error.property.property.notfound", "null", base));
 		}
+		context.setPropertyResolved(false);
 		Class<?> result = context.getELResolver().getType(context, base, property);
 		if (!context.isPropertyResolved()) {
 			throw new PropertyNotFoundException(LocalMessages.get("error.property.property.notfound", property, base));
@@ -96,6 +98,7 @@ public abstract class AstProperty extends AstNode {
 		if (property == null && strict) {
 			throw new PropertyNotFoundException(LocalMessages.get("error.property.property.notfound", "null", base));
 		}
+		context.setPropertyResolved(false);
 		boolean result = context.getELResolver().isReadOnly(context, base, property);
 		if (!context.isPropertyResolved()) {
 			throw new PropertyNotFoundException(LocalMessages.get("error.property.property.notfound", property, base));
@@ -115,6 +118,7 @@ public abstract class AstProperty extends AstNode {
 		if (property == null && strict) {
 			throw new PropertyNotFoundException(LocalMessages.get("error.property.property.notfound", "null", base));
 		}
+		context.setPropertyResolved(false);
 		context.getELResolver().setValue(context, base, property, value);
 		if (!context.isPropertyResolved()) {
 			throw new PropertyNotFoundException(LocalMessages.get("error.property.property.notfound", property, base));
