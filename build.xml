@@ -1,5 +1,5 @@
 <project name="juel" default="jars" basedir=".">
-	<property name="version" value="2.1.1-SNAPSHOT" />
+	<property name="version" value="2.1.1" />
 
 	<property file="build.properties" />
 
@@ -8,7 +8,7 @@
 
 	<property name="junit.jar" value="lib/junit.jar" />
 
-	<property name="debug.level" value="source,lines" />
+	<property name="debug.level" value="source,lines,vars" />
 
 	<target name="prepare">
 		<available property="junit.present" classname="junit.framework.TestCase">
@@ -161,7 +161,7 @@
 		</junit>
 	</target>
 
-	<target name="dist" depends="clean,test,jars,javadoc" description="build juel distribution">
+	<target name="dist" depends="clean,test,jars,jar-sources,javadoc" description="build juel distribution">
 		<ant antfile="src/doc/build.xml" inheritall="false" target="dist">
 			<property name="build.dir" location="${build.dir}/forrester" />
 		</ant>
@@ -181,6 +181,7 @@
 				<include name="juel-${version}.jar" />
 				<include name="juel-${version}-api.jar" />
 				<include name="juel-${version}-impl.jar" />
+				<include name="juel-${version}-sources.jar" />
 			</zipfileset>
 			<zipfileset prefix="juel-${version}/doc" dir="${build.dir}/forrester">
 				<include name="**" />
