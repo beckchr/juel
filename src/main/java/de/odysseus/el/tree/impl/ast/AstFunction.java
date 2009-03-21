@@ -28,13 +28,15 @@ import de.odysseus.el.tree.FunctionNode;
 
 public class AstFunction extends AstInvocation implements FunctionNode {
 	private final int index;
+	private final String name;
 
 	public AstFunction(String name, int index, List<AstNode> nodes) {
 		this(name, index, nodes, false);
 	}
 
 	public AstFunction(String name, int index, List<AstNode> nodes, boolean varargs) {
-		super(new AstObject(name), nodes, varargs);
+		super(nodes, varargs);
+		this.name = name;
 		this.index = index;
 	}
 
@@ -74,9 +76,9 @@ public class AstFunction extends AstInvocation implements FunctionNode {
 	}
 
 	public String getName() {
-		return name.toString();
+		return name;
 	}
-
+	
 	public int getCardinality() {
 		return getParamCount();
 	}

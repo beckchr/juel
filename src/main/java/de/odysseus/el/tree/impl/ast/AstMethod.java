@@ -30,11 +30,11 @@ import de.odysseus.el.misc.MethodInvocation;
 import de.odysseus.el.tree.Bindings;
 
 public class AstMethod extends AstInvocation {
-	protected final AstNode prefix;
+	private final AstProperty property;
 
-	public AstMethod(AstNode prefix, AstNode name, List<AstNode> nodes, boolean varargs) {
-		super(name, nodes, varargs);
-		this.prefix = prefix;
+	public AstMethod(AstProperty property, List<AstNode> nodes, boolean varargs) {
+		super(nodes, varargs);
+		this.property = property;
 	}
 
 	/**
@@ -85,9 +85,9 @@ public class AstMethod extends AstInvocation {
 	
 	@Override
 	public Object eval(Bindings bindings, ELContext context) {
-		Object base = prefix.eval(bindings, context);
+		Object base = getBase().eval(bindings, context);
 		if (base == null) {
-			throw new MethodNotFoundException(LocalMessages.get("error.property.base.null", prefix));
+			throw new MethodNotFoundException(LocalMessages.get("error.property.base.null", getBase()));
 		}
 		String name = getName(bindings, context);
 		if (name == null || name.length() == 0) {
@@ -114,14 +114,12 @@ public class AstMethod extends AstInvocation {
 
 	@Override
 	public String toString() {
-		return ". " + name + "(...)";
+		return "(...)";
 	}	
 
 	@Override 
 	public void appendStructure(StringBuilder b, Bindings bindings) {
-		prefix.appendStructure(b, bindings);
-		b.append(".");
-		b.append(name);
+		property.appendStructure(b, bindings);
 		b.append("(");
 		if (nodes != null && nodes.size() > 0) {
 			nodes.get(0).appendStructure(b, bindings);
@@ -133,11 +131,19 @@ public class AstMethod extends AstInvocation {
 		b.append(")");
 	}
 
+	protected AstNode getBase() {
+		return property.getChild(0);
+	}
+	
+	protected String getName(Bindings bindings, ELContext context) {
+		return (String)bindings.convert(property.getProperty(bindings, context), String.class);
+	}
+	
 	public int getCardinality() {
 		return 1 + getParamCount();
 	}
 
 	public AstNode getChild(int i) {
-		return i == 0 ? prefix : getParam(i-1);
+		return i == 0 ? property : getParam(i-1);
 	}
 }
