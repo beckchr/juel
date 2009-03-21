@@ -36,6 +36,9 @@
 		<action dev="cbe" type="add" context="code">
 			Introduce <code>TypeConverter</code> to allow for customized coercion rules.
 		</action>
+		<action dev="cbe" type="remove" context="code">
+			Removed old <code>TypeConversions</code> (use <code>TypeConverter.DEFAULT</code>).
+		</action>
 		<action dev="cbe" type="update" context="docs">
 			Update to fop-0.95-beta and forrester-0.3.3.
 		</action>
