@@ -124,7 +124,7 @@ public abstract class ELContext {
 	 * required and the key is used strictly as a unique identifier.
 	 * 
 	 * @param key
-	 *            The key used by an @{link ELResolver} to identify this context object.
+	 *            The key used by an {@link ELResolver} to identify this context object.
 	 * @param contextObject
 	 *            The context object to add to the collection.
 	 * @throws NullPointerException
