@@ -316,7 +316,7 @@ public class Parser {
 	}
 
 	/**
-	 * text := <TEXT>
+	 * text := &lt;TEXT&gt;
 	 */
 	protected AstNode text() throws ScanException, ParseException {
 		AstNode v = null;
@@ -342,8 +342,8 @@ public class Parser {
 	}
 
 	/**
-	 * dynmamic := <START_EVAL_DYNAMIC> expr <END_EVAL>
-	 * deferred := <START_EVAL_DEFERRED> expr <END_EVAL>
+	 * dynmamic := &lt;START_EVAL_DYNAMIC&gt; expr &lt;END_EVAL&gt;
+	 * deferred := &lt;START_EVAL_DEFERRED&gt; expr &lt;END_EVAL&gt;
 	 */
 	protected AstEval eval(boolean required, boolean deferred) throws ScanException, ParseException {
 		AstEval v = null;
@@ -359,7 +359,7 @@ public class Parser {
 	}
 
 	/**
-	 * expr := or (<QUESTION> expr <COLON> expr)?
+	 * expr := or (&lt;QUESTION&gt; expr &lt;COLON&gt; expr)?
 	 */
 	protected AstNode expr(boolean required) throws ScanException, ParseException {
 		AstNode v = or(required);
@@ -377,7 +377,7 @@ public class Parser {
 	}
 
 	/**
-	 * or := and (<OR> and)*
+	 * or := and (&lt;OR&gt; and)*
 	 */
 	protected AstNode or(boolean required) throws ScanException, ParseException {
 		AstNode v = and(required);
@@ -402,7 +402,7 @@ public class Parser {
 	}
 
 	/**
-	 * and := eq (<AND> eq)*
+	 * and := eq (&lt;AND&gt; eq)*
 	 */
 	protected AstNode and(boolean required) throws ScanException, ParseException {
 		AstNode v = eq(required);
@@ -427,7 +427,7 @@ public class Parser {
 	}
 
 	/**
-	 * eq := cmp (<EQ> cmp | <NE> cmp)*
+	 * eq := cmp (&lt;EQ&gt; cmp | &lt;NE&gt; cmp)*
 	 */
 	protected AstNode eq(boolean required) throws ScanException, ParseException {
 		AstNode v = cmp(required);
@@ -456,7 +456,7 @@ public class Parser {
 	}
 	
 	/**
-	 * cmp := add (<LT> add | <LE> add | <GE> add | <GT> add)*
+	 * cmp := add (&lt;LT&gt; add | &lt;LE&gt; add | &lt;GE&gt; add | &lt;GT&gt; add)*
 	 */
 	protected AstNode cmp(boolean required) throws ScanException, ParseException {
 		AstNode v = add(required);
@@ -493,7 +493,7 @@ public class Parser {
 	}
 
 	/**
-	 * add := add (<PLUS> mul | <MINUS> mul)*
+	 * add := add (&lt;PLUS&gt; mul | &lt;MINUS&gt; mul)*
 	 */
 	protected AstNode add(boolean required) throws ScanException, ParseException {
 		AstNode v = mul(required);
@@ -522,7 +522,7 @@ public class Parser {
 	}
 
 	/**
-	 * mul := unary (<MUL> unary | <DIV> unary | <MOD> unary)*
+	 * mul := unary (&lt;MUL&gt; unary | &lt;DIV&gt; unary | &lt;MOD&gt; unary)*
 	 */
 	protected AstNode mul(boolean required) throws ScanException, ParseException {
 		AstNode v = unary(required);
@@ -555,7 +555,7 @@ public class Parser {
 	}
 
 	/**
-	 * unary := <NOT> unary | <MINUS> unary | <EMPTY> unary | value
+	 * unary := &lt;NOT&gt; unary | &lt;MINUS&gt; unary | &lt;EMPTY&gt; unary | value
 	 */
 	protected AstNode unary(boolean required) throws ScanException, ParseException {
 		AstNode v = null;
@@ -587,7 +587,7 @@ public class Parser {
 	}
 
 	/**
-	 * value := (nonliteral | literal) (<DOT> <IDENTIFIER> | <LBRACK> expr <RBRACK>)*
+	 * value := (nonliteral | literal) (&lt;DOT&gt; &lt;IDENTIFIER&gt; | &lt;LBRACK&gt; expr &lt;RBRACK&gt;)*
 	 */
 	protected AstNode value() throws ScanException, ParseException {
 		boolean lvalue = true;
@@ -632,8 +632,8 @@ public class Parser {
 	}
 
 	/**
-	 * nonliteral := <IDENTIFIER> | function | <LPAREN> expr <RPAREN>
-	 * function   := (<IDENTIFIER> <COLON>)? <IDENTIFIER> <LPAREN> list? <RPAREN>
+	 * nonliteral := &lt;IDENTIFIER&gt; | function | &lt;LPAREN&gt; expr &lt;RPAREN&gt;
+	 * function   := (&lt;IDENTIFIER&gt; &lt;COLON&gt;)? &lt;IDENTIFIER&gt; &lt;LPAREN&gt; list? &lt;RPAREN&gt;
 	 */
 	protected AstNode nonliteral() throws ScanException, ParseException {
 		AstNode v = null;
@@ -665,7 +665,7 @@ public class Parser {
 	}
 
 	/**
-	 * list := expr (<COMMA> expr)*
+	 * list := expr (&lt;COMMA&gt; expr)*
 	 */
 	protected List<AstNode> list() throws ScanException, ParseException {
 		List<AstNode> l = Collections.emptyList();
@@ -682,7 +682,7 @@ public class Parser {
 	}
 	
 	/**
-	 * literal := <TRUE> | <FALSE> | <STRING> | <INTEGER> | <FLOAT> | <NULL>
+	 * literal := &lt;TRUE&gt; | &lt;FALSE&gt; | &lt;STRING&gt; | &lt;INTEGER&gt; | &lt;FLOAT&gt; | &lt;NULL&gt;
 	 */
 	protected AstNode literal() throws ScanException, ParseException {
 		AstNode v = null;
