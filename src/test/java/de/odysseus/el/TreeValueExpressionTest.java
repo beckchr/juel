@@ -16,6 +16,7 @@
 package de.odysseus.el;
 
 import javax.el.BeanELResolver;
+import javax.el.PropertyNotFoundException;
 
 import de.odysseus.el.tree.TreeStore;
 import de.odysseus.el.tree.impl.Builder;
@@ -32,6 +33,12 @@ public class TreeValueExpressionTest extends TestCase {
 		return 0;
 	}
 
+	int foobar;
+	
+	public void setFoobar(int value) {
+		foobar = value;
+	}
+	
 	SimpleContext context;
 	TreeStore store = new TreeStore(new Builder(), null);
 	
@@ -54,6 +61,8 @@ public class TreeValueExpressionTest extends TestCase {
 
 		context.setVariable("var_foo_1", new TreeValueExpression(store, context.getFunctionMapper(), null, null, "${ns:foo_1()}", long.class));	
 		context.setVariable("var_foo_2", new TreeValueExpression(store, context.getFunctionMapper(), null, null, "${ns:foo_2()}", long.class));	
+
+		context.setVariable("var_foobar", new TreeValueExpression(store, null, context.getVariableMapper(), null, "${base.foobar}", int.class));	
 
 		context.getELResolver().setValue(context, null, "property_foo", "foo");
 	}
@@ -138,6 +147,16 @@ public class TreeValueExpressionTest extends TestCase {
 	public void testSetValue() {
 		new TreeValueExpression(store, null, null, null, "${property_foo}", Object.class).setValue(context, "bar");
 		assertEquals("bar", new TreeValueExpression(store, null, null, null, "${property_foo}", Object.class).getValue(context));
+
+		// Test added for bug #2748538
+		new TreeValueExpression(store, null, context.getVariableMapper(), null, "${var_foobar}", Object.class).setValue(context, 123);
+		assertEquals(123, foobar);
+		try {
+			context.getELResolver().getValue(context, null, "var_foobar");
+			fail("Bug in AstIdentifierNode.setValue(...)");
+		} catch (PropertyNotFoundException e) {
+			// fine 
+		}
 	}
 
 	public void testGetValue() {

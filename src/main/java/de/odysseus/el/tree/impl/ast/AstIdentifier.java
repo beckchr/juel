@@ -79,6 +79,7 @@ public class AstIdentifier extends AstNode implements IdentifierNode {
 		ValueExpression expression = bindings.getVariable(index);
 		if (expression != null) {
 			expression.setValue(context, value);
+			return;
 		}
 		context.setPropertyResolved(false);
 		context.getELResolver().setValue(context, null, name, value);
