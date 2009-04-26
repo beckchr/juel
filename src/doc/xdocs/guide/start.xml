@@ -10,11 +10,11 @@
 		</p>
 		<ol>
 			<li>
-				<code>juel-2.1.x-api.jar</code> - contains the <code>javax.el</code>
+				<code>juel-api-2.1.x.jar</code> - contains the <code>javax.el</code>
 				API classes.
 			</li>
 			<li>
-				<code>juel-2.1.x-impl.jar</code> - contains the <code>de.odysseus.el</code>
+				<code>juel-impl-2.1.x.jar</code> - contains the <code>de.odysseus.el</code>
 				implementation classes.
 			</li>
 			<li>
@@ -23,8 +23,8 @@
 			</li>
 		</ol>
 		<p>
-			That is: <code>juel-2.1.x.jar</code> = <code>juel-2.1.x-api.jar</code> +
-			<code>juel-2.1.x-impl.jar</code>.
+			That is: <code>juel-2.1.x.jar</code> = <code>juel-api-2.1.x.jar</code> +
+			<code>juel-impl-2.1.x.jar</code>.
 		</p>
 		<p>
 			Here's all you need to use the EL in your application (assuming you added

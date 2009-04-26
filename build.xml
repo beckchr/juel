@@ -1,5 +1,5 @@
 <project name="juel" default="jars" basedir=".">
-	<property name="version" value="2.1.2-SNAPSHOT" />
+	<property name="version" value="2.1.2" />
 
 	<property file="build.properties" />
 
@@ -76,7 +76,7 @@
 	</target>
 
 	<target name="jar-api" depends="compile-api" description="create juel api jar (javax.el)">
-		<jar jarfile="${build.dir}/juel-${version}-api.jar">
+		<jar jarfile="${build.dir}/juel-api-${version}.jar">
 			<fileset dir="${build.dir}/classes-api">
 				<include name="javax/el/**" />
 			</fileset>
@@ -93,7 +93,7 @@
 	</target>
 
 	<target name="jar-impl" depends="compile-impl" description="create juel impl jar (de.odysseus.el)">
-		<jar jarfile="${build.dir}/juel-${version}-impl.jar">
+		<jar jarfile="${build.dir}/juel-impl-${version}.jar">
 			<fileset dir="${build.dir}/classes-impl">
 				<include name="de/odysseus/el/**" />
 				<include name="META-INF/services/*" />
@@ -171,7 +171,6 @@
 				<include name="README.txt" />
 				<include name="build.xml" />
 				<include name="pom.xml" />
-				<include name="src/assemble/**" />
 				<include name="src/main/**" />
 				<include name="src/test/**" />
 				<include name="src/samples/**" />
@@ -179,9 +178,9 @@
 			</zipfileset>
 			<zipfileset prefix="juel-${version}" dir="${build.dir}">
 				<include name="juel-${version}.jar" />
-				<include name="juel-${version}-api.jar" />
-				<include name="juel-${version}-impl.jar" />
 				<include name="juel-${version}-sources.jar" />
+				<include name="juel-api-${version}.jar" />
+				<include name="juel-impl-${version}.jar" />
 			</zipfileset>
 			<zipfileset prefix="juel-${version}/doc" dir="${build.dir}/forrester">
 				<include name="**" />

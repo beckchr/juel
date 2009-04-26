@@ -8,8 +8,8 @@ Java Unified Expression Language (JUEL)
   It is available at http://jcp.org/aboutJava/communityprocess/final/jsr245.
 
 - The JUEL distribution contains three jars: juel-2.1.x.jar includes the el api
-  and implementation classes; juel-2.1.x-api.jar includes only the api classes,
-  whereas juel-2.1.x-impl.jar includes only the implementation classes.
+  and implementation classes; juel-api-2.1.x.jar includes only the api classes,
+  whereas juel-impl-2.1.x.jar includes only the implementation classes.
    
 - The main JUEL jar may be run from the command line to dump the parse tree of
   an EL expression:
