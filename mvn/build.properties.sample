@@ -1,0 +1,2 @@
+version = 2.1.2
+dist.dir = /home/shaun/juel-${version}

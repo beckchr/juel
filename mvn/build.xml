@@ -1,0 +1,53 @@
+<project name="mvn" default="bundles" basedir=".">
+	<property file="build.properties" />
+	<property name="version" value="2.1.2" />
+	<property name="build.dir" value="build" />
+	<property name="dist.dir" value="/java/juel-${version}" />
+
+	<target name="prepare">
+		<mkdir dir="${build.dir}" />
+	</target>
+
+	<target name="clean" description="cleanup build directory">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="bundle-api" depends="prepare">
+		<mkdir dir="${build.dir}/juel-api" />
+		<filter token="version" value="${version}" />
+		<copy
+			tofile="${build.dir}/juel-api/juel-api-${version}.jar"
+			file="${dist.dir}/juel-api-${version}.jar"/>
+		<copy
+			tofile="${build.dir}/juel-api/pom.xml"
+			file="juel-api.pom" filtering="true"/>	
+		<jar jarfile="${build.dir}/juel-api-${version}-bundle.jar">
+			<fileset dir="${build.dir}/juel-api">
+				<include name="pom.xml" />
+				<include name="juel-api-${version}.jar" />
+			</fileset>
+		</jar>
+		<delete dir="${build.dir}/juel-api" deleteonexit="true"/>
+	</target>
+
+	<target name="bundle-impl" depends="prepare">
+		<mkdir dir="${build.dir}/juel-impl" />
+		<filter token="version" value="${version}" />
+		<copy
+			tofile="${build.dir}/juel-impl/juel-impl-${version}.jar"
+			file="${dist.dir}/juel-impl-${version}.jar"/>
+		<copy
+			tofile="${build.dir}/juel-impl/pom.xml"
+			file="juel-impl.pom" filtering="true"/>	
+		<jar jarfile="${build.dir}/juel-impl-${version}-bundle.jar" >
+			<fileset dir="${build.dir}/juel-impl">
+				<include name="pom.xml" />
+				<include name="juel-impl-${version}.jar" />
+			</fileset>
+		</jar>
+		<delete dir="${build.dir}/juel-impl" deleteonexit="true"/>
+	</target>
+
+	<target name="bundles" depends="bundle-api,bundle-impl" description="create bundles" />
+
+</project>
