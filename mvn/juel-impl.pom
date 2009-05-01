@@ -32,7 +32,6 @@
 			<groupId>de.odysseus.juel</groupId>
 			<artifactId>juel-api</artifactId>
 			<version>@version@</version>
-			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
