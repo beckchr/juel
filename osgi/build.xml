@@ -1,0 +1,43 @@
+<project name="mvn" default="bundles" basedir=".">
+	<property file="build.properties" />
+	<property name="version" value="2.1.2" />
+	<property name="build.dir" value="build" />
+	<property name="dist.dir" value="/java/juel-${version}" />
+	<property name="bnd.jar" value="bnd-0.0.313.jar"/>
+
+	<property name="bundle-version" value="1.0.0" />
+	<property name="bundle-qualifier" value="juel212" />
+
+	<taskdef resource="aQute/bnd/ant/taskdef.properties" classpath="${bnd.jar}" /> 
+
+	<target name="prepare">
+		<mkdir dir="${build.dir}" />
+		<filter token="VERSION" value="${bundle-version}" />
+		<filter token="QUALIFIER" value="${bundle-qualifier}" />
+	</target>
+
+	<target name="clean" description="cleanup build directory">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="bundle-api" depends="prepare">
+		<copy file="juel-api.bnd" tofile="${build.dir}/juel-api-${version}.bnd" filtering="true"/>
+		<bndwrap definitions="${build.dir}"
+			output="${build.dir}/de.odysseus.javax.el_${bundle-version}.${bundle-qualifier}.jar">
+			<fileset dir="${dist.dir}" includes="juel-api-${version}.jar" />
+		</bndwrap>
+		<delete file="${build.dir}/juel-api-${version}.bnd" deleteonexit="true"/>
+	</target>
+
+	<target name="bundle-impl" depends="prepare">
+		<copy file="juel-impl.bnd" tofile="${build.dir}/juel-impl-${version}.bnd" filtering="true"/>
+		<bndwrap definitions="${build.dir}"
+			output="${build.dir}/de.odysseus.el_${bundle-version}.${bundle-qualifier}.jar">
+			<fileset dir="${dist.dir}" includes="juel-impl-${version}.jar" />
+		</bndwrap>
+		<delete file="${build.dir}/juel-impl-${version}.bnd" deleteonexit="true"/>
+	</target>
+
+	<target name="bundles" depends="bundle-api,bundle-impl" description="create OSGi bundles" />
+
+</project>
