@@ -1,3 +1,14 @@
+Index: build.xml
+===================================================================
+--- build.xml	(revision 67)
++++ build.xml	(working copy)
+@@ -1,5 +1,5 @@
+ <project name="juel" default="jars" basedir=".">
+-	<property name="version" value="2.1.2" />
++	<property name="version" value="2.1.3-SNAPSHOT" />
+ 
+ 	<property file="build.properties" />
+ 
 Index: src/main/java/de/odysseus/el/ExpressionFactoryImpl.java
 ===================================================================
 --- src/main/java/de/odysseus/el/ExpressionFactoryImpl.java	(revision 63)
@@ -525,22 +536,15 @@ Index: src/main/java/javax/el/BeanELResolver.java
  import java.lang.reflect.InvocationTargetException;
  import java.lang.reflect.Method;
  import java.lang.reflect.Modifier;
-@@ -125,6 +126,7 @@
- 
- 	private final boolean readOnly;
- 	private final ConcurrentHashMap<Class<?>, BeanProperties> cache;
-+	private final ExpressionFactory factory;
- 
- 	/**
- 	 * Creates a new read/write BeanELResolver.
-@@ -139,6 +141,7 @@
- 	public BeanELResolver(boolean readOnly) {
- 		this.readOnly = readOnly;
- 		this.cache = new ConcurrentHashMap<Class<?>, BeanProperties>();
-+		this.factory = ExpressionFactory.newInstance();
+@@ -123,6 +124,8 @@
+ 		}
  	}
  
- 	/**
++	private static final ExpressionFactory DEFAULT_FACTORY = ExpressionFactory.newInstance();
++
+ 	private final boolean readOnly;
+ 	private final ConcurrentHashMap<Class<?>, BeanProperties> cache;
+ 
 @@ -186,13 +189,15 @@
  			try {
  				properties = Introspector.getBeanInfo(base.getClass()).getPropertyDescriptors();
@@ -567,7 +571,7 @@ Index: src/main/java/javax/el/BeanELResolver.java
  				public void remove() {
  					throw new UnsupportedOperationException("cannot remove");
  				}
-@@ -397,6 +403,169 @@
+@@ -397,6 +403,179 @@
  	}
  
  	/**
@@ -639,7 +643,7 @@ Index: src/main/java/javax/el/BeanELResolver.java
 +			String name = method.toString();
 +			Method target = findMethod(base, name, paramTypes, params.length);
 +			try {
-+				result = target.invoke(base, coerceParams(context, target, params));
++				result = target.invoke(base, coerceParams(getExpressionFactory(context), target, params));
 +			} catch (InvocationTargetException e) {
 +				throw new ELException(e.getCause());
 +			} catch (IllegalAccessException e) {
@@ -659,75 +663,85 @@ Index: src/main/java/javax/el/BeanELResolver.java
 +				throw new MethodNotFoundException(e);
 +			}
 +		}
-+		Method[] methods = base.getClass().getMethods();
-+		for (Method method : methods) {
++		Method varArgsMethod = null;
++		for (Method method : base.getClass().getMethods()) {
 +			if (method.getName().equals(name)) {
 +				if (paramCount == method.getParameterTypes().length) {
 +					return method;
++				} else if (method.isVarArgs() && paramCount >= method.getParameterTypes().length - 1) {
++					varArgsMethod = method;
 +				}
 +			}
 +		}
-+		for (Method method : methods) {
-+			if (method.isVarArgs()) {
-+				if (paramCount >= method.getParameterTypes().length - 1) {
-+					return method;
-+				}
-+			}
++		if (varArgsMethod != null) {
++			return varArgsMethod;
 +		}
 +		throw new MethodNotFoundException("Cannot find matching method " + name + " on class " + base);
 +	}
 +
-+	private Object[] coerceParams(ELContext context, Method method, Object[] params) {
++	/**
++	 * Lookup an expression factory used to coerce method parameters in context under key
++	 * <code>"javax.el.ExpressionFactory"</code>.
++	 * If no expression factory can be found under that key, use a default instance created with
++	 * {@link ExpressionFactory#newInstance()}.
++	 * @param context
++	 *            The context of this evaluation.
++	 * @return expression factory instance
++	 */
++	private ExpressionFactory getExpressionFactory(ELContext context) {
++		Object obj = context.getContext(ExpressionFactory.class);
++		return obj instanceof ExpressionFactory ? (ExpressionFactory)obj : DEFAULT_FACTORY;
++	}
++	
++	private Object[] coerceParams(ExpressionFactory factory, Method method, Object[] params) {
 +		Class<?>[] types = method.getParameterTypes();
 +		Object[] args = new Object[types.length];
 +		if (method.isVarArgs()) {
 +			int varargIndex = types.length - 1;
 +			if (params.length < varargIndex) {
-+				throw new ELException("bad argument count");
++				throw new ELException("Bad argument count");
 +			}
 +			for (int i = 0; i < varargIndex; i++) {
-+				coerceValue(args[i], i, params[i], types[i]);
++				coerceValue(args[i], i, factory, params[i], types[i]);
 +			}
 +			Class<?> varargType = types[varargIndex].getComponentType();
 +			int length = params.length - varargIndex;
 +			Object array = null;
 +			if (length == 1) {
 +				Object source = params[varargIndex];
-+				if (source == null) { // create empty array
-+					array = Array.newInstance(varargType, 0);
-+				} else if (source.getClass().isArray()) {
++				if (source != null && source.getClass().isArray()) {
 +					if (types[varargIndex].isInstance(source)) { // use source array as is
 +						array = source;
 +					} else { // coerce array elements
 +						length = Array.getLength(source);
 +						array = Array.newInstance(varargType, length);
 +						for (int i = 0; i < length; i++) {
-+							coerceValue(array, i, Array.get(source, i), varargType);
++							coerceValue(array, i, factory, Array.get(source, i), varargType);
 +						}
 +					}
 +				} else { // single element array
 +					array = Array.newInstance(varargType, 1);
-+					coerceValue(array, 0, source, varargType);
++					coerceValue(array, 0, factory, source, varargType);
 +				}
 +			} else {
 +				array = Array.newInstance(varargType, length);
 +				for (int i = 0; i < length; i++) {
-+					coerceValue(array, i, params[varargIndex + i], varargType);
++					coerceValue(array, i, factory, params[varargIndex + i], varargType);
 +				}
 +			}
 +			args[varargIndex] = array;
 +		} else {
 +			if (params.length != args.length) {
-+				throw new ELException("bad argument count");
++				throw new ELException("Bad argument count");
 +			}
 +			for (int i = 0; i < args.length; i++) {
-+				coerceValue(args, i, params[i], types[i]);
++				coerceValue(args, i, factory, params[i], types[i]);
 +			}
 +		}
 +		return args;
 +	}
 +
-+	private void coerceValue(Object array, int index, Object value, Class<?> type) {
++	private void coerceValue(Object array, int index, ExpressionFactory factory, Object value, Class<?> type) {
 +		if (value != null || type.isPrimitive()) {
 +			Array.set(array, index, factory.coerceToType(value, type));
 +		}
