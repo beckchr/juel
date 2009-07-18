@@ -1,18 +1,7 @@
-Index: build.xml
+Index: main/java/de/odysseus/el/ExpressionFactoryImpl.java
 ===================================================================
---- build.xml	(revision 67)
-+++ build.xml	(working copy)
-@@ -1,5 +1,5 @@
- <project name="juel" default="jars" basedir=".">
--	<property name="version" value="2.1.2" />
-+	<property name="version" value="2.1.3-SNAPSHOT" />
- 
- 	<property file="build.properties" />
- 
-Index: src/main/java/de/odysseus/el/ExpressionFactoryImpl.java
-===================================================================
---- src/main/java/de/odysseus/el/ExpressionFactoryImpl.java	(revision 63)
-+++ src/main/java/de/odysseus/el/ExpressionFactoryImpl.java	(working copy)
+--- main/java/de/odysseus/el/ExpressionFactoryImpl.java	(revision 63)
++++ main/java/de/odysseus/el/ExpressionFactoryImpl.java	(working copy)
 @@ -182,19 +182,22 @@
  	 * The maximum cache size will be as specified unless overridden by property
  	 * <code>javax.el.cacheSize</code>.
@@ -41,10 +30,10 @@ Index: src/main/java/de/odysseus/el/ExpressionFactoryImpl.java
  		}
  		
  		TreeBuilder builder = createTreeBuilder(properties, features.toArray(new Builder.Feature[0]));
-Index: src/main/java/de/odysseus/el/TreeValueExpression.java
+Index: main/java/de/odysseus/el/TreeValueExpression.java
 ===================================================================
---- src/main/java/de/odysseus/el/TreeValueExpression.java	(revision 63)
-+++ src/main/java/de/odysseus/el/TreeValueExpression.java	(working copy)
+--- main/java/de/odysseus/el/TreeValueExpression.java	(revision 63)
++++ main/java/de/odysseus/el/TreeValueExpression.java	(working copy)
 @@ -22,6 +22,7 @@
  import javax.el.ELContext;
  import javax.el.ELException;
@@ -74,10 +63,10 @@ Index: src/main/java/de/odysseus/el/TreeValueExpression.java
  	/**
  	 * Expressions are compared using the concept of a <em>structural id</em>:
     * variable and function names are anonymized such that two expressions with
-Index: src/main/java/de/odysseus/el/tree/ExpressionNode.java
+Index: main/java/de/odysseus/el/tree/ExpressionNode.java
 ===================================================================
---- src/main/java/de/odysseus/el/tree/ExpressionNode.java	(revision 63)
-+++ src/main/java/de/odysseus/el/tree/ExpressionNode.java	(working copy)
+--- main/java/de/odysseus/el/tree/ExpressionNode.java	(revision 63)
++++ main/java/de/odysseus/el/tree/ExpressionNode.java	(working copy)
 @@ -17,6 +17,7 @@
  
  import javax.el.ELContext;
@@ -101,10 +90,10 @@ Index: src/main/java/de/odysseus/el/tree/ExpressionNode.java
  	 * Get the value type accepted in {@link #setValue(Bindings, ELContext, Object)}.
  	 * @param bindings bindings containing variables and functions
  	 * @param context evaluation context
-Index: src/main/java/de/odysseus/el/tree/impl/Builder.java
+Index: main/java/de/odysseus/el/tree/impl/Builder.java
 ===================================================================
---- src/main/java/de/odysseus/el/tree/impl/Builder.java	(revision 63)
-+++ src/main/java/de/odysseus/el/tree/impl/Builder.java	(working copy)
+--- main/java/de/odysseus/el/tree/impl/Builder.java	(revision 63)
++++ main/java/de/odysseus/el/tree/impl/Builder.java	(working copy)
 @@ -19,6 +19,7 @@
  import java.util.EnumSet;
  
@@ -143,10 +132,10 @@ Index: src/main/java/de/odysseus/el/tree/impl/Builder.java
  		} catch (TreeBuilderException e) {
  			System.out.println(e.getMessage());
  			System.exit(0);
-Index: src/main/java/de/odysseus/el/tree/impl/Parser.java
+Index: main/java/de/odysseus/el/tree/impl/Parser.java
 ===================================================================
---- src/main/java/de/odysseus/el/tree/impl/Parser.java	(revision 63)
-+++ src/main/java/de/odysseus/el/tree/impl/Parser.java	(working copy)
+--- main/java/de/odysseus/el/tree/impl/Parser.java	(revision 63)
++++ main/java/de/odysseus/el/tree/impl/Parser.java	(working copy)
 @@ -181,6 +181,10 @@
  		return new AstBracket(base, property, lvalue, strict);
  	}
@@ -199,10 +188,10 @@ Index: src/main/java/de/odysseus/el/tree/impl/Parser.java
  					} else {
  						v = createAstBracket(v, property, lvalue, strict);
  					}
-Index: src/main/java/de/odysseus/el/tree/impl/ast/AstBracket.java
+Index: main/java/de/odysseus/el/tree/impl/ast/AstBracket.java
 ===================================================================
---- src/main/java/de/odysseus/el/tree/impl/ast/AstBracket.java	(revision 63)
-+++ src/main/java/de/odysseus/el/tree/impl/ast/AstBracket.java	(working copy)
+--- main/java/de/odysseus/el/tree/impl/ast/AstBracket.java	(revision 63)
++++ main/java/de/odysseus/el/tree/impl/ast/AstBracket.java	(working copy)
 @@ -28,6 +28,11 @@
  		this.property = property;
  	}
@@ -230,10 +219,10 @@ Index: src/main/java/de/odysseus/el/tree/impl/ast/AstBracket.java
  	}
  
  	@Override
-Index: src/main/java/de/odysseus/el/tree/impl/ast/AstDot.java
+Index: main/java/de/odysseus/el/tree/impl/ast/AstDot.java
 ===================================================================
---- src/main/java/de/odysseus/el/tree/impl/ast/AstDot.java	(revision 63)
-+++ src/main/java/de/odysseus/el/tree/impl/ast/AstDot.java	(working copy)
+--- main/java/de/odysseus/el/tree/impl/ast/AstDot.java	(revision 63)
++++ main/java/de/odysseus/el/tree/impl/ast/AstDot.java	(working copy)
 @@ -28,6 +28,11 @@
  		this.property = property;
  	}
@@ -260,10 +249,10 @@ Index: src/main/java/de/odysseus/el/tree/impl/ast/AstDot.java
 +		return params == null ? 1 : 2;
  	}
  }
-Index: src/main/java/de/odysseus/el/tree/impl/ast/AstEval.java
+Index: main/java/de/odysseus/el/tree/impl/ast/AstEval.java
 ===================================================================
---- src/main/java/de/odysseus/el/tree/impl/ast/AstEval.java	(revision 63)
-+++ src/main/java/de/odysseus/el/tree/impl/ast/AstEval.java	(working copy)
+--- main/java/de/odysseus/el/tree/impl/ast/AstEval.java	(revision 63)
++++ main/java/de/odysseus/el/tree/impl/ast/AstEval.java	(working copy)
 @@ -17,6 +17,7 @@
  
  import javax.el.ELContext;
@@ -283,10 +272,10 @@ Index: src/main/java/de/odysseus/el/tree/impl/ast/AstEval.java
  	@Override
  	public Object eval(Bindings bindings, ELContext context) {
  		return child.eval(bindings, context);
-Index: src/main/java/de/odysseus/el/tree/impl/ast/AstIdentifier.java
+Index: main/java/de/odysseus/el/tree/impl/ast/AstIdentifier.java
 ===================================================================
---- src/main/java/de/odysseus/el/tree/impl/ast/AstIdentifier.java	(revision 66)
-+++ src/main/java/de/odysseus/el/tree/impl/ast/AstIdentifier.java	(working copy)
+--- main/java/de/odysseus/el/tree/impl/ast/AstIdentifier.java	(revision 66)
++++ main/java/de/odysseus/el/tree/impl/ast/AstIdentifier.java	(working copy)
 @@ -25,6 +25,7 @@
  import javax.el.MethodNotFoundException;
  import javax.el.PropertyNotFoundException;
@@ -310,10 +299,10 @@ Index: src/main/java/de/odysseus/el/tree/impl/ast/AstIdentifier.java
  	@Override 
  	public Object eval(Bindings bindings, ELContext context) {
  		ValueExpression expression = bindings.getVariable(index);
-Index: src/main/java/de/odysseus/el/tree/impl/ast/AstParameters.java
+Index: main/java/de/odysseus/el/tree/impl/ast/AstParameters.java
 ===================================================================
---- src/main/java/de/odysseus/el/tree/impl/ast/AstParameters.java	(revision 0)
-+++ src/main/java/de/odysseus/el/tree/impl/ast/AstParameters.java	(revision 0)
+--- main/java/de/odysseus/el/tree/impl/ast/AstParameters.java	(revision 0)
++++ main/java/de/odysseus/el/tree/impl/ast/AstParameters.java	(revision 0)
 @@ -0,0 +1,64 @@
 +/*
 + * Copyright 2006, 2007 Odysseus Software GmbH
@@ -379,10 +368,10 @@ Index: src/main/java/de/odysseus/el/tree/impl/ast/AstParameters.java
 +		return nodes.get(i);
 +	}
 +}
-Index: src/main/java/de/odysseus/el/tree/impl/ast/AstProperty.java
+Index: main/java/de/odysseus/el/tree/impl/ast/AstProperty.java
 ===================================================================
---- src/main/java/de/odysseus/el/tree/impl/ast/AstProperty.java	(revision 63)
-+++ src/main/java/de/odysseus/el/tree/impl/ast/AstProperty.java	(working copy)
+--- main/java/de/odysseus/el/tree/impl/ast/AstProperty.java	(revision 63)
++++ main/java/de/odysseus/el/tree/impl/ast/AstProperty.java	(working copy)
 @@ -23,6 +23,7 @@
  import javax.el.MethodInfo;
  import javax.el.MethodNotFoundException;
@@ -462,10 +451,10 @@ Index: src/main/java/de/odysseus/el/tree/impl/ast/AstProperty.java
 +		return i == 0 ? prefix : params != null && i == getCardinality() - 1 ? params : null;
  	}
  }
-Index: src/main/java/de/odysseus/el/tree/impl/ast/AstRightValue.java
+Index: main/java/de/odysseus/el/tree/impl/ast/AstRightValue.java
 ===================================================================
---- src/main/java/de/odysseus/el/tree/impl/ast/AstRightValue.java	(revision 63)
-+++ src/main/java/de/odysseus/el/tree/impl/ast/AstRightValue.java	(working copy)
+--- main/java/de/odysseus/el/tree/impl/ast/AstRightValue.java	(revision 63)
++++ main/java/de/odysseus/el/tree/impl/ast/AstRightValue.java	(working copy)
 @@ -18,6 +18,7 @@
  import javax.el.ELContext;
  import javax.el.ELException;
@@ -483,10 +472,10 @@ Index: src/main/java/de/odysseus/el/tree/impl/ast/AstRightValue.java
 +		return null;
 +	}
  }
-Index: src/main/java/de/odysseus/el/tree/impl/ast/AstText.java
+Index: main/java/de/odysseus/el/tree/impl/ast/AstText.java
 ===================================================================
---- src/main/java/de/odysseus/el/tree/impl/ast/AstText.java	(revision 63)
-+++ src/main/java/de/odysseus/el/tree/impl/ast/AstText.java	(working copy)
+--- main/java/de/odysseus/el/tree/impl/ast/AstText.java	(revision 63)
++++ main/java/de/odysseus/el/tree/impl/ast/AstText.java	(working copy)
 @@ -18,6 +18,7 @@
  import javax.el.ELContext;
  import javax.el.ELException;
@@ -506,10 +495,10 @@ Index: src/main/java/de/odysseus/el/tree/impl/ast/AstText.java
  	@Override 
  	public Object eval(Bindings bindings, ELContext context) {
  		return value;
-Index: src/main/java/de/odysseus/el/util/SimpleResolver.java
+Index: main/java/de/odysseus/el/util/SimpleResolver.java
 ===================================================================
---- src/main/java/de/odysseus/el/util/SimpleResolver.java	(revision 63)
-+++ src/main/java/de/odysseus/el/util/SimpleResolver.java	(working copy)
+--- main/java/de/odysseus/el/util/SimpleResolver.java	(revision 63)
++++ main/java/de/odysseus/el/util/SimpleResolver.java	(working copy)
 @@ -144,5 +144,12 @@
  		} else {
  			delegate.setValue(context, base, property, value);
@@ -524,20 +513,107 @@ Index: src/main/java/de/odysseus/el/util/SimpleResolver.java
 +		return delegate.invoke(context, base, method, paramTypes, params);
 +	}
  }
-Index: src/main/java/javax/el/BeanELResolver.java
+Index: main/java/javax/el/BeanELResolver.java
 ===================================================================
---- src/main/java/javax/el/BeanELResolver.java	(revision 63)
-+++ src/main/java/javax/el/BeanELResolver.java	(working copy)
-@@ -19,6 +19,7 @@
+--- main/java/javax/el/BeanELResolver.java	(revision 80)
++++ main/java/javax/el/BeanELResolver.java	(working copy)
+@@ -19,9 +19,9 @@
  import java.beans.IntrospectionException;
  import java.beans.Introspector;
  import java.beans.PropertyDescriptor;
 +import java.lang.reflect.Array;
  import java.lang.reflect.InvocationTargetException;
  import java.lang.reflect.Method;
- import java.lang.reflect.Modifier;
-@@ -123,6 +124,8 @@
+-import java.lang.reflect.Modifier;
+ import java.util.Collections;
+ import java.util.HashMap;
+ import java.util.Iterator;
+@@ -56,7 +56,7 @@
+ 				throw new ELException(e);
+ 			}
+ 			for (PropertyDescriptor descriptor : descriptors) {
+-				map.put(descriptor.getName(), new BeanProperty(baseClass, descriptor));
++				map.put(descriptor.getName(), new BeanProperty(descriptor));
+ 			}
  		}
+ 
+@@ -66,11 +66,9 @@
+ 	}
+ 
+ 	protected static final class BeanProperty {
+-		private final Class<?> baseClass;
+ 		private final PropertyDescriptor descriptor;
+ 
+-		public BeanProperty(Class<?> baseClass, PropertyDescriptor descriptor) {
+-			this.baseClass = baseClass;
++		public BeanProperty(PropertyDescriptor descriptor) {
+ 			this.descriptor = descriptor;
+ 		}
+ 
+@@ -79,50 +77,57 @@
+ 		}
+ 
+ 		public Method getReadMethod() {
+-			return findAccessibleMethod(baseClass, descriptor.getReadMethod());
++			return findAccessibleMethod(descriptor.getReadMethod());
+ 		}
+ 
+ 		public Method getWriteMethod() {
+-			return findAccessibleMethod(baseClass, descriptor.getWriteMethod());
++			return findAccessibleMethod(descriptor.getWriteMethod());
+ 		}
+ 
+ 		public boolean isReadOnly() {
+-			return findAccessibleMethod(baseClass, descriptor.getWriteMethod()) == null;
++			return findAccessibleMethod(descriptor.getWriteMethod()) == null;
+ 		}
++	}
+ 
+-		private Method findAccessibleMethod(Class<?> clazz, Method method) {
+-			if (method == null || Modifier.isPublic(clazz.getModifiers())) {
+-				return method;
+-			}
+-			for (Class<?> cls : clazz.getInterfaces()) {
++	private static Method findAccessibleMethod(Method method) {
++		if (method == null || method.isAccessible()) {
++			return method;
++		}
++		try {
++			method.setAccessible(true);
++		} catch (SecurityException e) {
++			for (Class<?> cls : method.getDeclaringClass().getInterfaces()) {
+ 				Method mth = null;
+ 				try {
+ 					mth = cls.getMethod(method.getName(), method.getParameterTypes());
+-					mth = findAccessibleMethod(mth.getDeclaringClass(), mth);
++					mth = findAccessibleMethod(mth);
+ 					if (mth != null) {
+ 						return mth;
+ 					}
+-				} catch (NoSuchMethodException e) {
++				} catch (NoSuchMethodException ignore) {
+ 					// do nothing
+ 				}
+ 			}
+-			Class<?> cls = clazz.getSuperclass();
++			Class<?> cls = method.getDeclaringClass().getSuperclass();
+ 			if (cls != null) {
+ 				Method mth = null;
+ 				try {
+ 					mth = cls.getMethod(method.getName(), method.getParameterTypes());
+-					mth = findAccessibleMethod(mth.getDeclaringClass(), mth);
++					mth = findAccessibleMethod(mth);
+ 					if (mth != null) {
+ 						return mth;
+ 					}
+-				} catch (NoSuchMethodException e) {
++				} catch (NoSuchMethodException ignore) {
+ 					// do nothing
+ 				}
+ 			}
+ 			return null;
+ 		}
++		return method;
  	}
  
 +	private static final ExpressionFactory DEFAULT_FACTORY = ExpressionFactory.newInstance();
@@ -545,7 +621,7 @@ Index: src/main/java/javax/el/BeanELResolver.java
  	private final boolean readOnly;
  	private final ConcurrentHashMap<Class<?>, BeanProperties> cache;
  
-@@ -186,13 +189,15 @@
+@@ -186,13 +191,15 @@
  			try {
  				properties = Introspector.getBeanInfo(base.getClass()).getPropertyDescriptors();
  			} catch (IntrospectionException e) {
@@ -563,7 +639,7 @@ Index: src/main/java/javax/el/BeanELResolver.java
  				public FeatureDescriptor next() {
  					PropertyDescriptor property = properties[next++];
  					FeatureDescriptor feature = new FeatureDescriptor();
-@@ -206,6 +211,7 @@
+@@ -206,6 +213,7 @@
  					feature.setValue(RESOLVABLE_AT_DESIGN_TIME, true);
  					return feature;
  				}
@@ -571,7 +647,7 @@ Index: src/main/java/javax/el/BeanELResolver.java
  				public void remove() {
  					throw new UnsupportedOperationException("cannot remove");
  				}
-@@ -397,6 +403,179 @@
+@@ -397,6 +405,179 @@
  	}
  
  	/**
@@ -642,6 +718,9 @@ Index: src/main/java/javax/el/BeanELResolver.java
 +			}
 +			String name = method.toString();
 +			Method target = findMethod(base, name, paramTypes, params.length);
++			if (target == null) {
++				throw new MethodNotFoundException("Cannot find matching method " + name + " on class " + base);
++			}
 +			try {
 +				result = target.invoke(base, coerceParams(getExpressionFactory(context), target, params));
 +			} catch (InvocationTargetException e) {
@@ -654,11 +733,10 @@ Index: src/main/java/javax/el/BeanELResolver.java
 +		return result;
 +	};
 +
-+	private Method findMethod(Object base, String name, Class<?>[] types, int paramCount)
-+			throws MethodNotFoundException {
++	private Method findMethod(Object base, String name, Class<?>[] types, int paramCount) {
 +		if (types != null) {
 +			try {
-+				return base.getClass().getMethod(name, types);
++				return findAccessibleMethod(base.getClass().getMethod(name, types));
 +			} catch (NoSuchMethodException e) {
 +				throw new MethodNotFoundException(e);
 +			}
@@ -666,17 +744,15 @@ Index: src/main/java/javax/el/BeanELResolver.java
 +		Method varArgsMethod = null;
 +		for (Method method : base.getClass().getMethods()) {
 +			if (method.getName().equals(name)) {
-+				if (paramCount == method.getParameterTypes().length) {
-+					return method;
-+				} else if (method.isVarArgs() && paramCount >= method.getParameterTypes().length - 1) {
++				int formalParamCount = method.getParameterTypes().length;
++				if (method.isVarArgs() && paramCount >= formalParamCount - 1) {
 +					varArgsMethod = method;
++				} else if (paramCount == formalParamCount) {
++					return findAccessibleMethod(method);
 +				}
 +			}
 +		}
-+		if (varArgsMethod != null) {
-+			return varArgsMethod;
-+		}
-+		throw new MethodNotFoundException("Cannot find matching method " + name + " on class " + base);
++		return varArgsMethod == null ? null : findAccessibleMethod(varArgsMethod);
 +	}
 +
 +	/**
@@ -702,7 +778,7 @@ Index: src/main/java/javax/el/BeanELResolver.java
 +				throw new ELException("Bad argument count");
 +			}
 +			for (int i = 0; i < varargIndex; i++) {
-+				coerceValue(args[i], i, factory, params[i], types[i]);
++				coerceValue(args, i, factory, params[i], types[i]);
 +			}
 +			Class<?> varargType = types[varargIndex].getComponentType();
 +			int length = params.length - varargIndex;
@@ -751,10 +827,10 @@ Index: src/main/java/javax/el/BeanELResolver.java
  	 * Test whether the given base should be resolved by this ELResolver.
  	 * 
  	 * @param base
-Index: src/main/java/javax/el/CompositeELResolver.java
+Index: main/java/javax/el/CompositeELResolver.java
 ===================================================================
---- src/main/java/javax/el/CompositeELResolver.java	(revision 63)
-+++ src/main/java/javax/el/CompositeELResolver.java	(working copy)
+--- main/java/javax/el/CompositeELResolver.java	(revision 63)
++++ main/java/javax/el/CompositeELResolver.java	(working copy)
 @@ -125,7 +125,7 @@
  				}
  				return features;
@@ -838,10 +914,10 @@ Index: src/main/java/javax/el/CompositeELResolver.java
 +		return null;
 +	}
  }
-Index: src/main/java/javax/el/ELResolver.java
+Index: main/java/javax/el/ELResolver.java
 ===================================================================
---- src/main/java/javax/el/ELResolver.java	(revision 63)
-+++ src/main/java/javax/el/ELResolver.java	(working copy)
+--- main/java/javax/el/ELResolver.java	(revision 63)
++++ main/java/javax/el/ELResolver.java	(working copy)
 @@ -246,4 +246,48 @@
  	 *             available.
  	 */
@@ -891,10 +967,10 @@ Index: src/main/java/javax/el/ELResolver.java
 +		return null;
 +	}
  }
-Index: src/main/java/javax/el/ValueExpression.java
+Index: main/java/javax/el/ValueExpression.java
 ===================================================================
---- src/main/java/javax/el/ValueExpression.java	(revision 63)
-+++ src/main/java/javax/el/ValueExpression.java	(working copy)
+--- main/java/javax/el/ValueExpression.java	(revision 63)
++++ main/java/javax/el/ValueExpression.java	(working copy)
 @@ -30,14 +30,16 @@
   * {@link #setValue(ELContext, Object)}, {@link #isReadOnly(ELContext)} and
   * {@link #getType(ELContext)} methods will evaluate the expression each time they are called. The
@@ -942,10 +1018,10 @@ Index: src/main/java/javax/el/ValueExpression.java
 +		return null;
 +	}
  }
-Index: src/main/java/javax/el/ValueReference.java
+Index: main/java/javax/el/ValueReference.java
 ===================================================================
---- src/main/java/javax/el/ValueReference.java	(revision 0)
-+++ src/main/java/javax/el/ValueReference.java	(revision 0)
+--- main/java/javax/el/ValueReference.java	(revision 0)
++++ main/java/javax/el/ValueReference.java	(revision 0)
 @@ -0,0 +1,28 @@
 +package javax.el;
 +
@@ -976,10 +1052,10 @@ Index: src/main/java/javax/el/ValueReference.java
 +	}
 +}
 \ No newline at end of file
-Index: src/test/java/de/odysseus/el/TestCase.java
+Index: test/java/de/odysseus/el/TestCase.java
 ===================================================================
---- src/test/java/de/odysseus/el/TestCase.java	(revision 63)
-+++ src/test/java/de/odysseus/el/TestCase.java	(working copy)
+--- test/java/de/odysseus/el/TestCase.java	(revision 63)
++++ test/java/de/odysseus/el/TestCase.java	(working copy)
 @@ -26,7 +26,7 @@
  import de.odysseus.el.tree.impl.Builder;
  
@@ -989,10 +1065,10 @@ Index: src/test/java/de/odysseus/el/TestCase.java
  
  	protected static final Tree parse(String expression) {
  		return BUILDER.build(expression);
-Index: src/test/java/de/odysseus/el/tree/impl/ast/AstBracketTest.java
+Index: test/java/de/odysseus/el/tree/impl/ast/AstBracketTest.java
 ===================================================================
---- src/test/java/de/odysseus/el/tree/impl/ast/AstBracketTest.java	(revision 63)
-+++ src/test/java/de/odysseus/el/tree/impl/ast/AstBracketTest.java	(working copy)
+--- test/java/de/odysseus/el/tree/impl/ast/AstBracketTest.java	(revision 63)
++++ test/java/de/odysseus/el/tree/impl/ast/AstBracketTest.java	(working copy)
 @@ -85,6 +85,7 @@
  	public void testIsLeftValue() {
  		assertFalse(parseNode("${'foo'[bar]}").isLeftValue());
@@ -1050,10 +1126,10 @@ Index: src/test/java/de/odysseus/el/tree/impl/ast/AstBracketTest.java
 +		assertNull(parseNode("${base['bar']()}").getMethodInfo(bindings, context, null, new Class[]{long.class}));
  	}
  }
-Index: src/test/java/de/odysseus/el/tree/impl/ast/AstDotTest.java
+Index: test/java/de/odysseus/el/tree/impl/ast/AstDotTest.java
 ===================================================================
---- src/test/java/de/odysseus/el/tree/impl/ast/AstDotTest.java	(revision 63)
-+++ src/test/java/de/odysseus/el/tree/impl/ast/AstDotTest.java	(working copy)
+--- test/java/de/odysseus/el/tree/impl/ast/AstDotTest.java	(revision 63)
++++ test/java/de/odysseus/el/tree/impl/ast/AstDotTest.java	(working copy)
 @@ -79,33 +79,43 @@
  	public void testIsLeftValue() {
  		assertFalse(parseNode("${'foo'.bar}").isLeftValue());
@@ -1105,4 +1181,65 @@ Index: src/test/java/de/odysseus/el/tree/impl/ast/AstDotTest.java
 +		
 +		assertNull(parseNode("${base.bar()}").getMethodInfo(bindings, context, null, new Class[]{long.class}));
  	}
+ }
+Index: test/java/javax/el/BeanELResolverTest.java
+===================================================================
+--- test/java/javax/el/BeanELResolverTest.java	(revision 63)
++++ test/java/javax/el/BeanELResolverTest.java	(working copy)
+@@ -16,7 +16,7 @@
+ 		public int getReadOnly() {
+ 			return readOnly;
+ 		}
+-		void setReadOnly(int readOnly) {
++		protected void setReadOnly(int readOnly) {
+ 			this.readOnly = readOnly;
+ 		}
+ 		public int getReadWrite() {
+@@ -31,6 +31,19 @@
+ 		public void setWriteOnly(int writeOnly) {
+ 			this.writeOnly = writeOnly;
+ 		}
++		public int add(int n, int... rest) {
++			for (int x : rest) {
++				n += x;
++			}
++			return n;
++		}
++		public String cat(String... strings) {
++			StringBuilder b = new StringBuilder();
++			for (String s : strings) {
++				b.append(s);
++			}
++			return b.toString();
++		}
+ 	}
+ 
+ 	ELContext context = new SimpleContext();
+@@ -216,4 +229,27 @@
+ 			// fine
+ 		}
+ 	}
++
++	public void testInvoke() {
++		BeanELResolver resolver = new BeanELResolver();
++		
++		assertEquals(1, resolver.invoke(context, new TestBean(), "add", null, new Integer[]{1}));
++		assertEquals(6, resolver.invoke(context, new TestBean(), "add", null, new Integer[]{1, 2, 3}));
++		assertEquals(6, resolver.invoke(context, new TestBean(), "add", null, new String[]{"1", "2", "3"}));
++		assertEquals(6, resolver.invoke(context, new TestBean(), "add", null, new Object[]{1, new int[]{2, 3}}));
++		assertEquals(6, resolver.invoke(context, new TestBean(), "add", null, new Object[]{1, new Double[]{2.0, 3.0}}));
++
++		assertEquals("", resolver.invoke(context, new TestBean(), "cat", null, new Object[0]));
++		assertEquals("", resolver.invoke(context, new TestBean(), "cat", null, null));
++		assertEquals("123", resolver.invoke(context, new TestBean(), "cat", null, new Object[]{123}));
++		assertEquals("123", resolver.invoke(context, new TestBean(), "cat", null, new Integer[]{1, 2, 3}));
++		assertEquals("123", resolver.invoke(context, new TestBean(), "cat", null, new Object[]{new String[]{"1", "2", "3"}}));
++	
++		TestBean bean = new TestBean();
++		bean.setReadWrite(1);
++		assertNull(resolver.invoke(context, bean, "setReadWrite", null, new Object[]{null}));
++		assertEquals(0, bean.getReadWrite());
++		assertNull(resolver.invoke(context, bean, "setReadWrite", null, new Object[]{5}));
++		assertEquals(5, bean.getReadWrite());
++	}
  }
