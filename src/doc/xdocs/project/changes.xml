@@ -11,11 +11,6 @@
 			provides a generic default for method invocations using reflection. Method invocations
 			are disabled/enabled via the <code>javax.el.methodInvocations</code> property.
 		</action>
-		<action dev="cbe" type="update" context="build">
-			Renamed API/impl jars to <code>juel-api-&lt;version&gt;.jar</code> and
-			<code>juel-impl-&lt;version&gt;.jar</code> to reflect maven artifact names
-			<code>juel-api</code> and <code>juel-impl</code>.
-		</action>
 	</release>
 	<release version="2.1.2" date="2009/04/26">
 		<action dev="cbe" type="fix" context="code" fixes-bug="2748538" due-to="Gerhard Petracek">
