@@ -4,6 +4,19 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
+	<release version="2.2.0-rc1" date="2009/??/??">
+		<action dev="cbe" type="add" context="code">
+			Implemented changes from JST 245, maintenance release 2. This replaces <em>JUEL</em>s
+			proprietary API for method invocations. The <code>BeanELResolver</code> class now
+			provides a generic default for method invocations using reflection. Method invocations
+			are disabled/enabled via the <code>javax.el.methodInvocations</code> property.
+		</action>
+		<action dev="cbe" type="update" context="build">
+			Renamed API/impl jars to <code>juel-api-&lt;version&gt;.jar</code> and
+			<code>juel-impl-&lt;version&gt;.jar</code> to reflect maven artifact names
+			<code>juel-api</code> and <code>juel-impl</code>.
+		</action>
+	</release>
 	<release version="2.1.2" date="2009/04/26">
 		<action dev="cbe" type="fix" context="code" fixes-bug="2748538" due-to="Gerhard Petracek">
 			Fixed: for a single idendifier expression <code>${foo}</code>,
