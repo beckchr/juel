@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Odysseus Software GmbH
+ * Copyright 2006-2009 Odysseus Software GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
