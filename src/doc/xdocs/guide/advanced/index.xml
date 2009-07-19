@@ -244,6 +244,19 @@ ExpressionFactory factory = new ExpressionFactoryImpl(store);</source>
 				to the fully qualified name of your converter class (requires your class to
 				provide a default constructor).
 			</p>
+			<p>
+				The <code>BeanELResolver.invoke(...)</code> method needs type conversions to convert
+				actual method parameters to the method's formal parameter types. Unfortunately, the
+				resolver API doesn't provide access the an <code>ExpressionFactory</code> to use
+				our customized conversions via <code>ExpressionFactory.coerceToType(...)</code>.
+				<em>JUEL</em>'s bean resolver implementation consults the <code>javax.el.ExpressionFactory</code>
+				context property to get a factory before creating a default using <code>ExpressionFactory.getInstance()</code>.
+				That is, if you're using <em>JUEL</em>'s EL API, you may do
+			</p>
+			<source>elContext.putContext(javax.el.ExpressionFactory.class, factory)</source>
+			<p>
+				to make your customized type conversions available to the resolver.
+			</p>
 		</section>
 	</body>
 </document>
