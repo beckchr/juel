@@ -17,6 +17,7 @@ public class ExpressionFactoryTest extends TestCase {
 		public Object coerceToType(Object obj, Class<?> targetType) {
 			return null;
 		}
+		@Override
 		public MethodExpression createMethodExpression(ELContext context, String expression,
 				Class<?> expectedReturnType, Class<?>[] expectedParamTypes) {
 			return null;

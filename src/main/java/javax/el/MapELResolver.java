@@ -298,6 +298,6 @@ public class MapELResolver extends ELResolver {
 	 * @return base instanceof Map
 	 */
 	private final boolean isResolvable(Object base) {
-		return base instanceof Map;
+		return base instanceof Map<?,?>;
 	}
 }

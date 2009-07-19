@@ -19,9 +19,9 @@ import java.beans.FeatureDescriptor;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -56,7 +56,7 @@ public class BeanELResolver extends ELResolver {
 				throw new ELException(e);
 			}
 			for (PropertyDescriptor descriptor : descriptors) {
-				map.put(descriptor.getName(), new BeanProperty(baseClass, descriptor));
+				map.put(descriptor.getName(), new BeanProperty(descriptor));
 			}
 		}
 
@@ -66,11 +66,9 @@ public class BeanELResolver extends ELResolver {
 	}
 
 	protected static final class BeanProperty {
-		private final Class<?> baseClass;
 		private final PropertyDescriptor descriptor;
 
-		public BeanProperty(Class<?> baseClass, PropertyDescriptor descriptor) {
-			this.baseClass = baseClass;
+		public BeanProperty(PropertyDescriptor descriptor) {
 			this.descriptor = descriptor;
 		}
 
@@ -79,49 +77,56 @@ public class BeanELResolver extends ELResolver {
 		}
 
 		public Method getReadMethod() {
-			return findAccessibleMethod(baseClass, descriptor.getReadMethod());
+			return findAccessibleMethod(descriptor.getReadMethod());
 		}
 
 		public Method getWriteMethod() {
-			return findAccessibleMethod(baseClass, descriptor.getWriteMethod());
+			return findAccessibleMethod(descriptor.getWriteMethod());
 		}
 
 		public boolean isReadOnly() {
-			return findAccessibleMethod(baseClass, descriptor.getWriteMethod()) == null;
+			return findAccessibleMethod(descriptor.getWriteMethod()) == null;
 		}
+	}
 
-		private Method findAccessibleMethod(Class<?> clazz, Method method) {
-			if (method == null || Modifier.isPublic(clazz.getModifiers())) {
-				return method;
-			}
-			for (Class<?> cls : clazz.getInterfaces()) {
+	private static Method findAccessibleMethod(Method method) {
+		if (method == null || method.isAccessible()) {
+			return method;
+		}
+		try {
+			method.setAccessible(true);
+		} catch (SecurityException e) {
+			for (Class<?> cls : method.getDeclaringClass().getInterfaces()) {
 				Method mth = null;
 				try {
 					mth = cls.getMethod(method.getName(), method.getParameterTypes());
-					mth = findAccessibleMethod(mth.getDeclaringClass(), mth);
+					mth = findAccessibleMethod(mth);
 					if (mth != null) {
 						return mth;
 					}
-				} catch (NoSuchMethodException e) {
+				} catch (NoSuchMethodException ignore) {
 					// do nothing
 				}
 			}
-			Class<?> cls = clazz.getSuperclass();
+			Class<?> cls = method.getDeclaringClass().getSuperclass();
 			if (cls != null) {
 				Method mth = null;
 				try {
 					mth = cls.getMethod(method.getName(), method.getParameterTypes());
-					mth = findAccessibleMethod(mth.getDeclaringClass(), mth);
+					mth = findAccessibleMethod(mth);
 					if (mth != null) {
 						return mth;
 					}
-				} catch (NoSuchMethodException e) {
+				} catch (NoSuchMethodException ignore) {
 					// do nothing
 				}
 			}
 			return null;
 		}
+		return method;
 	}
+
+	private static final ExpressionFactory DEFAULT_FACTORY = ExpressionFactory.newInstance();
 
 	private final boolean readOnly;
 	private final ConcurrentHashMap<Class<?>, BeanProperties> cache;
@@ -186,13 +191,15 @@ public class BeanELResolver extends ELResolver {
 			try {
 				properties = Introspector.getBeanInfo(base.getClass()).getPropertyDescriptors();
 			} catch (IntrospectionException e) {
-				return Collections.<FeatureDescriptor>emptyList().iterator();
+				return Collections.<FeatureDescriptor> emptyList().iterator();
 			}
 			return new Iterator<FeatureDescriptor>() {
 				int next = 0;
-				public boolean hasNext() {					
+
+				public boolean hasNext() {
 					return properties != null && next < properties.length;
 				}
+
 				public FeatureDescriptor next() {
 					PropertyDescriptor property = properties[next++];
 					FeatureDescriptor feature = new FeatureDescriptor();
@@ -206,6 +213,7 @@ public class BeanELResolver extends ELResolver {
 					feature.setValue(RESOLVABLE_AT_DESIGN_TIME, true);
 					return feature;
 				}
+
 				public void remove() {
 					throw new UnsupportedOperationException("cannot remove");
 				}
@@ -396,6 +404,179 @@ public class BeanELResolver extends ELResolver {
 		}
 	}
 
+	/**
+	 * If the base object is not <code>null</code>, invoke the method, with the given parameters on
+	 * this bean. The return value from the method is returned.
+	 * 
+	 * <p>
+	 * If the base is not <code>null</code>, the <code>propertyResolved</code> property of the
+	 * <code>ELContext</code> object must be set to <code>true</code> by this resolver, before
+	 * returning. If this property is not <code>true</code> after this method is called, the caller
+	 * should ignore the return value.
+	 * </p>
+	 * 
+	 * <p>
+	 * The provided method object will first be coerced to a <code>String</code>. The methods in the
+	 * bean is then examined and an attempt will be made to select one for invocation. If no
+	 * suitable can be found, a <code>MethodNotFoundException</code> is thrown.
+	 * 
+	 * If the given paramTypes is not <code>null</code>, select the method with the given name and
+	 * parameter types.
+	 * 
+	 * Else select the method with the given name that has the same number of parameters. If there
+	 * are more than one such method, the method selection process is undefined.
+	 * 
+	 * Else select the method with the given name that takes a variable number of arguments.
+	 * 
+	 * Note the resolution for overloaded methods will likely be clarified in a future version of
+	 * the spec.
+	 * 
+	 * The provided parameters are coerced to the corresponding parameter types of the method, and
+	 * the method is then invoked.
+	 * 
+	 * @param context
+	 *            The context of this evaluation.
+	 * @param base
+	 *            The bean on which to invoke the method
+	 * @param method
+	 *            The simple name of the method to invoke. Will be coerced to a <code>String</code>.
+	 *            If method is "&lt;init&gt;"or "&lt;clinit&gt;" a MethodNotFoundException is
+	 *            thrown.
+	 * @param paramTypes
+	 *            An array of Class objects identifying the method's formal parameter types, in
+	 *            declared order. Use an empty array if the method has no parameters. Can be
+	 *            <code>null</code>, in which case the method's formal parameter types are assumed
+	 *            to be unknown.
+	 * @param params
+	 *            The parameters to pass to the method, or <code>null</code> if no parameters.
+	 * @return The result of the method invocation (<code>null</code> if the method has a
+	 *         <code>void</code> return type).
+	 * @throws MethodNotFoundException
+	 *             if no suitable method can be found.
+	 * @throws ELException
+	 *             if an exception was thrown while performing (base, method) resolution. The thrown
+	 *             exception must be included as the cause property of this exception, if available.
+	 *             If the exception thrown is an <code>InvocationTargetException</code>, extract its
+	 *             <code>cause</code> and pass it to the <code>ELException</code> constructor.
+	 * @since 2.2
+	 */
+	@Override
+	public Object invoke(ELContext context, Object base, Object method, Class<?>[] paramTypes, Object[] params) {
+		if (context == null) {
+			throw new NullPointerException();
+		}
+		Object result = null;
+		if (isResolvable(base)) {
+			if (params == null) {
+				params = new Object[0];
+			}
+			String name = method.toString();
+			Method target = findMethod(base, name, paramTypes, params.length);
+			if (target == null) {
+				throw new MethodNotFoundException("Cannot find method " + name + " with " + params.length + " parameters in " + base.getClass());
+			}
+			try {
+				result = target.invoke(base, coerceParams(getExpressionFactory(context), target, params));
+			} catch (InvocationTargetException e) {
+				throw new ELException(e.getCause());
+			} catch (IllegalAccessException e) {
+				throw new ELException(e);
+			}
+			context.setPropertyResolved(true);
+		}
+		return result;
+	};
+
+	private Method findMethod(Object base, String name, Class<?>[] types, int paramCount) {
+		if (types != null) {
+			try {
+				return findAccessibleMethod(base.getClass().getMethod(name, types));
+			} catch (NoSuchMethodException e) {
+				return null;
+			}
+		}
+		Method varArgsMethod = null;
+		for (Method method : base.getClass().getMethods()) {
+			if (method.getName().equals(name)) {
+				int formalParamCount = method.getParameterTypes().length;
+				if (method.isVarArgs() && paramCount >= formalParamCount - 1) {
+					varArgsMethod = method;
+				} else if (paramCount == formalParamCount) {
+					return findAccessibleMethod(method);
+				}
+			}
+		}
+		return varArgsMethod == null ? null : findAccessibleMethod(varArgsMethod);
+	}
+
+	/**
+	 * Lookup an expression factory used to coerce method parameters in context under key
+	 * <code>"javax.el.ExpressionFactory"</code>.
+	 * If no expression factory can be found under that key, use a default instance created with
+	 * {@link ExpressionFactory#newInstance()}.
+	 * @param context
+	 *            The context of this evaluation.
+	 * @return expression factory instance
+	 */
+	private ExpressionFactory getExpressionFactory(ELContext context) {
+		Object obj = context.getContext(ExpressionFactory.class);
+		return obj instanceof ExpressionFactory ? (ExpressionFactory)obj : DEFAULT_FACTORY;
+	}
+	
+	private Object[] coerceParams(ExpressionFactory factory, Method method, Object[] params) {
+		Class<?>[] types = method.getParameterTypes();
+		Object[] args = new Object[types.length];
+		if (method.isVarArgs()) {
+			int varargIndex = types.length - 1;
+			if (params.length < varargIndex) {
+				throw new ELException("Bad argument count");
+			}
+			for (int i = 0; i < varargIndex; i++) {
+				coerceValue(args, i, factory, params[i], types[i]);
+			}
+			Class<?> varargType = types[varargIndex].getComponentType();
+			int length = params.length - varargIndex;
+			Object array = null;
+			if (length == 1) {
+				Object source = params[varargIndex];
+				if (source != null && source.getClass().isArray()) {
+					if (types[varargIndex].isInstance(source)) { // use source array as is
+						array = source;
+					} else { // coerce array elements
+						length = Array.getLength(source);
+						array = Array.newInstance(varargType, length);
+						for (int i = 0; i < length; i++) {
+							coerceValue(array, i, factory, Array.get(source, i), varargType);
+						}
+					}
+				} else { // single element array
+					array = Array.newInstance(varargType, 1);
+					coerceValue(array, 0, factory, source, varargType);
+				}
+			} else {
+				array = Array.newInstance(varargType, length);
+				for (int i = 0; i < length; i++) {
+					coerceValue(array, i, factory, params[varargIndex + i], varargType);
+				}
+			}
+			args[varargIndex] = array;
+		} else {
+			if (params.length != args.length) {
+				throw new ELException("Bad argument count");
+			}
+			for (int i = 0; i < args.length; i++) {
+				coerceValue(args, i, factory, params[i], types[i]);
+			}
+		}
+		return args;
+	}
+
+	private void coerceValue(Object array, int index, ExpressionFactory factory, Object value, Class<?> type) {
+		if (value != null || type.isPrimitive()) {
+			Array.set(array, index, factory.coerceToType(value, type));
+		}
+	}
+	
 	/**
 	 * Test whether the given base should be resolved by this ELResolver.
 	 * 

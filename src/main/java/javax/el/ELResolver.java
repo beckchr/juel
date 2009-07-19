@@ -246,4 +246,48 @@ public abstract class ELResolver {
 	 *             available.
 	 */
 	public abstract void setValue(ELContext context, Object base, Object property, Object value);
+
+	/**
+	 * Attempts to resolve and invoke the given <code>method</code> on the given <code>base</code>
+	 * object.
+	 * 
+	 * <p>
+	 * If this resolver handles the given (base, method) pair, the <code>propertyResolved</code>
+	 * property of the <code>ELContext</code> object must be set to <code>true</code> by the
+	 * resolver, before returning. If this property is not <code>true</code> after this method is
+	 * called, the caller should ignore the return value.
+	 * </p>
+	 * 
+	 * <p>
+	 * A default implementation is provided that returns null so that existing classes that extend
+	 * ELResolver can continue to function.
+	 * </p>
+	 * 
+	 * @param context
+	 *            The context of this evaluation.
+	 * @param base
+	 *            The bean on which to invoke the method
+	 * @param method
+	 *            The simple name of the method to invoke. Will be coerced to a <code>String</code>.
+	 * @param paramTypes
+	 *            An array of Class objects identifying the method's formal parameter types, in
+	 *            declared order. Use an empty array if the method has no parameters. Can be
+	 *            <code>null</code>, in which case the method's formal parameter types are assumed
+	 *            to be unknown.
+	 * @param params
+	 *            The parameters to pass to the method, or <code>null</code> if no parameters.
+	 * @return The result of the method invocation (<code>null</code> if the method has a
+	 *         <code>void</code> return type).
+	 * @throws MethodNotFoundException
+	 *             if no suitable method can be found.
+	 * @throws ELException
+	 *             if an exception was thrown while performing (base, method) resolution. The thrown
+	 *             exception must be included as the cause property of this exception, if available.
+	 *             If the exception thrown is an <code>InvocationTargetException</code>, extract its
+	 *             <code>cause</code> and pass it to the <code>ELException</code> constructor.
+	 * @since 2.2
+	 */
+	public Object invoke(ELContext context, Object base, Object method, Class<?>[] paramTypes, Object[] params) {
+		return null;
+	}
 }

@@ -279,7 +279,7 @@ public class ListELResolver extends ELResolver {
 	 * @return base instanceof List
 	 */
 	private static final boolean isResolvable(Object base) {
-		return base instanceof List;
+		return base instanceof List<?>;
 	}
 
 	/**

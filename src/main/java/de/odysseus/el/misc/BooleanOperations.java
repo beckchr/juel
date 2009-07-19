@@ -157,10 +157,10 @@ public class BooleanOperations {
 		if (t1 == Boolean.class || t2 == Boolean.class) {
 			return converter.convert(o1, Boolean.class).equals(converter.convert(o2, Boolean.class));
 		}
-		if (o1 instanceof Enum) {
+		if (o1 instanceof Enum<?>) {
 			return o1 == converter.convert(o2, o1.getClass());
 		}
-		if (o2 instanceof Enum) {
+		if (o2 instanceof Enum<?>) {
 			return converter.convert(o1, o2.getClass()) == o2;
 		}
 		if (t1 == String.class || t2 == String.class) {
@@ -192,10 +192,10 @@ public class BooleanOperations {
 		if (o instanceof Object[]) {
 			return ((Object[])o).length == 0;
 		}
-		if (o instanceof Map) {
+		if (o instanceof Map<?,?>) {
 			return ((Map<?,?>)o).isEmpty();
 		}
-		if (o instanceof Collection) {
+		if (o instanceof Collection<?>) {
 			return ((Collection<?>)o).isEmpty();
 		}
 		return false;

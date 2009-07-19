@@ -169,7 +169,7 @@ public class TypeConverterImpl implements TypeConverter {
 		if (value instanceof String) {
 			return (String)value;
 		}
-		if (value instanceof Enum) {
+		if (value instanceof Enum<?>) {
 			return ((Enum<?>)value).name();
 		}
 		return value.toString();

@@ -18,6 +18,7 @@ package de.odysseus.el.tree.impl.ast;
 import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.MethodInfo;
+import javax.el.ValueReference;
 
 import de.odysseus.el.misc.LocalMessages;
 import de.odysseus.el.tree.Bindings;
@@ -46,9 +47,13 @@ public final class AstText extends AstNode {
 	}
 
 	public void setValue(Bindings bindings, ELContext context, Object value) {
-		throw new ELException(LocalMessages.get("error.value.set.rvalue"));
+		throw new ELException(LocalMessages.get("error.value.set.rvalue", getStructuralId(bindings)));
 	}
 
+	public ValueReference getValueReference(Bindings bindings, ELContext context) {
+		return null;
+	}
+	
 	@Override 
 	public Object eval(Bindings bindings, ELContext context) {
 		return value;

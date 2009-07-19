@@ -16,7 +16,7 @@ public class BeanELResolverTest extends TestCase {
 		public int getReadOnly() {
 			return readOnly;
 		}
-		void setReadOnly(int readOnly) {
+		protected void setReadOnly(int readOnly) {
 			this.readOnly = readOnly;
 		}
 		public int getReadWrite() {
@@ -30,6 +30,19 @@ public class BeanELResolverTest extends TestCase {
 		}
 		public void setWriteOnly(int writeOnly) {
 			this.writeOnly = writeOnly;
+		}
+		public int add(int n, int... rest) {
+			for (int x : rest) {
+				n += x;
+			}
+			return n;
+		}
+		public String cat(String... strings) {
+			StringBuilder b = new StringBuilder();
+			for (String s : strings) {
+				b.append(s);
+			}
+			return b.toString();
 		}
 	}
 
@@ -215,5 +228,28 @@ public class BeanELResolverTest extends TestCase {
 		} catch (PropertyNotWritableException e) {
 			// fine
 		}
+	}
+
+	public void testInvoke() {
+		BeanELResolver resolver = new BeanELResolver();
+		
+		assertEquals(1, resolver.invoke(context, new TestBean(), "add", null, new Integer[]{1}));
+		assertEquals(6, resolver.invoke(context, new TestBean(), "add", null, new Integer[]{1, 2, 3}));
+		assertEquals(6, resolver.invoke(context, new TestBean(), "add", null, new String[]{"1", "2", "3"}));
+		assertEquals(6, resolver.invoke(context, new TestBean(), "add", null, new Object[]{1, new int[]{2, 3}}));
+		assertEquals(6, resolver.invoke(context, new TestBean(), "add", null, new Object[]{1, new Double[]{2.0, 3.0}}));
+
+		assertEquals("", resolver.invoke(context, new TestBean(), "cat", null, new Object[0]));
+		assertEquals("", resolver.invoke(context, new TestBean(), "cat", null, null));
+		assertEquals("123", resolver.invoke(context, new TestBean(), "cat", null, new Object[]{123}));
+		assertEquals("123", resolver.invoke(context, new TestBean(), "cat", null, new Integer[]{1, 2, 3}));
+		assertEquals("123", resolver.invoke(context, new TestBean(), "cat", null, new Object[]{new String[]{"1", "2", "3"}}));
+	
+		TestBean bean = new TestBean();
+		bean.setReadWrite(1);
+		assertNull(resolver.invoke(context, bean, "setReadWrite", null, new Object[]{null}));
+		assertEquals(0, bean.getReadWrite());
+		assertNull(resolver.invoke(context, bean, "setReadWrite", null, new Object[]{5}));
+		assertEquals(5, bean.getReadWrite());
 	}
 }

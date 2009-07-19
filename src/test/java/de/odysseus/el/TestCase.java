@@ -26,7 +26,7 @@ import de.odysseus.el.tree.Tree;
 import de.odysseus.el.tree.impl.Builder;
 
 public abstract class TestCase extends junit.framework.TestCase {
-	protected static final Builder BUILDER = new Builder();
+	protected static final Builder BUILDER = new Builder(Builder.Feature.METHOD_INVOCATIONS);
 
 	protected static final Tree parse(String expression) {
 		return BUILDER.build(expression);

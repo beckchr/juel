@@ -25,6 +25,7 @@ import javax.el.MethodInfo;
 import javax.el.MethodNotFoundException;
 import javax.el.PropertyNotFoundException;
 import javax.el.ValueExpression;
+import javax.el.ValueReference;
 
 import de.odysseus.el.misc.LocalMessages;
 import de.odysseus.el.tree.Bindings;
@@ -61,6 +62,14 @@ public class AstIdentifier extends AstNode implements IdentifierNode {
 		return false;
 	}
 
+	public ValueReference getValueReference(Bindings bindings, ELContext context) {
+		ValueExpression expression = bindings.getVariable(index);
+		if (expression != null) {
+			return expression.getValueReference(context);
+		}
+		return new ValueReference(null, name);
+	}
+	
 	@Override 
 	public Object eval(Bindings bindings, ELContext context) {
 		ValueExpression expression = bindings.getVariable(index);

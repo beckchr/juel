@@ -17,6 +17,7 @@ package de.odysseus.el.tree;
 
 import javax.el.ELContext;
 import javax.el.MethodInfo;
+import javax.el.ValueReference;
 
 /**
  * Expression node interface.
@@ -46,6 +47,14 @@ public interface ExpressionNode extends Node {
 	 * @return evaluated node, coerced to the expected type
 	 */
 	public Object getValue(Bindings bindings, ELContext context, Class<?> expectedType);
+
+	/**
+	 * Get value reference.
+	 * @param bindings
+	 * @param context
+	 * @return value reference
+	 */
+	public ValueReference getValueReference(Bindings bindings, ELContext context);
 
 	/**
 	 * Get the value type accepted in {@link #setValue(Bindings, ELContext, Object)}.

@@ -193,16 +193,16 @@ public class Parser {
 		return new AstDot(base, property, lvalue);
 	}
 	
-	protected AstFunction createAstFunction(String name, int index, List<AstNode> args) {
-		return new AstFunction(name, index, args, context.isEnabled(Feature.VARARGS));
+	protected AstFunction createAstFunction(String name, int index, AstParameters params) {
+		return new AstFunction(name, index, params, context.isEnabled(Feature.VARARGS));
 	}
 
 	protected AstIdentifier createAstIdentifier(String name, int index) {
 		return new AstIdentifier(name, index);
 	}
-
-	protected AstMethod createAstMethod(AstProperty property, List<AstNode> nodes) {
-		return new AstMethod(property, nodes, context.isEnabled(Feature.VARARGS));
+	
+	protected AstMethod createAstMethod(AstProperty property, AstParameters params) {
+		return new AstMethod(property, params);
 	}
 	
 	protected AstUnary createAstUnary(AstNode child, AstUnary.Operator operator) {
@@ -604,12 +604,11 @@ public class Parser {
 				case DOT:
 					consumeToken();
 					String name = consumeToken(IDENTIFIER).getImage();
+					AstDot dot = createAstDot(v, name, lvalue);
 					if (token.getSymbol() == LPAREN && context.isEnabled(METHOD_INVOCATIONS)) {
-						consumeToken();
-						v = createAstMethod(createAstDot(v, name, false), list());
-						consumeToken(RPAREN);
+						v = createAstMethod(dot, params());
 					} else {
-						v = createAstDot(v, name, lvalue);
+						v = dot;
 					}
 					break;
 				case LBRACK:
@@ -617,12 +616,11 @@ public class Parser {
 					AstNode property = expr(true);
 					boolean strict = !context.isEnabled(NULL_PROPERTIES);
 					consumeToken(RBRACK);
+					AstBracket bracket = createAstBracket(v, property, lvalue, strict);
 					if (token.getSymbol() == LPAREN && context.isEnabled(METHOD_INVOCATIONS)) {
-						consumeToken();
-						v = createAstMethod(createAstBracket(v, property, false, true), list());
-						consumeToken(RPAREN);
+						v = createAstMethod(bracket, params());
 					} else {
-						v = createAstBracket(v, property, lvalue, strict);
+						v = bracket;
 					}
 					break;
 				default:
@@ -646,10 +644,7 @@ public class Parser {
 					consumeToken();
 				}
 				if (token.getSymbol() == LPAREN) { // function
-					consumeToken();
-					List<AstNode> args = list();
-					consumeToken(RPAREN);
-					v = function(name, args);
+					v = function(name, params());
 				} else { // identifier
 					v = identifier(name);
 				}
@@ -665,9 +660,10 @@ public class Parser {
 	}
 
 	/**
-	 * list := expr (&lt;COMMA&gt; expr)*
+	 * params := &lt;LPAREN&gt; (expr (&lt;COMMA&gt; expr)*)? &lt;RPAREN&gt;
 	 */
-	protected List<AstNode> list() throws ScanException, ParseException {
+	protected AstParameters params() throws ScanException, ParseException {
+		consumeToken(LPAREN);
 		List<AstNode> l = Collections.emptyList();
 		AstNode v = expr(false);
 		if (v != null) {
@@ -678,7 +674,8 @@ public class Parser {
 				l.add(expr(true));
 			}
 		}
-		return l;
+		consumeToken(RPAREN);
+		return new AstParameters(l);
 	}
 	
 	/**
@@ -720,11 +717,11 @@ public class Parser {
 		return v;
 	}
 
-	protected final AstFunction function(String name, List<AstNode> args) {
+	protected final AstFunction function(String name, AstParameters params) {
 		if (functions.isEmpty()) {
 			functions = new ArrayList<FunctionNode>(4);
 		}
-		AstFunction function = createAstFunction(name, functions.size(), args);
+		AstFunction function = createAstFunction(name, functions.size(), params);
 		functions.add(function);
 		return function;
 	}

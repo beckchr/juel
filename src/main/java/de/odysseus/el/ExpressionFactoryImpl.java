@@ -186,13 +186,13 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 		// create builder
 		EnumSet<Builder.Feature> features = EnumSet.noneOf(Builder.Feature.class);
 		if (properties != null) {
-			if (Boolean.valueOf(properties.getProperty("javax.el.methodInvocations"))) {
+			if (Boolean.valueOf(properties.getProperty("javax.el.methodInvocations", "false"))) {
 				features.add(Builder.Feature.METHOD_INVOCATIONS);
 			}
-			if (Boolean.valueOf(properties.getProperty("javax.el.nullProperties"))) {
+			if (Boolean.valueOf(properties.getProperty("javax.el.nullProperties", "false"))) {
 				features.add(Builder.Feature.NULL_PROPERTIES);
 			}
-			if (Boolean.valueOf(properties.getProperty("javax.el.varArgs"))) {
+			if (Boolean.valueOf(properties.getProperty("javax.el.varArgs", "false"))) {
 				features.add(Builder.Feature.VARARGS);
 			}
 		}
@@ -215,7 +215,7 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 
 	/**
 	 * Create the factory's type converter.
-	 * This implemenation takes the <code>de.odysseus.el.misc.TypeConverter</code> property
+	 * This implementation takes the <code>de.odysseus.el.misc.TypeConverter</code> property
 	 * as the name of a class implementing the <code>de.odysseus.el.misc.TypeConverter</code> interface.
 	 * If the property is not set, the default converter (<code>TypeConverter.DEFAULT</code>) is used.
 	 */

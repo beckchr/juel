@@ -116,7 +116,7 @@ public final class ObjectValueExpression extends javax.el.ValueExpression {
 	 */
 	@Override
 	public void setValue(ELContext context, Object value) {
-		throw new ELException(LocalMessages.get("error.value.set.rvalue"));
+		throw new ELException(LocalMessages.get("error.value.set.rvalue", "<object value expression>"));
 	}
 
 	@Override

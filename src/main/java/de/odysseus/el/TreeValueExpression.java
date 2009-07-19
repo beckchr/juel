@@ -22,6 +22,7 @@ import java.io.PrintWriter;
 import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.FunctionMapper;
+import javax.el.ValueReference;
 import javax.el.VariableMapper;
 
 import de.odysseus.el.misc.LocalMessages;
@@ -153,6 +154,11 @@ public final class TreeValueExpression extends javax.el.ValueExpression {
 		return node.isLiteralText();
 	}
 
+	@Override
+	public ValueReference getValueReference(ELContext context) {
+		return node.getValueReference(bindings, context);
+	}
+
 	/**
 	 * Answer <code>true</code> if this could be used as an lvalue.
 	 * This is the case for eval expressions consisting of a simple identifier or
@@ -169,7 +175,7 @@ public final class TreeValueExpression extends javax.el.ValueExpression {
 	public boolean isDeferred() {
 		return deferred;
 	}
-
+	
 	/**
 	 * Expressions are compared using the concept of a <em>structural id</em>:
    * variable and function names are anonymized such that two expressions with

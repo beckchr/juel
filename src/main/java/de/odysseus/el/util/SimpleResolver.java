@@ -144,5 +144,13 @@ public class SimpleResolver extends ELResolver {
 		} else {
 			delegate.setValue(context, base, property, value);
 		}
-	}		
+	}
+	
+	@Override
+	public Object invoke(ELContext context, Object base, Object method, Class<?>[] paramTypes, Object[] params) {
+		if (resolve(context, base)) {
+			throw new NullPointerException("cannot invoke null");
+		}
+		return delegate.invoke(context, base, method, paramTypes, params);
+	}
 }

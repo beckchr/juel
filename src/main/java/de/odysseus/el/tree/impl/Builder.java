@@ -19,6 +19,7 @@ import java.io.PrintWriter;
 import java.util.EnumSet;
 
 import javax.el.ELException;
+import javax.el.ELResolver;
 
 import de.odysseus.el.tree.Bindings;
 import de.odysseus.el.tree.NodePrinter;
@@ -42,9 +43,10 @@ public class Builder implements TreeBuilder {
 	 */
 	public static enum Feature {
 		/**
-		 * Method invocations as in <code>${foo.bar(1)}</code> are a <em>JUEL</em> extension.
-		 * The method to be invoked is resolved at evaluation just like properties. That is,
-		 * a specialized resolver will have to be provided at evaluation time.
+		 * Method invocations as in <code>${foo.bar(1)}</code> as specified in JSR 245,
+		 * maintenance release 2.
+		 * The method to be invoked is resolved at evaluation time by calling
+		 * {@link ELResolver#invoke(javax.el.ELContext, Object, Object, Class[], Object[])}.
 		 */
 		METHOD_INVOCATIONS,
 		/**
@@ -56,7 +58,7 @@ public class Builder implements TreeBuilder {
 		 */
 		NULL_PROPERTIES,
 		/**
-		 * Allow for use of Java 5 varargs in function calls (and - if enabled - in method invocations).
+		 * Allow for use of Java 5 varargs in function calls.
 		 */
 		VARARGS
 	}

@@ -12,27 +12,32 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */ 
-package de.odysseus.el.misc;
+ */
+package javax.el;
+
+import java.io.Serializable;
 
 /**
- * Method invocation interface.
- *
- * @author Christoph Beck
+ * This class encapsulates a base model object and one of its properties.
+ * 
+ * @since 2.2
  */
-public interface MethodInvocation {
-	/**
-	 * Get the method name
-	 */
-	public String getName();
+public class ValueReference implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Get the number of arguments in this method invocation
-	 */
-	public int getParamCount();
-	
-	/**
-	 * @return <code>true</code> if this node supports varargs.
-	 */
-	public boolean isVarArgs();
+	private Object base;
+	private Object property;
+
+	public ValueReference(Object base, Object property) {
+		this.base = base;
+		this.property = property;
+	}
+
+	public Object getBase() {
+		return base;
+	}
+
+	public Object getProperty() {
+		return property;
+	}
 }

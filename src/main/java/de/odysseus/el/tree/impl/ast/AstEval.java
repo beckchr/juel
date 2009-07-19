@@ -17,6 +17,7 @@ package de.odysseus.el.tree.impl.ast;
 
 import javax.el.ELContext;
 import javax.el.MethodInfo;
+import javax.el.ValueReference;
 
 import de.odysseus.el.tree.Bindings;
 
@@ -37,6 +38,10 @@ public final class AstEval extends AstNode {
 		return getChild(0).isLeftValue();
 	}
 
+	public ValueReference getValueReference(Bindings bindings, ELContext context) {
+		return child.getValueReference(bindings, context);
+	}
+	
 	@Override
 	public Object eval(Bindings bindings, ELContext context) {
 		return child.eval(bindings, context);

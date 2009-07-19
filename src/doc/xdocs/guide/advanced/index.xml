@@ -73,16 +73,20 @@ ExpressionFactory factory = new ExpressionFactoryImpl(store);</source>
 					Many people have noticed the lack of method invocations as a major weakness of
 					the unified expression language. When talking about method invocations, we mean
 					expressions like <code>${foo.matches('[0-9]+')}</code> that aren't supported by
-					the standard. However, <em>JUEL</em> provides support for method invocations in
-					value expressions as a proprietary extension.
-					To use them, you will have to do two things:
+					the 2.1 standard. However, method invocations have been added in maintenance
+					release 2 of JSR 245, which is supported by <em>JUEL</em>.
 				</p>
+				<warning>
+					<em>JUEL's</em> proprietary API for method invocations has been removed in
+					version 2.2.
+				</warning>
 				<ol>
 					<li>
 						Customize your builder to accept expressions using method invocations.
 					</li>
 					<li>
-						Provide an <code>ELResolver</code> to resolve the methods at evaluation time.
+						Provide an <code>ELResolver</code> implementing <code>invoke(...)</code> to
+						execute method invocations (<code>BeanELResolver</code> already does this).
 					</li>
 				</ol>
 				<p>
@@ -95,39 +99,6 @@ ExpressionFactory factory = new ExpressionFactoryImpl(store);</source>
 				<source>javax.el.methodInvocations</source>
 				<p>
 					to <code>true</code>.
-				</p>
-				<p>
-					Methods are resolved just like properties. That is, when evaluating an expression
-					with a method invocation, your <code>ELResolver</code> will be asked to resolve the
-					method by calling its <code>getValue(...)</code> method and is expected to return
-					either a <code>java.lang.reflect.Method</code> or a <code>javax.el.MethodInfo</code>
-					object as a result. Having the method, evaluation proceeds as with function invocations.
-				</p>
-				<p>
-					A <code>de.odysseus.el.misc.MethodInvocation</code> is passed to the resolver's
-					<code>getValue(...)</code> method as property.
-				</p>
-				<p>
-					As an example, we show the <code>getValue(...)</code> method
-					of a resolver that is capable of resolving a single method that has been supplied
-					to it at construction time:
-				</p>
-				<source>@Override
-public Method getValue(ELContext context, Object base, Object prop) {
-  if (prop instanceof MethodInvocation) {
-    MethodInvocation call = (MethodInvocation)prop;
-    if (method.getDeclaringClass().isInstance(base) &amp;&amp; method.getName().equals(call.getName())) {
-      if (method.getParamTypes().length() == call.getParamCount()) {
-        context.setPropertyResolved(true);
-        return method;
-      }
-    }
-  }
-  return null;
-}</source>
-				<p>
-					A full example illustrating method invocations is distributed with <em>JUEL</em>
-					below <code>src/samples</code> in package <code>de.odysseus.el.samples.extensions</code>.
 				</p>
 			</section>
 			<section id="nullProperties">

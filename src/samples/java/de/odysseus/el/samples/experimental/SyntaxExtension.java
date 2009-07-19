@@ -45,6 +45,7 @@ public class SyntaxExtension extends Builder {
 	 * This is our handler which will create the abstract syntax node.
 	 */
 	static Parser.ExtensionHandler HANDLER = new Parser.ExtensionHandler(Parser.ExtensionPoint.EQ) {
+		@Override
 		public AstNode createAstNode(AstNode... children) {
 			return new AstBinary(children[0], children[1], OPERATOR);
 		};
