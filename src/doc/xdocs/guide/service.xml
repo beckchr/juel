@@ -36,13 +36,13 @@
 		</p>
 		<ul>
 			<li>
-				Place <code>juel-2.1.x.jar</code> into directory <code>JRE_HOME/lib/ext</code>.
+				Place <code>juel-2.2.x.jar</code> into directory <code>JRE_HOME/lib/ext</code>.
 				This will make JUEL available globally for all applications running in that
 				environment.
 			</li>
 			<li>
 				<p>
-					In a JEE5 environment, you may simply drop <code>juel-impl-2.1.x.jar</code>
+					In a JEE5 environment, you may simply drop <code>juel-impl-2.2.x.jar</code>
 					into your <code>/WEB-INF/lib</code> directory. This will result in using
 					<em>JUEL</em> as EL implementation for that particular web application.
 				</p>
