@@ -36,7 +36,7 @@ import de.odysseus.el.util.SimpleContext;
  * @author Christoph Beck
  */
 public class TextFilter extends AbstractFilter {
-	private final StringBuffer buffer = new StringBuffer();
+	private final StringBuilder builder = new StringBuilder();
 
 	public TextFilter(XMLReader parent, ELContext context) {
 		super(parent, context);
@@ -44,27 +44,27 @@ public class TextFilter extends AbstractFilter {
 	
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
-		if (buffer.length() > 0) {
-			char[] chars = eval(buffer.toString()).toCharArray();
+		if (builder.length() > 0) {
+			char[] chars = eval(builder.toString()).toCharArray();
 			super.characters(chars, 0, chars.length);
-			buffer.setLength(0);
+			builder.setLength(0);
 		}
 		super.startElement(uri, localName, qName, atts);
 	}
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-		if (buffer.length() > 0) {
-			char[] chars = eval(buffer.toString()).toCharArray();
+		if (builder.length() > 0) {
+			char[] chars = eval(builder.toString()).toCharArray();
 			super.characters(chars, 0, chars.length);
-			buffer.setLength(0);
+			builder.setLength(0);
 		}
 		super.endElement(uri, localName, qName);
 	}
 
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
-		buffer.append(ch, start, length);
+		builder.append(ch, start, length);
 	}
 
 	/**
