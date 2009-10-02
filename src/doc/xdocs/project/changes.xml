@@ -4,6 +4,20 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
+	<release version="2.2.0-rc2" date="2009/10/??">
+		<action dev="cbe" type="fix" context="code" fixes-bug="2871773" due-to="Pavel Vojtechovsky">
+			Fixed: <code>ListELResolver.getValue(...)</code> should return <code>null</code> when index is out of range.
+		</action>
+		<action dev="cbe" type="fix" context="code" fixes-bug="2871795" due-to="Pavel Vojtechovsky">
+			Fixed: second operand is always evaluated in and/or operations (e.g. <code>${true or false}</code>).
+		</action>
+		<action dev="cbe" type="fix" context="code" fixes-bug="2822943">
+			Fixed: <code>BeanELResolver</code> should use <code>Method.setAccessible(true)</code>.
+		</action>
+		<action dev="cbe" type="update" context="docs">
+			Updated copyright notes.
+		</action>
+	</release>
 	<release version="2.2.0-rc1" date="2009/08/09">
 		<action dev="cbe" type="add" context="code">
 			Implemented changes from JSR 245, maintenance release 2. This replaces <em>JUEL</em>s
