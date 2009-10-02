@@ -156,8 +156,9 @@ public class ListELResolver extends ELResolver {
 		}
 		Object result = null;
 		if (isResolvable(base)) {
+			int index = toIndex(null, property);
 			List<?> list = (List<?>) base;
-			result = list.get(toIndex(list, property));
+			result = index < 0 || index >= list.size() ? null : list.get(index);
 			context.setPropertyResolved(true);
 		}
 		return result;
@@ -293,7 +294,7 @@ public class ListELResolver extends ELResolver {
 	 * @throws IllegalArgumentException
 	 *             if base property cannot be coerced to an integer.
 	 * @throws PropertyNotFoundException
-	 *             if the computed index is out of bounds for base.
+	 *             if base is not null and the computed index is out of bounds for base.
 	 */
 	private static final int toIndex(List<?> base, Object property) {
 		int index = 0;
@@ -312,7 +313,7 @@ public class ListELResolver extends ELResolver {
 		} else {
 			throw new IllegalArgumentException("Cannot coerce property to list index: " + property);
 		}
-		if (index < 0 || index >= base.size()) {
+		if (base != null && (index < 0 || index >= base.size())) {
 			throw new PropertyNotFoundException("List index out of bounds: " + index);
 		}
 		return index;

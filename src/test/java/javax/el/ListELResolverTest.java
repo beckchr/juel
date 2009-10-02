@@ -130,18 +130,8 @@ public class ListELResolverTest extends TestCase {
 		} catch (IllegalArgumentException e) {
 			// fine
 		}
-		try {
-			resolver.getValue(context, list, -1);
-			fail();
-		} catch (PropertyNotFoundException e) {
-			// fine
-		}
-		try {
-			resolver.getValue(context, list, list.size());
-			fail();
-		} catch (PropertyNotFoundException e) {
-			// fine
-		}
+		assertNull(resolver.getValue(context, list, -1));
+		assertNull(resolver.getValue(context, list, list.size()));
 	}
 
 	public void testIsReadOnly() {
