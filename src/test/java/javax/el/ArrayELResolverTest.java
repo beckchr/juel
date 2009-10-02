@@ -127,18 +127,8 @@ public class ArrayELResolverTest extends TestCase {
 		} catch (IllegalArgumentException e) {
 			// fine
 		}
-		try {
-			resolver.getValue(context, array, -1);
-			fail();
-		} catch (PropertyNotFoundException e) {
-			// fine
-		}
-		try {
-			resolver.getValue(context, array, array.length);
-			fail();
-		} catch (PropertyNotFoundException e) {
-			// fine
-		}
+		assertNull(resolver.getValue(context, array, -1));
+		assertNull(resolver.getValue(context, array, array.length));
 	}
 
 	public void testIsReadOnly() {

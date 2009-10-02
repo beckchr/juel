@@ -159,7 +159,8 @@ public class ArrayELResolver extends ELResolver {
 		}
 		Object result = null;
 		if (isResolvable(base)) {
-			result = Array.get(base, toIndex(base, property));
+			int index = toIndex(null, property);
+			result = index < 0 || index >= Array.getLength(base) ? null : Array.get(base, index);
 			context.setPropertyResolved(true);
 		}
 		return result;
@@ -298,7 +299,7 @@ public class ArrayELResolver extends ELResolver {
 		} else {
 			throw new IllegalArgumentException("Cannot coerce property to array index: " + property);
 		}
-		if (index < 0 || index >= Array.getLength(base)) {
+		if (base != null && (index < 0 || index >= Array.getLength(base))) {
 			throw new PropertyNotFoundException("Array index out of bounds: " + index);
 		}
 		return index;
