@@ -50,7 +50,8 @@ public class SyntaxExtension extends Builder {
 	/**
 	 * This is our operator which will be passed to an <code>AstBinary</code>.
 	 */
-	static AstBinary.Operator OPERATOR = new AstBinary.Operator() {
+	static AstBinary.Operator OPERATOR = new AstBinary.SimpleOperator() {
+		@Override
 		public Object apply(TypeConverter converter, Object o1, Object o2) {
 			return converter.convert(o1, String.class).matches(converter.convert(o2, String.class));
 		}

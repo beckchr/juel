@@ -67,4 +67,9 @@ public class AstUnaryTest extends TestCase {
 		assertEquals(Long.valueOf(-1l), parseNode("${-1}").getValue(bindings, null, null));
 		assertEquals("-1", parseNode("${-1}").getValue(bindings, null, String.class));
 	}
+	
+	public void testOperators() {
+		assertFalse((Boolean)parseNode("${not true}").getValue(bindings, null, Boolean.class));
+		assertTrue((Boolean)parseNode("${not false}").getValue(bindings, null, Boolean.class));
+	}
 }

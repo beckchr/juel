@@ -173,18 +173,6 @@ public class BooleanOperations {
 		return !eq(converter, o1, o2);
 	}
 
-	public static final boolean and(TypeConverter converter, Object o1, Object o2) {
-		return converter.convert(o1, Boolean.class) && converter.convert(o2, Boolean.class);
-	}
-
-	public static final boolean or(TypeConverter converter, Object o1, Object o2) {
-		return converter.convert(o1, Boolean.class) || converter.convert(o2, Boolean.class);
-	}
-
-	public static final boolean not(TypeConverter converter, Object o) {
-		return !converter.convert(o, Boolean.class);
-	}
-
 	public static final boolean empty(TypeConverter converter, Object o) {
 		if (o == null || "".equals(o)) {
 			return true;

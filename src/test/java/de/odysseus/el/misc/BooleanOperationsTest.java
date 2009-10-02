@@ -346,34 +346,6 @@ public class BooleanOperationsTest extends TestCase {
 	}
 
 	/*
-	 * Test method for 'de.odysseus.el.lang.BooleanOperations.and(Object, Object)'
-	 */
-	public void testAnd() {
-		assertFalse(BooleanOperations.and(converter, Boolean.FALSE, Boolean.FALSE));
-		assertFalse(BooleanOperations.and(converter, Boolean.FALSE, Boolean.TRUE));
-		assertFalse(BooleanOperations.and(converter, Boolean.TRUE, Boolean.FALSE));
-		assertTrue(BooleanOperations.and(converter, Boolean.TRUE, Boolean.TRUE));
-	}
-
-	/*
-	 * Test method for 'de.odysseus.el.lang.BooleanOperations.or(Object, Object)'
-	 */
-	public void testOr() {
-		assertFalse(BooleanOperations.or(converter, Boolean.FALSE, Boolean.FALSE));
-		assertTrue(BooleanOperations.or(converter, Boolean.FALSE, Boolean.TRUE));
-		assertTrue(BooleanOperations.or(converter, Boolean.TRUE, Boolean.FALSE));
-		assertTrue(BooleanOperations.or(converter, Boolean.TRUE, Boolean.TRUE));
-	}
-
-	/*
-	 * Test method for 'de.odysseus.el.lang.BooleanOperations.not(Object)'
-	 */
-	public void testNot() {
-		assertTrue(BooleanOperations.not(converter, Boolean.FALSE));
-		assertFalse(BooleanOperations.not(converter, Boolean.TRUE));
-	}
-
-	/*
 	 * Test method for 'de.odysseus.el.lang.BooleanOperations.empty(Object)'
 	 */
 	public void testEmpty() {

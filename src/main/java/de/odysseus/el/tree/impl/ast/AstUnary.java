@@ -25,18 +25,25 @@ import de.odysseus.el.tree.Bindings;
 
 public class AstUnary extends AstRightValue {
 	public interface Operator {
-		public Object apply(TypeConverter converter, Object o);		
+		public Object eval(Bindings bindings, ELContext context, AstNode node);		
 	}
-	public static final Operator EMPTY = new Operator() {
-		public Object apply(TypeConverter converter, Object o) { return BooleanOperations.empty(converter, o); }
+	public static abstract class SimpleOperator implements Operator {
+		public Object eval(Bindings bindings, ELContext context, AstNode node) {
+			return apply(bindings, node.eval(bindings, context));
+		}
+
+		protected abstract Object apply(TypeConverter converter, Object o);
+	}
+	public static final Operator EMPTY = new SimpleOperator() {
+		@Override public Object apply(TypeConverter converter, Object o) { return BooleanOperations.empty(converter, o); }
 		@Override public String toString() { return "empty"; }
 	};
-	public static final Operator NEG = new Operator() {
-		public Object apply(TypeConverter converter, Object o) { return NumberOperations.neg(converter, o); }
+	public static final Operator NEG = new SimpleOperator() {
+		@Override public Object apply(TypeConverter converter, Object o) { return NumberOperations.neg(converter, o); }
 		@Override public String toString() { return "-"; }
 	};
-	public static final Operator NOT = new Operator() {
-		public Object apply(TypeConverter converter, Object o) { return BooleanOperations.not(converter, o); }
+	public static final Operator NOT = new SimpleOperator() {
+		@Override public Object apply(TypeConverter converter, Object o) { return !converter.convert(o, Boolean.class); }
 		@Override public String toString() { return "!"; }
 	};
 
@@ -54,7 +61,7 @@ public class AstUnary extends AstRightValue {
 
 	@Override
 	public Object eval(Bindings bindings, ELContext context) throws ELException {
-		return operator.apply(bindings, child.eval(bindings, context));
+		return operator.eval(bindings, context, child);
 	}
 
 	@Override
