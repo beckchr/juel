@@ -1,5 +1,5 @@
 <project name="juel" default="jars" basedir=".">
-	<property name="version" value="2.2.0-SNAPSHOT" />
+	<property name="version" value="2.2.0-rc2" />
 
 	<property file="build.properties" />
 
