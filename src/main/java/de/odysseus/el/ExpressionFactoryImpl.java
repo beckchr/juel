@@ -89,8 +89,8 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 	 */
 	public ExpressionFactoryImpl() {
 		Properties properties = loadProperties("el.properties");
-		store = createTreeStore(1000, properties);
-		converter = createTypeConverter(properties);
+		this.store = createTreeStore(1000, properties);
+		this.converter = createTypeConverter(properties);
 	}
 
 	/**
@@ -100,8 +100,20 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 	 * @param properties used to initialize this factory (may be <code>null</code>)
 	 */
 	public ExpressionFactoryImpl(Properties properties) {
-		store = createTreeStore(1000, properties);
-		converter = createTypeConverter(properties);
+		this.store = createTreeStore(1000, properties);
+		this.converter = createTypeConverter(properties);
+	}
+
+	/**
+	 * Create a new expression factory using the default builder and cache implementations.
+	 * The builder and cache are configured using the specified properties.
+	 * The maximum cache size will be 1000 unless overridden by property <code>javax.el.cacheSize</code>.
+	 * @param properties used to initialize this factory (may be <code>null</code>)
+	 * @param converter custom type converter
+	 */
+	public ExpressionFactoryImpl(Properties properties, TypeConverter converter) {
+		this.store = createTreeStore(1000, properties);
+		this.converter = converter;
 	}
 
 	/**
