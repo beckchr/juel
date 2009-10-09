@@ -4,7 +4,10 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
-	<release version="2.2.0-rc2" date="2009/10/??">
+	<release version="2.2.0-rc2" date="2009/10/09">
+		<action dev="cbe" type="add" context="code">
+			Added <code>ExpressionFactoryImpl(TreeStore store, TypeConverter converter)</code> constructor.
+		</action>
 		<action dev="cbe" type="fix" context="code" fixes-bug="2871773" due-to="Pavel Vojtechovsky">
 			Fixed: <code>ListELResolver.getValue(...)</code> should return <code>null</code> when index is out of range.
 		</action>
