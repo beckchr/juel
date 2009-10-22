@@ -4,6 +4,15 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
+	<release version="2.2.0-rc3" date="2009/10/24">
+		<action dev="cbe" type="add" context="code">
+			Added <code>ExpressionFactoryImpl.Profile</code> enum type and several new constructors
+			to easily choose between <em>JEE5</em> and <em>JEE6</em> (default) behavior.
+		</action>
+		<action dev="cbe" type="update" context="docs">
+			Updated documentation for 2.2.
+		</action>
+	</release>
 	<release version="2.1.3/2.2.0-rc2" date="2009/10/09">
 		<action dev="cbe" type="add" context="code">
 			Added <code>ExpressionFactoryImpl(TreeStore store, TypeConverter converter)</code> constructor.

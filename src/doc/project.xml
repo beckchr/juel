@@ -72,4 +72,6 @@
   <external-ref name="sun.com.license" href="https://glassfish.dev.java.net/public/CDDLv1.0.html"/>
   <external-ref name="uel.dev.java.net" href="https://uel.dev.java.net/"/>
   <external-ref name="jcp.com.jsr245" href="http://jcp.org/aboutJava/communityprocess/final/jsr245/"/>
+  <external-ref name="jcp.com.jsr245mr1" href="http://jcp.org/aboutJava/communityprocess/maintenance/jsr245/245-MR1.html"/>
+  <external-ref name="jcp.com.jsr245mr2" href="http://jcp.org/aboutJava/communityprocess/maintenance/jsr245/245-MR2_2.html"/>
 </project>

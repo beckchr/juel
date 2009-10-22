@@ -18,7 +18,7 @@
 		<p>
 			Either of the new methods will determine a factory implementation class and create
 			an instance of it. The first variant will use its default constructor. The latter
-			will use a contructor taking a single <code>java.util.Properties</code> object as parameter.
+			will use a constructor taking a single <code>java.util.Properties</code> object as parameter.
 			The lookup procedure uses the Service Provider API as detailed in the JAR specification.
 			The <em>JUEL</em> jars have been setup accordingly. If on your classpath, the search
 			will detect <code>de.odysseus.el.ExpressionFactoryImpl</code> as service provider class.

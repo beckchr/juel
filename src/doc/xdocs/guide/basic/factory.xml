@@ -111,7 +111,7 @@ javax.el.ExpressionFactory factory = new de.odysseus.el.ExpressionFactoryImpl(pr
 			<p>
 				Having this, the following properties are read:
 			</p>
-				<ul>
+			<ul>
 				<li>
 					<code>javax.el.cacheSize</code> - expression cache size (default is 1000)
 				</li>
@@ -129,6 +129,11 @@ javax.el.ExpressionFactory factory = new de.odysseus.el.ExpressionFactoryImpl(pr
 					in your expressions.
 				</li>
 			</ul>
+			<p>
+				The factory class also provides constructors which let you explicitly pass your
+				properties. If you just want to switch between JEE5 and JEE6 style, <em>JUEL</em>
+				provides enum constants to use as profiles.
+			</p>
 		</section>
 	</body>
 </document>

@@ -68,7 +68,7 @@ ExpressionFactory factory = new ExpressionFactoryImpl(store);</source>
 				</p>
 			</section>
 			<section id="methodInvocations">
-				<title>Enabling Method Invocations</title>
+				<title>Enabling/Disabling Method Invocations</title>
 				<p>
 					Many people have noticed the lack of method invocations as a major weakness of
 					the unified expression language. When talking about method invocations, we mean
@@ -80,29 +80,40 @@ ExpressionFactory factory = new ExpressionFactoryImpl(store);</source>
 					<em>JUEL's</em> proprietary API for method invocations has been removed in
 					version 2.2.
 				</warning>
-				<ol>
-					<li>
-						Customize your builder to accept expressions using method invocations.
-					</li>
-					<li>
-						Provide an <code>ELResolver</code> implementing <code>invoke(...)</code> to
-						execute method invocations (<code>BeanELResolver</code> already does this).
-					</li>
-				</ol>
 				<p>
-					The customized builder is created like this:
-				</p>
-				<source>TreeBuilder builder = new Builder(Builder.Feature.METHOD_INVOCATIONS, ...);</source>
-				<p>
-					As an alternative, you may set property
+					To enable (disable) expressions using method invocations, you may set property
 				</p>
 				<source>javax.el.methodInvocations</source>
 				<p>
-					to <code>true</code>.
+					to <code>true</code> (<code>false</code>).
+				</p>
+				<p>
+					Method invocations are enabled in profile <em>JEE6</em> (default)
+					and disabled in <em>JEE5</em>.
+				</p>
+			</section>
+			<section id="varArgs">
+				<title>Enabling/Disabling VarArgs</title>
+				<p>
+					The EL specification does not support function calls with variable argument lists.
+					That is, if we bind <code>String.format(String, Object...)</code> to function
+					<code>str:format</code>, the expression <code>${str:format('Hey %s','Joe')}</code>
+					will not work.
+				</p>
+				<p>
+					To enable (disable) VarArgs in function and method invocations, you may set property
+				</p>
+				<source>javax.el.varArgs</source>
+				<p>
+					to <code>true</code> (<code>false</code>).
+				</p>
+				<p>
+					VarArg invocations are enabled in profile <em>JEE6</em> (default)
+					and disabled in <em>JEE5</em>.
 				</p>
 			</section>
 			<section id="nullProperties">
-				<title>Enabling <code>null</code> Properties</title>
+				<title>Enabling/Disabling <code>null</code> Properties</title>
 				<p>
 					The EL specification describes the evaluation semantics of <code>base[property]</code>.
 					If <code>property</code> is <code>null</code>, the specification states not to resolve
@@ -110,55 +121,33 @@ ExpressionFactory factory = new ExpressionFactoryImpl(store);</source>
 					Rather, <code>null</code> should be returned if <code>getValue(...)</code> has been
 					called and a <code>PropertyNotFoundException</code> should be thrown else.
 					As a consequence, it is impossible to resolve <code>null</code> as a key in a map.
-					However, <em>JUEL</em>'s builder supports a feature <code>NULL_PROPERTIES</code> to
-					let you resolve <code>null</code> like any other property value.
+					However, <em>JUEL</em>'s expression factory may be configured to resolve <code>null</code>
+					like any other property value.
+				</p>
+				<p>
+					To enable (disable) <code>null</code> as an EL property value, you may set property
+				</p>
+				<source>javax.el.nullProperties</source>
+				<p>
+					to <code>true</code> (<code>false</code>).
 				</p>
 				<p>
 					Assume that identifier <code>map</code> resolves to a <code>java.util.Map</code>.
 				</p>
 				<ul>
 					<li>
-						If feature <code>NULL_PROPERTIES</code> has not been enabled, evaluating
+						If feature <code>javax.el.nullProperties</code> has been disabled, evaluating
 						<code>${base[null]}</code> as an rvalue (lvalue) will return <code>null</code>
 						(throw an exception).
 					</li>
 					<li>
-						If feature <code>NULL_PROPERTIES</code> has been enabled, evaluating
+						If feature <code>javax.el.nullProperties</code> has been enabled, evaluating
 						<code>${base[null]}</code> as an rvalue (lvalue) will get (put) the value for key
 						<code>null</code> in that map.
 					</li>
 				</ul>
 				<p>
-					The customized builder is created like this:
-				</p>
-				<source>TreeBuilder builder = new Builder(Builder.Feature.NULL_PROPERTIES, ...);</source>
-				<p>
-					As an alternative, you may set property
-				</p>
-				<source>javax.el.nullProperties</source>
-				<p>
-					to <code>true</code>.
-				</p>
-			</section>
-			<section id="varArgs">
-				<title>Enabling VarArgs</title>
-				<p>
-					The EL specification does not support function calls with variable argument lists.
-					That is, if we bind <code>String.format(String, Object...)</code> to function
-					<code>str:format</code>, the expression <code>${str:format('Hey %s','Joe')}</code>
-					will not work.
-					However, <em>JUEL</em>'s builder supports a feature <code>VARARGS</code> to fix this.
-				</p>
-				<p>
-					The customized builder is created like this:
-				</p>
-				<source>TreeBuilder builder = new Builder(Builder.Feature.VARARGS, ...);</source>
-				<p>
-					As an alternative, you may set property
-				</p>
-				<source>javax.el.varArgs</source>
-				<p>
-					to <code>true</code>.
+					The default is not to allow <code>null</code> as an EL property value.
 				</p>
 			</section>
 			<section>
@@ -196,7 +185,7 @@ ExpressionFactory factory = new ExpressionFactoryImpl(store);</source>
 					these expressions must not be considered equal. Similar, an expression string using
 					function invocations may be used to create tree expressions with different function
 					mappings. Even worse, <code>${foo()}</code> and <code>${bar()}</code> may be equal if
-					<code>foo</code> and <code>bar</code> refered to the same method at creation time.
+					<code>foo</code> and <code>bar</code> referred to the same method at creation time.
 				</p>
 				<p>
 					To handle these requirements, <em>JUEL</em> separates the variable and function bindings

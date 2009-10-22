@@ -10,7 +10,11 @@
 	<body>
 		<p>
 			<em>JUEL</em> is an implementation of the Unified Expression Language (EL), specified as
-			part of the JSP 2.1 standard (<a href="ext:jcp.com.jsr245">JSR-245</a>).
+			part of the JSP 2.1 standard (<a href="ext:jcp.com.jsr245">JSR-245</a>), which has been
+			introduced in JEE5.
+			Additionally, <em>JUEL</em> 2.2 implements the latest maintenance releases
+			<a href="ext:jcp.com.jsr245mr1">1</a> and <a href="ext:jcp.com.jsr245mr2">2</a>
+			for full JEE6 compliance.
 		</p>
 		<section>
 			<title>Motivation</title>
@@ -51,19 +55,21 @@
 				</li>
 				<li>
 					Method Invocations &ndash;
-					As an extension to the standard, <em>JUEL</em> can be configured to enable
-					method invocations as in <code>${foo.matches('[0-9]+')}</code>.
+					<em>JUEL</em> supports method invocations as in <code>${foo.matches('[0-9]+')}</code>.
+					Methods are resolved and invoked using the EL's resolver mechanism.
+					As of <em>JUEL</em> 2.2, method invocations are enabled by default.
 				</li>
 				<li>
 					VarArg Calls &ndash;
-					As another extension to the standard, <em>JUEL</em> can be configured to support
-					Java 5 VarArgs. E.g., binding <code>String.format(String, String...)</code>
+					<em>JUEL</em> supports Java 5 VarArgs in function and method invocations.
+					E.g., binding <code>String.format(String, String...)</code>
 					to function <code>format</code> allows for <code>${format('Hey %s','Joe')}</code>.
+					As of <em>JUEL</em> 2.2, VarArgs are enabled by default.
 				</li>
 				<li>
 					Pluggable EL&ndash;
 					The <em>JUEL</em> jar has been setup to be transparently detected as EL
-					implementation by a Java runtime environment or JEE5 application server.
+					implementation by a Java runtime environment or JEE application server.
 					Using <em>JUEL</em> does not require an application to explicitly
 					reference any of the <em>JUEL</em> specific implementation classes.
 				</li>

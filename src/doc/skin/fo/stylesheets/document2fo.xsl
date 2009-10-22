@@ -20,7 +20,7 @@
   <xsl:param name="link-color" select="'#000000'"/>
   <xsl:param name="link-decoration" select="'none'"/>
 
-  <xsl:variable name="show-external-urls" select="'true'"/>
+  <xsl:variable name="show-external-urls" select="'false'"/>
 
   <xsl:param name="footertext">
     <xsl:text>Copyright &#169; 2006-2009 Odysseus Software GmbH. All rights reserved.</xsl:text>
