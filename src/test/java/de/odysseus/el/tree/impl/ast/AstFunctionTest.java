@@ -81,6 +81,7 @@ public class AstFunctionTest extends TestCase {
 
 		context.setFunction("vararg", "f", getClass().getMethod("foovar", new Class[]{int[].class}));
 		context.getELResolver().setValue(context, null, "var111", new int[]{1,1,1});
+		context.getELResolver().setValue(context, null, "var111s", new String[]{"1","1","1"});
 	}
 
 	public void testVarargs() {
@@ -100,6 +101,9 @@ public class AstFunctionTest extends TestCase {
 		assertEquals(foovar(0), getNode(tree).eval(tree.bind(context.getFunctionMapper(), null), null));
 
 		tree = builder.build("${vararg:f(var111)}");
+		assertEquals(foovar(1,1,1), getNode(tree).eval(tree.bind(context.getFunctionMapper(), null), context));
+
+		tree = builder.build("${vararg:f(var111s)}");
 		assertEquals(foovar(1,1,1), getNode(tree).eval(tree.bind(context.getFunctionMapper(), null), context));
 	}
 

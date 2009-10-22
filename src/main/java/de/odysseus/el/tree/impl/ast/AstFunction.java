@@ -72,9 +72,20 @@ public class AstFunction extends AstRightValue implements FunctionNode {
 				Object array = null;
 				if (length == 1) { // special: eventually use argument as is
 					Object param = getParam(varargIndex).eval(bindings, context);
-					if (types[varargIndex].isInstance(param)) {
-						array = param;
-					} else {
+					if (param != null && param.getClass().isArray()) {
+						if (types[varargIndex].isInstance(param)) {
+							array = param;
+						} else { // coerce array elements
+							length = Array.getLength(param);
+							array = Array.newInstance(varargType, length);
+							for (int i = 0; i < length; i++) {
+								Object elem = Array.get(param, i);
+								if (elem != null || varargType.isPrimitive()) {
+									Array.set(array, i, bindings.convert(elem, varargType));
+								}
+							}
+						}
+					} else { // single element array
 						array = Array.newInstance(varargType, 1);
 						if (param != null || varargType.isPrimitive()) {
 							Array.set(array, 0, bindings.convert(param, varargType));
