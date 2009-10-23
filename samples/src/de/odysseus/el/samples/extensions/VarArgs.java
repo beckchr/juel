@@ -28,9 +28,10 @@ import de.odysseus.el.util.SimpleContext;
  */
 public class VarArgs {
 	public static void main(String... args) throws NoSuchMethodException {
-		// create our factory which uses our customized builder
-		System.setProperty("javax.el.varArgs", "true");		
-		ExpressionFactory f = new ExpressionFactoryImpl(System.getProperties());
+		// create our factory
+//		System.setProperty("javax.el.varArgs", "true");		
+//		ExpressionFactory f = new ExpressionFactoryImpl(System.getProperties());
+		ExpressionFactory f = new ExpressionFactoryImpl(); // varargs are enabled by default
 
 		// create our context with function "vararg:format"
 		Method method = String.class.getMethod("format", new Class[]{String.class, Object[].class});

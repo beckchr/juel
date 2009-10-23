@@ -29,9 +29,10 @@ import de.odysseus.el.util.SimpleContext;
  */
 public class MethodInvocations {
 	public static void main(String... args) throws NoSuchMethodException {
-		// create our factory which uses our customized builder
-		System.setProperty("javax.el.methodInvocations", "true");		
-		ExpressionFactory f = new ExpressionFactoryImpl(System.getProperties());
+		// create our factory
+//		System.setProperty("javax.el.methodInvocations", "true");		
+//		ExpressionFactory f = new ExpressionFactoryImpl(System.getProperties());
+		ExpressionFactory f = new ExpressionFactoryImpl(); // method invocations are enabled by default
 
 		// create our resolver
 		CompositeELResolver resolver = new CompositeELResolver();
