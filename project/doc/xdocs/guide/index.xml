@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "../../schema/dtd/document-v20.dtd">
+<document>
+	<header>
+		<title>JUEL Guide</title>
+	</header>
+	<body>
+		<p>
+			This guide gives a brief introduction to <em>JUEL</em>.
+			However, this is <em>not</em> an EL tutorial. Before using <em>JUEL</em>, we strongly recommend
+			to get familiar with the Unified EL basics by taking a look at the specification document,
+			which is available <a href="ext:jcp.com.jsr245">here</a>.
+		</p>
+		<p>
+			The <em>JUEL</em> guide divides into the following sections:
+		</p>
+		<ol>
+			<li>
+				<a href="site:/guide/start"><strong>Quickstart</strong></a> &ndash;
+				Gets you started with <em>JUEL</em>.
+			</li>
+			<li>
+				<a href="site:/guide/basic"><strong>Basic Classes</strong></a> &ndash;
+				Covers <em>JUEL</em>'s expression factory and expression types.
+			</li>
+			<li>
+				<a href="site:/guide/util"><strong>Utility Classes</strong></a> &ndash;
+				Introduces <em>JUEL</em>'s simple context and resolver implementations.
+			</li>
+			<li>
+				<a href="site:/guide/advanced"><strong>Advanced Topics</strong></a> &ndash;
+				Talks about trees, caching, builders, extensions, etc.
+			</li>
+			<li>
+				<a href="site:/guide/issues"><strong>Specification Issues</strong></a> &ndash;
+				Known defects, clarifications, notes, ...
+			</li>
+		</ol>
+	</body>
+</document>

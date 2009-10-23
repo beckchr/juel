@@ -1,0 +1,49 @@
+<project name="juel" default="dist" basedir=".">
+	<property name="version" value="2.2.0-rc3" />
+
+	<property file="build.properties" />
+
+	<property name="build.dir" value="../build" />
+	<property name="dist.dir" value="dist" />
+
+	<property name="junit.jar" value="lib/junit.jar" />
+
+	<target name="dist" description="build juel distribution">
+		<ant antfile="../build.xml" inheritall="false" target="jars">
+			<property name="build.dir" location="${build.dir}" />
+		</ant>
+		<ant antfile="../build.xml" inheritall="false" target="javadoc">
+			<property name="build.dir" location="${build.dir}" />
+		</ant>
+		<ant antfile="doc/build.xml" inheritall="false" target="dist">
+			<property name="build.dir" location="${build.dir}/forrester" />
+		</ant>
+		<zip destfile="${build.dir}/juel-${version}.zip">
+			<zipfileset prefix="juel-${version}" dir="..">
+				<include name="LICENSE.txt" />
+				<include name="README.txt" />
+				<include name="build.xml" />
+				<include name=".project" />
+				<include name=".classpath" />
+				<include name="api/**" />
+				<exclude name="api/target/**" />
+				<include name="impl/**" />
+				<exclude name="impl/target/**" />
+				<include name="samples/**" />
+			</zipfileset>
+			<zipfileset prefix="juel-${version}" dir="${build.dir}">
+				<include name="juel-${version}.jar" />
+				<include name="juel-${version}-sources.jar" />
+				<include name="juel-api-${version}.jar" />
+				<include name="juel-impl-${version}.jar" />
+			</zipfileset>
+			<zipfileset prefix="juel-${version}/doc" dir="${build.dir}/forrester">
+				<include name="**" />
+			</zipfileset>
+			<zipfileset prefix="juel-${version}/doc/api" dir="${build.dir}/javadoc">
+				<include name="**" />
+			</zipfileset>
+		</zip>
+	</target>
+
+</project>

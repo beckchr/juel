@@ -5,10 +5,10 @@
 
 	<groupId>de.odysseus.juel</groupId>
 	<artifactId>juel</artifactId>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<name>Java Unified Expression Language</name>
-	<version>2.2.0-rc3</version>
+	<version>2.2.0-SNAPSHOT</version>
 	<description>
     Implementation of the Java Unified Expression Language as specified
     by the Expression Language Specification, Version 2.1: part of the
@@ -42,17 +42,6 @@
 		</developer>
 	</developers>
 
-	<contributors>
-		<contributor>
-			<name>Wolfgang Haefelinger</name>
-			<organization>haefelinger IT</organization>
-			<organizationUrl>http://www.haefelinger.it</organizationUrl>
-			<roles>
-				<role>maven build</role>
-			</roles>
-		</contributor>
-	</contributors>
-
 	<scm>
 		<connection>scm:svn:https://juel.svn.sourceforge.net/svnroot/juel/trunk</connection>
 		<url>http://juel.svn.sourceforge.net/viewvc/juel/trunk/</url>
@@ -71,16 +60,6 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-					<optimize>true</optimize>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 					<archive>
@@ -96,6 +75,16 @@
 							<Main-Class>de.odysseus.el.tree.impl.Builder</Main-Class>
 						</manifestEntries>
 					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+					<optimize>true</optimize>
 				</configuration>
 			</plugin>
 
@@ -123,4 +112,8 @@
 		</plugins>
 	</reporting>
 
+    <modules>
+        <module>api</module>
+        <module>impl</module>
+    </modules>
 </project>

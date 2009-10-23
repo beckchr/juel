@@ -1,0 +1,177 @@
+html,body {
+	width: 99%;
+	height: 100%;
+	margin: 5px;
+	padding: 0;
+	font-family: small Verdana, Helvetica, sans-serif;
+	background-color: white;
+}
+
+#header {
+	padding: 5px;
+	width: 99%;
+}
+
+#header img {
+	border: 0;
+}
+
+#leftcol {
+	height: 100%;
+	width: 160px;
+	margin: 5px;
+	padding: 0;
+	position: absolute;
+	left: 0;
+}
+
+#footer {
+	width: 99%;
+	font-size: 8pt;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	padding: 5px 0 5px 15px;
+	clear: both;
+	background-color: inherit;
+}
+
+#maincol {
+	height: 100%;
+	margin-left: 160px;
+	padding: 5px;
+	margin-top: 0;
+}
+
+.menu {
+	text-indent: 0px;
+	color: #555555;
+	padding: 10px;
+}
+
+.menu ul {
+	padding-left: 0px;
+	margin-left: 2px;
+	list-style: none;
+	margin-top: 0px;
+	font-size: 10pt;
+	font-weight: bold;
+	line-height: 1.5;
+}
+
+.menu ul ul {
+	margin-bottom: 10px;
+	margin-left: 16px;
+	list-style: circle;
+	font-size: 90%;
+	font-weight: normal;
+}
+
+.menu ul ul ul {
+	margin-bottom: 0px;
+	list-style: disc;
+}
+
+.menu ul ul ul ul {
+	list-style: circle;
+	margin-left: 15px;
+}
+
+.menu .selected-contained {
+	font-style: italic;
+}
+
+.menu .selected-contained li {
+	font-style: normal;
+}
+
+.menu .selected-contained .selected {
+	font-style: italic;
+}
+
+.menu .selected {
+	color: #447777;
+	font-style: italic;
+}
+
+.menu .selected ul {
+	color: #555555;
+	font-style: normal;
+}
+
+.menu .inactive {
+	color: #aaaaaa;
+	font-style: normal;
+}
+
+.menu a:link {
+	color: #555555;
+	text-decoration: none;
+}
+
+.menu a:visited {
+	color: #555555;
+	text-decoration: none;
+}
+
+.menu a:hover {
+	color: #447777;
+	text-decoration: none;
+}
+
+.navigation {
+	color: #555555;
+	padding: 2px;
+	background-color: whitesmoke;
+	border-top: 1px solid #aaaaaa;
+	border-bottom: 1px solid #aaaaaa;
+	margin-top: 10px;
+}
+
+.navigation .trail {
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+.navigation .tabs {
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+.navigation a:link {
+	color: #555555;
+	text-decoration: none;
+}
+
+.navigation a:visited {
+	color: #555555;
+	text-decoration: none;
+}
+
+.navigation a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+.navigation .selected a:link {
+	color: #447777;
+}
+
+.navigation .selected a:visited {
+	color: #447777;
+}
+
+@media print {
+	#header {
+		display: none;
+	}
+	#leftcol {
+		display: none;
+	}
+	#maincol {
+		margin-left: 0;
+	}
+	#footer {
+		display: none;
+	}
+}

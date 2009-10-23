@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: de.odysseus.el.tree.impl.ast.AstNestedTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec

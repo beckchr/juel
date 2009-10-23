@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite failures="0" time="0" errors="0" skipped="0" tests="0" name="javax.el.TestFactory">
+  <properties>
+    <property name="java.vendor" value="Sun Microsystems Inc."/>
+    <property name="localRepository" value="C:\Dokumente und Einstellungen\christoph\.m2\repository"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.management.compiler" value="HotSpot Client Compiler"/>
+    <property name="env.PROMPT" value="$P$G"/>
+    <property name="os.name" value="Windows XP"/>
+    <property name="env.FP_NO_HOST_CHECK" value="NO"/>
+    <property name="sun.boot.class.path" value="C:\Programme\Java\jdk1.6.0_16\jre\lib\resources.jar;C:\Programme\Java\jdk1.6.0_16\jre\lib\rt.jar;C:\Programme\Java\jdk1.6.0_16\jre\lib\sunrsasign.jar;C:\Programme\Java\jdk1.6.0_16\jre\lib\jsse.jar;C:\Programme\Java\jdk1.6.0_16\jre\lib\jce.jar;C:\Programme\Java\jdk1.6.0_16\jre\lib\charsets.jar;C:\Programme\Java\jdk1.6.0_16\jre\classes"/>
+    <property name="env.COMPUTERNAME" value="ITHAKA"/>
+    <property name="env.ALLUSERSPROFILE" value="C:\Dokumente und Einstellungen\All Users"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="java.runtime.version" value="1.6.0_16-b01"/>
+    <property name="env.HOMEPATH" value="\Dokumente und Einstellungen\christoph"/>
+    <property name="user.name" value="christoph"/>
+    <property name="env.QTJAVA" value="C:\Programme\Java\jre6\lib\ext\QTJava.zip"/>
+    <property name="user.language" value="de"/>
+    <property name="sun.boot.library.path" value="C:\Programme\Java\jdk1.6.0_16\jre\bin"/>
+    <property name="classworlds.conf" value="C:\eclipse\workspaces\stan-trunk\.metadata\.plugins\org.maven.ide.eclipse\launches\m2conf2932934264633765975.tmp"/>
+    <property name="java.version" value="1.6.0_16"/>
+    <property name="env.PROCESSOR_IDENTIFIER" value="x86 Family 6 Model 15 Stepping 6, GenuineIntel"/>
+    <property name="user.timezone" value=""/>
+    <property name="env.TEMP" value="C:\DOKUME~1\CHRIST~1\LOKALE~1\Temp"/>
+    <property name="sun.arch.data.model" value="32"/>
+    <property name="java.endorsed.dirs" value="C:\Programme\Java\jdk1.6.0_16\jre\lib\endorsed"/>
+    <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
+    <property name="env.HOMEDRIVE" value="C:"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="50.0"/>
+    <property name="user.country" value="DE"/>
+    <property name="java.home" value="C:\Programme\Java\jdk1.6.0_16\jre"/>
+    <property name="env.APPDATA" value="C:\Dokumente und Einstellungen\christoph\Anwendungsdaten"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="env.ComSpec" value="C:\WINDOWS\system32\cmd.exe"/>
+    <property name="env.OS" value="Windows_NT"/>
+    <property name="env.CommonProgramFiles" value="C:\Programme\Gemeinsame Dateien"/>
+    <property name="os.version" value="5.1"/>
+    <property name="env.CYGWIN" value="tty"/>
+    <property name="path.separator" value=";"/>
+    <property name="java.vm.version" value="14.2-b01"/>
+    <property name="user.variant" value=""/>
+    <property name="env.USERPROFILE" value="C:\Dokumente und Einstellungen\christoph"/>
+    <property name="env.JAVA_HOME" value="C:\Programme\Java\jdk1.6.0_10"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="env.TMP" value="C:\DOKUME~1\CHRIST~1\LOKALE~1\Temp"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="user.home" value="C:\Dokumente und Einstellungen\christoph"/>
+    <property name="env.SESSIONNAME" value="Console"/>
+    <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="env.CLASSPATH" value=".;C:\Programme\Java\jre6\lib\ext\QTJava.zip"/>
+    <property name="env.M2_HOME" value="C:\java\apache-maven-2.0.9"/>
+    <property name="env.MULE_HOME" value="C:\java\mule-1.4.3"/>
+    <property name="env.NUMBER_OF_PROCESSORS" value="2"/>
+    <property name="java.library.path" value="C:\Programme\Java\jdk1.6.0_16\bin;.;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Oracle\app\oracle\product\10.2.0\server\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Programme\OpenSSH\bin;C:\Programme\TortoiseSVN\bin;C:\Programme\SlikSvn\bin\;C:\Programme\QuickTime\QTSystem\;C:\Programme\CVSNT\;C:\Programme\Java\jdk1.6.0_10\bin;C:\java\mule-1.4.3\bin;C:\java\apache-maven-2.0.9\bin"/>
+    <property name="java.vendor.url" value="http://java.sun.com/"/>
+    <property name="java.vm.vendor" value="Sun Microsystems Inc."/>
+    <property name="maven.home" value="EMBEDDED"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="java.class.path" value="/C:/eclipse/galileo/sdk351/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/plexus-classworlds-1.2-alpha-12.jar"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="env.LOGONSERVER" value="\\ITHAKA"/>
+    <property name="env.windir" value="C:\WINDOWS"/>
+    <property name="java.vm.specification.version" value="1.0"/>
+    <property name="env.PROCESSOR_ARCHITECTURE" value="x86"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.os.patch.level" value="Service Pack 2"/>
+    <property name="env.ProgramFiles" value="C:\Programme"/>
+    <property name="surefire.test.class.path" value="C:\eclipse\workspaces\stan-trunk\juel\api\target\test-classes;C:\eclipse\workspaces\stan-trunk\juel\api\target\classes;C:\Dokumente und Einstellungen\christoph\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;"/>
+    <property name="java.io.tmpdir" value="C:\DOKUME~1\CHRIST~1\LOKALE~1\Temp\"/>
+    <property name="env.PROCESSOR_REVISION" value="0f06"/>
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi"/>
+    <property name="env.SystemRoot" value="C:\WINDOWS"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="os.arch" value="x86"/>
+    <property name="java.ext.dirs" value="C:\Programme\Java\jdk1.6.0_16\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
+    <property name="user.dir" value="C:\eclipse\workspaces\stan-trunk\juel\api"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) Client VM"/>
+    <property name="env.PATHEXT" value=".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH"/>
+    <property name="env.Path" value="C:\Oracle\app\oracle\product\10.2.0\server\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Programme\OpenSSH\bin;C:\Programme\TortoiseSVN\bin;C:\Programme\SlikSvn\bin\;C:\Programme\QuickTime\QTSystem\;C:\Programme\CVSNT\;C:\Programme\Java\jdk1.6.0_10\bin;C:\java\mule-1.4.3\bin;C:\java\apache-maven-2.0.9\bin"/>
+    <property name="basedir" value="C:\eclipse\workspaces\stan-trunk\juel\api"/>
+    <property name="maven.mode.standalone" value="true"/>
+    <property name="env.M2" value="C:\java\apache-maven-2.0.9\bin"/>
+    <property name="env.USERNAME" value="christoph"/>
+    <property name="env.SystemDrive" value="C:"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="env.USERDOMAIN" value="ITHAKA"/>
+    <property name="java.specification.version" value="1.6"/>
+    <property name="env.PROCESSOR_LEVEL" value="6"/>
+  </properties>
+</testsuite>

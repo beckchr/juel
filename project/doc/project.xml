@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE project PUBLIC "-//Odysseus Software GmbH//DTD Forrester Project 1.0//EN" "./schema/dtd/project.dtd">
+
+<project name="juel" index="index">
+	<title>Java Unified Expression Language</title>
+	<item>JUEL</item>
+
+	<document name="index" excludes="pdf"/>
+	<document name="index" includes="pdf">
+		<item>Intro</item>
+	</document>
+
+	<group name="guide" dir="guide" index="index">
+		<item>Guide</item>
+		<document name="index"/>
+
+		<document name="start">
+			<item>Quickstart</item>
+		</document>
+
+		<group name="basic" dir="basic" index="index">
+			<item>Basic Classes</item>
+			<document name="index"/>
+			<document name="factory">
+				<item>Expression Factory</item>
+			</document>
+			<document name="value">
+				<item>Value Expressions</item>
+			</document>
+			<document name="method">
+				<item>Method Expressions</item>
+			</document>
+		</group>
+
+		<group name="util" dir="util" index="index">
+			<item>Utility Classes</item>
+			<document name="index"/>
+			<document name="context">
+				<item>Simple Context</item>
+			</document>
+			<document name="resolver">
+				<item>Simple Resolver</item>
+			</document>
+		</group>
+
+		<document name="service">
+			<item>Plugin JUEL</item>
+		</document>
+
+		<group name="advanced" dir="advanced" index="index">
+			<item>Advanced Topics</item>
+			<document name="index"/>
+		</group>
+
+		<document name="issues">
+			<item>Specification Issues</item>
+		</document>
+	</group>
+
+	<group name="project" dir="project">
+		<title>JUEL Project</title>
+		<item>Project</item>
+		<link href="site://api/index.html" target="_blank" excludes="site pdf">
+			<item>API Documentation</item>
+		</link>
+		<document name="changes">
+			<item>History of Changes</item>
+		</document>
+	</group>
+
+  <external-ref name="apache.org.license" href="http://www.apache.org/licenses/LICENSE-2.0"/>
+  <external-ref name="sun.com.license" href="https://glassfish.dev.java.net/public/CDDLv1.0.html"/>
+  <external-ref name="uel.dev.java.net" href="https://uel.dev.java.net/"/>
+  <external-ref name="jcp.com.jsr245" href="http://jcp.org/aboutJava/communityprocess/final/jsr245/"/>
+  <external-ref name="jcp.com.jsr245mr1" href="http://jcp.org/aboutJava/communityprocess/maintenance/jsr245/245-MR1.html"/>
+  <external-ref name="jcp.com.jsr245mr2" href="http://jcp.org/aboutJava/communityprocess/maintenance/jsr245/245-MR2_2.html"/>
+</project>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "../../../schema/dtd/document-v20.dtd">
+<document>
+	<header>
+		<title>Basic Classes</title>
+	</header>
+	<body>
+		<p>
+			This section walks through the concrete classes provided by <em>JUEL</em>, that make up
+			the core of the evaluation process: the factory and the various kinds of expressions it creates.
+		</p>
+		<p>
+			We do not fully cover inherited behavior, which is already described by the API super classes.
+			Rather, we focus on additional methods provided by <em>JUEL</em> as extensions to the API as
+			well as implementation specific information.
+		</p>
+	</body>
+</document>
