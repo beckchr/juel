@@ -9,6 +9,9 @@
 	<property name="junit.jar" value="lib/junit.jar" />
 
 	<target name="dist" description="build juel distribution">
+		<ant antfile="../build.xml" inheritall="false" target="clean">
+			<property name="build.dir" location="${build.dir}" />
+		</ant>
 		<ant antfile="../build.xml" inheritall="false" target="jars">
 			<property name="build.dir" location="${build.dir}" />
 		</ant>
@@ -23,6 +26,7 @@
 				<include name="LICENSE.txt" />
 				<include name="README.txt" />
 				<include name="build.xml" />
+				<include name="pom.xml" />
 				<include name=".project" />
 				<include name=".classpath" />
 				<include name="api/**" />
