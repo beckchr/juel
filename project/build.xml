@@ -1,7 +1,7 @@
 <project name="juel" default="dist" basedir=".">
-	<property name="version" value="2.2.0-rc3" />
+	<property file="../build.properties" />
 
-	<property file="build.properties" />
+	<property name="version" value="2.2.0-SNAPSHOT" />
 
 	<property name="build.dir" value="../build" />
 	<property name="dist.dir" value="dist" />
