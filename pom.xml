@@ -60,26 +60,6 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<addMavenDescriptor>false</addMavenDescriptor>
-						<manifestEntries>
-							<Specification-Title>Expression Language</Specification-Title>
-							<Specification-Version>2.1</Specification-Version>
-							<Specification-Vendor>Sun Microsystems Inc.</Specification-Vendor>
-							<Implementation-Title>JUEL</Implementation-Title>
-							<Implementation-Version>${version}</Implementation-Version>
-							<Implementation-Vendor>Odysseus Software GmbH</Implementation-Vendor>
-							<Implementation-Vendor-Id>de.odysseus</Implementation-Vendor-Id>
-							<Main-Class>de.odysseus.el.tree.impl.Builder</Main-Class>
-						</manifestEntries>
-					</archive>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>1.5</source>
@@ -89,7 +69,6 @@
 			</plugin>
 
 			<plugin>
-				<!-- mvn source:jar -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 				<configuration>
@@ -113,7 +92,8 @@
 	</reporting>
 
     <modules>
-        <module>api</module>
-        <module>impl</module>
+        <module>modules/api</module>
+        <module>modules/impl</module>
+        <module>modules/spi</module>
     </modules>
 </project>

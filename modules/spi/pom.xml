@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.odysseus.juel</groupId>
+		<artifactId>juel</artifactId>
+		<version>2.2.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>de.odysseus.juel</groupId>
+	<artifactId>juel-spi</artifactId>
+	<packaging>jar</packaging>
+
+	<name>Java Unified Expression Language Service Provider</name>
+	<version>2.2.0-SNAPSHOT</version>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+						<manifestEntries>
+							<Specification-Title>Expression Language</Specification-Title>
+							<Specification-Version>2.1</Specification-Version>
+							<Specification-Vendor>Sun Microsystems Inc.</Specification-Vendor>
+							<Implementation-Title>JUEL</Implementation-Title>
+							<Implementation-Version>${version}</Implementation-Version>
+							<Implementation-Vendor>Odysseus Software GmbH</Implementation-Vendor>
+							<Implementation-Vendor-Id>de.odysseus</Implementation-Vendor-Id>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

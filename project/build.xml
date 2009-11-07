@@ -26,13 +26,11 @@
 				<include name="LICENSE.txt" />
 				<include name="README.txt" />
 				<include name="build.xml" />
-				<include name="pom.xml" />
 				<include name=".project" />
 				<include name=".classpath" />
-				<include name="api/**" />
-				<exclude name="api/target/**" />
-				<include name="impl/**" />
-				<exclude name="impl/target/**" />
+				<include name="pom.xml" />
+				<include name="modules/**" />
+				<exclude name="modules/*/target/**" />
 				<include name="samples/**" />
 			</zipfileset>
 			<zipfileset prefix="juel-${version}" dir="${build.dir}">
@@ -40,6 +38,7 @@
 				<include name="juel-${version}-sources.jar" />
 				<include name="juel-api-${version}.jar" />
 				<include name="juel-impl-${version}.jar" />
+				<include name="juel-spi-${version}.jar" />
 			</zipfileset>
 			<zipfileset prefix="juel-${version}/doc" dir="${build.dir}/forrester">
 				<include name="**" />

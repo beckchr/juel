@@ -18,8 +18,11 @@ package de.odysseus.el.tree.impl;
 import java.io.PrintWriter;
 import java.util.EnumSet;
 
+import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.ELResolver;
+import javax.el.FunctionMapper;
+import javax.el.VariableMapper;
 
 import de.odysseus.el.tree.Bindings;
 import de.odysseus.el.tree.NodePrinter;
@@ -28,7 +31,6 @@ import de.odysseus.el.tree.TreeBuilder;
 import de.odysseus.el.tree.TreeBuilderException;
 import de.odysseus.el.tree.impl.Parser.ParseException;
 import de.odysseus.el.tree.impl.Scanner.ScanException;
-import de.odysseus.el.util.SimpleContext;
 
 /**
  * Tree builder.
@@ -140,9 +142,23 @@ public class Builder implements TreeBuilder {
 		}
 		NodePrinter.dump(out, tree.getRoot());
 		if (!tree.getFunctionNodes().iterator().hasNext() && !tree.getIdentifierNodes().iterator().hasNext()) {
+			ELContext context = new ELContext() {
+				@Override
+				public VariableMapper getVariableMapper() {
+					return null;
+				}
+				@Override
+				public FunctionMapper getFunctionMapper() {
+					return null;
+				}
+				@Override
+				public ELResolver getELResolver() {
+					return null;
+				}
+			};
 			out.print(">> ");
 			try {
-				out.println(tree.getRoot().getValue(new Bindings(null, null), new SimpleContext(), null));
+				out.println(tree.getRoot().getValue(new Bindings(null, null), context, null));
 			} catch (ELException e) {
 				out.println(e.getMessage());
 			}

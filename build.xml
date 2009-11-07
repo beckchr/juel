@@ -25,23 +25,22 @@
 
 	<target name="compile-api" depends="prepare" description="compile juel api (javax.el)">
 		<mkdir dir="${build.dir}/classes-api" />
-		<javac srcdir="api/src/main/java" destdir="${build.dir}/classes-api" debug="true" debuglevel="${debug.level}" optimize="true" source="1.5" target="1.5">
+		<javac srcdir="modules/api/src/main/java" destdir="${build.dir}/classes-api" debug="true" debuglevel="${debug.level}" optimize="true" source="1.5" target="1.5">
 			<include name="javax/el/**" />
 		</javac>
 	</target>
 
 	<target name="compile-impl" depends="compile-api" description="compile juel impl (de.odysseus.el)">
 		<mkdir dir="${build.dir}/classes-impl" />
-		<javac srcdir="impl/src/main/java" destdir="${build.dir}/classes-impl" debug="true" debuglevel="${debug.level}" optimize="true" source="1.5" target="1.5">
+		<javac srcdir="modules/impl/src/main/java" destdir="${build.dir}/classes-impl" debug="true" debuglevel="${debug.level}" optimize="true" source="1.5" target="1.5">
 			<classpath>
 				<pathelement location="${build.dir}/classes-api" />
 			</classpath>
 			<include name="de/odysseus/el/**" />
 		</javac>
 		<copy todir="${build.dir}/classes-impl">
-			<fileset dir="impl/src/main/resources">
+			<fileset dir="modules/impl/src/main/resources">
 				<include name="de/odysseus/el/**/*.properties" />
-				<include name="META-INF/services/*" />
 			</fileset>
 		</copy>
 	</target>
@@ -91,7 +90,23 @@
 		<jar jarfile="${build.dir}/juel-impl-${version}.jar">
 			<fileset dir="${build.dir}/classes-impl">
 				<include name="de/odysseus/el/**" />
-				<include name="META-INF/services/*" />
+			</fileset>
+			<manifest>
+				<attribute name="Specification-Title" value="Expression Language" />
+				<attribute name="Specification-Version" value="2.1" />
+				<attribute name="Specification-Vendor" value="Sun Microsystems Inc." />
+				<attribute name="Implementation-Title" value="JUEL" />
+				<attribute name="Implementation-Version" value="${version}" />
+				<attribute name="Implementation-Vendor" value="Odysseus Software GmbH" />
+				<attribute name="Implementation-Vendor-Id" value="de.odysseus" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="jar-spi" depends="prepare" description="create juel spi jar (META-INF/services)">
+		<jar jarfile="${build.dir}/juel-spi-${version}.jar">
+			<fileset dir="modules/spi/src/main/resources">
+				<include name="META-INF/services/javax.el.ExpressionFactory" />
 			</fileset>
 			<manifest>
 				<attribute name="Specification-Title" value="Expression Language" />
@@ -107,24 +122,24 @@
 
 	<target name="jar-sources" depends="prepare" description="create juel source jar (javax.el + de.odysseus.el)">
 		<jar jarfile="${build.dir}/juel-${version}-sources.jar">
-			<fileset dir="api/src/main/java">
+			<fileset dir="modules/api/src/main/java">
 				<include name="javax/el/**" />
 			</fileset>
-			<fileset dir="impl/src/main/java">
+			<fileset dir="modules/impl/src/main/java">
 				<include name="de/odysseus/el/**" />
 			</fileset>
 		</jar>
 	</target>
 
-	<target name="jars" depends="jar-sources,jar,jar-api,jar-impl" description="create juel jars" />
+	<target name="jars" depends="jar-sources,jar,jar-api,jar-impl,jar-spi" description="create juel jars" />
 
 	<target name="javadoc" depends="prepare" unless="el-api-sources.present">
 		<mkdir dir="${build.dir}/javadoc" />
 		<javadoc destdir="${build.dir}/javadoc" access="protected" doctitle="&lt;h2&gt;JUEL version ${version}&lt;/h2&gt;" windowtitle="JUEL version ${version})" footer="Copyright &amp;copy; 2006-2009 Odysseus Software GmbH.">
-			<fileset dir="api/src/main/java">
+			<fileset dir="modules/api/src/main/java">
 				<include name="javax/el/**/*.java" />
 			</fileset>
-			<fileset dir="impl/src/main/java">
+			<fileset dir="modules/impl/src/main/java">
 				<include name="de/odysseus/el/**/*.java" />
 			</fileset>
 		</javadoc>
@@ -132,13 +147,13 @@
 
 	<target name="test" depends="compile" if="junit.present" description="compile and run unit tests">
 		<mkdir dir="${build.dir}/classes-test" />
-		<javac srcdir="api/src/test/java" destdir="${build.dir}/classes-test" debug="true">
+		<javac srcdir="modules/api/src/test/java" destdir="${build.dir}/classes-test" debug="true">
 			<classpath>
 				<pathelement location="${junit.jar}" />
 				<pathelement location="${build.dir}/classes-api" />
 			</classpath>
 		</javac>
-		<javac srcdir="impl/src/test/java" destdir="${build.dir}/classes-test" debug="true">
+		<javac srcdir="modules/impl/src/test/java" destdir="${build.dir}/classes-test" debug="true">
 			<classpath>
 				<pathelement location="${junit.jar}" />
 				<pathelement location="${build.dir}/classes-api" />
