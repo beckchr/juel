@@ -1,36 +1,34 @@
 <project name="juel" default="dist" basedir=".">
-	<property file="../build.properties" />
+	<property file="build.properties" />
 
 	<property name="version" value="2.2.0-SNAPSHOT" />
 
-	<property name="build.dir" value="../build" />
-	<property name="dist.dir" value="dist" />
+	<property name="build.dir" value="build" />
+	<property name="dist.dir" value=".." />
 
 	<property name="junit.jar" value="lib/junit.jar" />
 
-	<target name="dist" description="build juel distribution">
-		<ant antfile="../build.xml" inheritall="false" target="clean">
+	<target name="clean" description="cleanup build directory">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="dist" depends="clean" description="build juel distribution">
+		<ant antfile="../modules/build.xml" inheritall="false" target="dist">
 			<property name="build.dir" location="${build.dir}" />
-		</ant>
-		<ant antfile="../build.xml" inheritall="false" target="jars">
-			<property name="build.dir" location="${build.dir}" />
-		</ant>
-		<ant antfile="../build.xml" inheritall="false" target="javadoc">
-			<property name="build.dir" location="${build.dir}" />
+			<property name="version" value="${version}" />
 		</ant>
 		<ant antfile="doc/build.xml" inheritall="false" target="dist">
 			<property name="build.dir" location="${build.dir}/forrester" />
 		</ant>
-		<zip destfile="${build.dir}/juel-${version}.zip">
+		<zip destfile="${dist.dir}/juel-${version}.zip">
 			<zipfileset prefix="juel-${version}" dir="..">
 				<include name="LICENSE.txt" />
 				<include name="README.txt" />
-				<include name="build.xml" />
-				<include name=".project" />
-				<include name=".classpath" />
 				<include name="modules/**" />
+				<exclude name="modules/build/**" />
 				<exclude name="modules/*/target/**" />
 				<include name="samples/**" />
+				<exclude name="**/.*" />
 			</zipfileset>
 			<zipfileset prefix="juel-${version}" dir="${build.dir}">
 				<include name="juel-${version}.jar" />

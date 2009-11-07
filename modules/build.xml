@@ -25,21 +25,21 @@
 
 	<target name="compile-api" depends="prepare" description="compile juel api (javax.el)">
 		<mkdir dir="${build.dir}/classes-api" />
-		<javac srcdir="modules/api/src/main/java" destdir="${build.dir}/classes-api" debug="true" debuglevel="${debug.level}" optimize="true" source="1.5" target="1.5">
+		<javac srcdir="api/src/main/java" destdir="${build.dir}/classes-api" debug="true" debuglevel="${debug.level}" optimize="true" source="1.5" target="1.5">
 			<include name="javax/el/**" />
 		</javac>
 	</target>
 
 	<target name="compile-impl" depends="compile-api" description="compile juel impl (de.odysseus.el)">
 		<mkdir dir="${build.dir}/classes-impl" />
-		<javac srcdir="modules/impl/src/main/java" destdir="${build.dir}/classes-impl" debug="true" debuglevel="${debug.level}" optimize="true" source="1.5" target="1.5">
+		<javac srcdir="impl/src/main/java" destdir="${build.dir}/classes-impl" debug="true" debuglevel="${debug.level}" optimize="true" source="1.5" target="1.5">
 			<classpath>
 				<pathelement location="${build.dir}/classes-api" />
 			</classpath>
 			<include name="de/odysseus/el/**" />
 		</javac>
 		<copy todir="${build.dir}/classes-impl">
-			<fileset dir="modules/impl/src/main/resources">
+			<fileset dir="impl/src/main/resources">
 				<include name="de/odysseus/el/**/*.properties" />
 			</fileset>
 		</copy>
@@ -55,7 +55,7 @@
 			<fileset dir="${build.dir}/classes-impl">
 				<include name="de/odysseus/el/**" />
 			</fileset>
-			<fileset dir="modules/spi/src/main/resources">
+			<fileset dir="spi/src/main/resources">
 				<include name="META-INF/services/*" />
 			</fileset>
 			<manifest>
@@ -107,7 +107,7 @@
 
 	<target name="jar-spi" depends="prepare" description="create juel spi jar (META-INF/services)">
 		<jar jarfile="${build.dir}/juel-spi-${version}.jar">
-			<fileset dir="modules/spi/src/main/resources">
+			<fileset dir="spi/src/main/resources">
 				<include name="META-INF/services/javax.el.ExpressionFactory" />
 			</fileset>
 			<manifest>
@@ -124,10 +124,10 @@
 
 	<target name="jar-sources" depends="prepare" description="create juel source jar (javax.el + de.odysseus.el)">
 		<jar jarfile="${build.dir}/juel-${version}-sources.jar">
-			<fileset dir="modules/api/src/main/java">
+			<fileset dir="api/src/main/java">
 				<include name="javax/el/**" />
 			</fileset>
-			<fileset dir="modules/impl/src/main/java">
+			<fileset dir="impl/src/main/java">
 				<include name="de/odysseus/el/**" />
 			</fileset>
 		</jar>
@@ -138,10 +138,10 @@
 	<target name="javadoc" depends="prepare" unless="el-api-sources.present">
 		<mkdir dir="${build.dir}/javadoc" />
 		<javadoc destdir="${build.dir}/javadoc" access="protected" doctitle="&lt;h2&gt;JUEL version ${version}&lt;/h2&gt;" windowtitle="JUEL version ${version})" footer="Copyright &amp;copy; 2006-2009 Odysseus Software GmbH.">
-			<fileset dir="modules/api/src/main/java">
+			<fileset dir="api/src/main/java">
 				<include name="javax/el/**/*.java" />
 			</fileset>
-			<fileset dir="modules/impl/src/main/java">
+			<fileset dir="impl/src/main/java">
 				<include name="de/odysseus/el/**/*.java" />
 			</fileset>
 		</javadoc>
@@ -149,13 +149,13 @@
 
 	<target name="test" depends="compile" if="junit.present" description="compile and run unit tests">
 		<mkdir dir="${build.dir}/classes-test" />
-		<javac srcdir="modules/api/src/test/java" destdir="${build.dir}/classes-test" debug="true">
+		<javac srcdir="api/src/test/java" destdir="${build.dir}/classes-test" debug="true">
 			<classpath>
 				<pathelement location="${junit.jar}" />
 				<pathelement location="${build.dir}/classes-api" />
 			</classpath>
 		</javac>
-		<javac srcdir="modules/impl/src/test/java" destdir="${build.dir}/classes-test" debug="true">
+		<javac srcdir="impl/src/test/java" destdir="${build.dir}/classes-test" debug="true">
 			<classpath>
 				<pathelement location="${junit.jar}" />
 				<pathelement location="${build.dir}/classes-api" />
@@ -182,4 +182,6 @@
 			</test>
 		</junit>
 	</target>
+
+	<target name="dist" depends="javadoc,jars" description="build everything"/>
 </project>
