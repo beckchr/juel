@@ -28,7 +28,6 @@
 				<include name="build.xml" />
 				<include name=".project" />
 				<include name=".classpath" />
-				<include name="pom.xml" />
 				<include name="modules/**" />
 				<exclude name="modules/*/target/**" />
 				<include name="samples/**" />

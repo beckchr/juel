@@ -54,6 +54,8 @@
 			</fileset>
 			<fileset dir="${build.dir}/classes-impl">
 				<include name="de/odysseus/el/**" />
+			</fileset>
+			<fileset dir="modules/spi/src/main/resources">
 				<include name="META-INF/services/*" />
 			</fileset>
 			<manifest>
