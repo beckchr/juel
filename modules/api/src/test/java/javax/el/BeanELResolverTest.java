@@ -60,6 +60,9 @@ public class BeanELResolverTest extends TestCase {
 			}
 			return b.toString();
 		}
+		int secret() {
+			return 42;
+		}
 	}
 
 	ELContext context = new TestContext();
@@ -269,5 +272,11 @@ public class BeanELResolverTest extends TestCase {
 		assertEquals(0, bean.getReadWrite());
 		assertNull(resolver.invoke(context, bean, "setReadWrite", null, new Object[]{5}));
 		assertEquals(5, bean.getReadWrite());
+		try {
+			resolver.invoke(context, new TestBean(), "secret", null, null);
+			fail();
+		} catch (MethodNotFoundException e) {
+			// fine
+		}
 	}
 }
