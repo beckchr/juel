@@ -20,8 +20,11 @@
 			an instance of it. The first variant will use its default constructor. The latter
 			will use a constructor taking a single <code>java.util.Properties</code> object as parameter.
 			The lookup procedure uses the Service Provider API as detailed in the JAR specification.
-			The <em>JUEL</em> jars have been setup accordingly. If on your classpath, the search
-			will detect <code>de.odysseus.el.ExpressionFactoryImpl</code> as service provider class.
+		</p>
+		<p>
+			The <code>juel-spi-2.2.x.jar</code> does the trick: if on your classpath, the lookup
+			procedure will detect <code>de.odysseus.el.ExpressionFactoryImpl</code> as service provider
+			class.
 		</p>
 		<p>
 			This way, <em>JUEL</em> can be used without code references to any of its
@@ -43,12 +46,13 @@
 			<li>
 				<p>
 					In a JEE5 environment, you may simply drop <code>juel-impl-2.2.x.jar</code>
-					into your <code>/WEB-INF/lib</code> directory. This will result in using
-					<em>JUEL</em> as EL implementation for that particular web application.
+					and <code>juel-spi-2.2.x.jar</code> into your <code>/WEB-INF/lib</code>
+					directory. This will result in using <em>JUEL</em> as EL implementation for
+					that particular web application.
 				</p>
-				<note label="GlassFish">
+				<note>
 					Obviously, this only works if the web container uses the new API method for
-					factory creation. E.g, this is the case for GlassFish v2 or later.
+					factory creation. E.g, this is the case for Jetty and GlassFish.
 				</note>
 				<p/> <!-- TODO fop issue with space-after, so add manual space here -->
 			</li>

@@ -4,7 +4,21 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
-	<release version="2.2.0-rc3" date="2009/10/24">
+	<release version="2.2.0-rc3" date="2009/11/08">
+		<action dev="cbe" type="update" context="code">
+			If no properties are available in <em>JUEL</em>'s expression factory (neither passed in nor from
+			<code>el.properties</code>), use system properties if <code>System.getProperty("javax.el.ExpressionFactory")</code>
+			points to <em>JUEL</em>.
+		</action>
+		<action dev="cbe" type="update" context="admin">
+			Split code base into modules <code>modules/api</code>, <code>modules/impl</code> and
+			<code>modules/spi</code>; added maven build for these.
+		</action>
+		<action dev="cbe" type="add" context="build">
+			Separated the JAR service provider (<code>META-INF/services/javax.el.ExpressionFactory</code>)
+			into its own <code>juel-spi-2.2.x.jar</code>. This allows to have <code>juel-impl-2.2.x.jar</code>
+			on your classpath without forcing <em>JUEL</em> to be used by <code>ExpressioonFactory.newInstance()</code>.
+		</action>
 		<action dev="cbe" type="add" context="code">
 			Added <code>ExpressionFactoryImpl.Profile</code> enum type and several new constructors
 			to easily choose between <em>JEE5</em> and <em>JEE6</em> (default) behavior.
