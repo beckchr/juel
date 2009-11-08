@@ -261,10 +261,12 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 					// ignore...
 				}
 			}
-			String clazz = properties.getProperty("javax.el.ExpressionFactory");
-			if (getClass().getName().equals(clazz)) {
+			if (getClass().getName().equals(properties.getProperty("javax.el.ExpressionFactory"))) {
 				return properties;
 			}
+		}
+		if (getClass().getName().equals(System.getProperty("javax.el.ExpressionFactory"))) {
+			return System.getProperties();
 		}
 		return null;
 	}
