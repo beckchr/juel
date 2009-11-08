@@ -4,7 +4,7 @@
 	<property name="version" value="2.2.0-SNAPSHOT" />
 
 	<property name="build.dir" value="build" />
-	<property name="dist.dir" value=".." />
+	<property name="dist.dir" value="dist" />
 
 	<property name="junit.jar" value="lib/junit.jar" />
 
@@ -20,6 +20,7 @@
 		<ant antfile="doc/build.xml" inheritall="false" target="dist">
 			<property name="build.dir" location="${build.dir}/forrester" />
 		</ant>
+		<mkdir dir="${dist.dir}"/>
 		<zip destfile="${dist.dir}/juel-${version}.zip">
 			<zipfileset prefix="juel-${version}" dir="..">
 				<include name="LICENSE.txt" />
