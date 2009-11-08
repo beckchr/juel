@@ -25,9 +25,12 @@
 			<zipfileset prefix="juel-${version}" dir="..">
 				<include name="LICENSE.txt" />
 				<include name="README.txt" />
+				<include name=".project" />
+				<include name=".classpath" />
 				<include name="modules/**" />
 				<exclude name="modules/build/**" />
 				<exclude name="modules/*/target/**" />
+				<exclude name="modules/.*" />
 				<include name="samples/**" />
 			</zipfileset>
 			<zipfileset prefix="juel-${version}" dir="${build.dir}">
