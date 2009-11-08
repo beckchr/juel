@@ -28,7 +28,6 @@
 				<exclude name="modules/build/**" />
 				<exclude name="modules/*/target/**" />
 				<include name="samples/**" />
-				<exclude name="**/.*" />
 			</zipfileset>
 			<zipfileset prefix="juel-${version}" dir="${build.dir}">
 				<include name="juel-${version}.jar" />
