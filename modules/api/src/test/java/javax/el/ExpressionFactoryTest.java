@@ -28,9 +28,11 @@ public class ExpressionFactoryTest extends TestCase {
 		String className = null;
 		String serviceId = "META-INF/services/" + ExpressionFactory.class.getName();
 		InputStream input = getClass().getClassLoader().getResourceAsStream(serviceId);
-		BufferedReader reader = new BufferedReader(new InputStreamReader(input, "UTF-8"));
-		className = reader.readLine();
-		reader.close();
+		if (input != null) {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(input, "UTF-8"));
+			className = reader.readLine();
+			reader.close();
+		}
 		return className;
 	}
 	
