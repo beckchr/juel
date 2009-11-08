@@ -16,7 +16,7 @@
 package javax.el;
 
 /**
- * The listener interface for receiving notification when an ELContext28 is created.
+ * The listener interface for receiving notification when an {@link ELContext} is created.
  */
 public interface ELContextListener extends java.util.EventListener {
 	/**
