@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="modules/api/src/main/java"/>
 	<classpathentry kind="src" path="modules/api/src/test/java"/>
+	<classpathentry kind="src" path="modules/api/src/test/resources"/>
 	<classpathentry kind="src" path="modules/impl/src/main/java"/>
 	<classpathentry kind="src" path="modules/impl/src/test/java"/>
 	<classpathentry kind="src" path="modules/impl/src/main/resources"/>
