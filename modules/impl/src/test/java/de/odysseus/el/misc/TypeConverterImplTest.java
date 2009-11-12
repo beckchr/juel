@@ -104,36 +104,179 @@ public class TypeConverterImplTest extends TestCase {
 		} catch (ELException e) {}
 	}
 
-	private <T extends Number> void testToNumber(Class<T> type, T zero, T ninetynine) {
-		assertEquals(zero, converter.coerceToNumber(null, type));
-		assertEquals(zero, converter.coerceToNumber("", type));
-		assertEquals(ninetynine, converter.coerceToNumber(Character.valueOf('c'), type));
-		assertEquals(ninetynine, converter.coerceToNumber(new Byte((byte)99), type));
-		assertEquals(ninetynine, converter.coerceToNumber(new Short((short)99), type));
-		assertEquals(ninetynine, converter.coerceToNumber(new Integer(99), type));
-		assertEquals(ninetynine, converter.coerceToNumber(new Long(99), type));
-		assertEquals(ninetynine, converter.coerceToNumber(new Float(99), type));
-		assertEquals(ninetynine, converter.coerceToNumber(new Double(99), type));
-		assertEquals(ninetynine, converter.coerceToNumber(new BigDecimal(99), type));
-		assertEquals(ninetynine, converter.coerceToNumber(new BigInteger("99"), type));
-		assertEquals(ninetynine, converter.coerceToNumber(ninetynine.toString(), type));
-	}
-
-	public void testToNumber() {
-		testToNumber(Byte.class, new Byte((byte)0), new Byte((byte)99));
-		testToNumber(Short.class, new Short((short)0), new Short((short)99));
-		testToNumber(Integer.class, new Integer(0), new Integer(99));
-		testToNumber(Long.class, new Long(0), new Long(99));
-		testToNumber(Float.class, new Float(0), new Float(99));
-		testToNumber(Double.class, new Double(0), new Double(99));
-		testToNumber(BigDecimal.class, new BigDecimal(0), new BigDecimal(99));
-		testToNumber(BigInteger.class, new BigInteger("0"), new BigInteger("99"));
+	public <T extends Number> void testToLong() {
+		Number zero = Long.valueOf(0l);
+		Number ninetynine = Long.valueOf(99l);
+		assertEquals(zero, converter.coerceToLong(null));
+		assertEquals(zero, converter.coerceToLong(""));
+		assertEquals(ninetynine, converter.coerceToLong(Character.valueOf('c')));
+		assertEquals(ninetynine, converter.coerceToLong(new Byte((byte)99)));
+		assertEquals(ninetynine, converter.coerceToLong(new Short((short)99)));
+		assertEquals(ninetynine, converter.coerceToLong(new Integer(99)));
+		assertEquals(ninetynine, converter.coerceToLong(new Long(99)));
+		assertEquals(ninetynine, converter.coerceToLong(new Float(99)));
+		assertEquals(ninetynine, converter.coerceToLong(new Double(99)));
+		assertEquals(ninetynine, converter.coerceToLong(new BigDecimal(99)));
+		assertEquals(ninetynine, converter.coerceToLong(new BigInteger("99")));
+		assertEquals(ninetynine, converter.coerceToLong(ninetynine.toString()));
 		try {
-			converter.coerceToNumber("foo", Long.class);
+			converter.coerceToLong("foo");
 			fail();
 		} catch (ELException e) {
-		} catch (NumberFormatException e) {
-			// allow?
+		}
+	}
+
+	public <T extends Number> void testToInteger() {
+		Number zero = Integer.valueOf(0);
+		Number ninetynine = Integer.valueOf(99);
+		assertEquals(zero, converter.coerceToInteger(null));
+		assertEquals(zero, converter.coerceToInteger(""));
+		assertEquals(ninetynine, converter.coerceToInteger(Character.valueOf('c')));
+		assertEquals(ninetynine, converter.coerceToInteger(new Byte((byte)99)));
+		assertEquals(ninetynine, converter.coerceToInteger(new Short((short)99)));
+		assertEquals(ninetynine, converter.coerceToInteger(new Integer(99)));
+		assertEquals(ninetynine, converter.coerceToInteger(new Long(99)));
+		assertEquals(ninetynine, converter.coerceToInteger(new Float(99)));
+		assertEquals(ninetynine, converter.coerceToInteger(new Double(99)));
+		assertEquals(ninetynine, converter.coerceToInteger(new BigDecimal(99)));
+		assertEquals(ninetynine, converter.coerceToInteger(new BigInteger("99")));
+		assertEquals(ninetynine, converter.coerceToInteger(ninetynine.toString()));
+		try {
+			converter.coerceToInteger("foo");
+			fail();
+		} catch (ELException e) {
+		}
+	}
+
+	public <T extends Number> void testToShort() {
+		Number zero = Short.valueOf((short)0);
+		Number ninetynine = Short.valueOf((short)99);
+		assertEquals(zero, converter.coerceToShort(null));
+		assertEquals(zero, converter.coerceToShort(""));
+		assertEquals(ninetynine, converter.coerceToShort(Character.valueOf('c')));
+		assertEquals(ninetynine, converter.coerceToShort(new Byte((byte)99)));
+		assertEquals(ninetynine, converter.coerceToShort(new Short((short)99)));
+		assertEquals(ninetynine, converter.coerceToShort(new Integer(99)));
+		assertEquals(ninetynine, converter.coerceToShort(new Long(99)));
+		assertEquals(ninetynine, converter.coerceToShort(new Float(99)));
+		assertEquals(ninetynine, converter.coerceToShort(new Double(99)));
+		assertEquals(ninetynine, converter.coerceToShort(new BigDecimal(99)));
+		assertEquals(ninetynine, converter.coerceToShort(new BigInteger("99")));
+		assertEquals(ninetynine, converter.coerceToShort(ninetynine.toString()));
+		try {
+			converter.coerceToShort("foo");
+			fail();
+		} catch (ELException e) {
+		}
+	}
+
+	public <T extends Number> void testToByte() {
+		Number zero = Byte.valueOf((byte)0);
+		Number ninetynine = Byte.valueOf((byte)99);
+		assertEquals(zero, converter.coerceToByte(null));
+		assertEquals(zero, converter.coerceToByte(""));
+		assertEquals(ninetynine, converter.coerceToByte(Character.valueOf('c')));
+		assertEquals(ninetynine, converter.coerceToByte(new Byte((byte)99)));
+		assertEquals(ninetynine, converter.coerceToByte(new Short((short)99)));
+		assertEquals(ninetynine, converter.coerceToByte(new Integer(99)));
+		assertEquals(ninetynine, converter.coerceToByte(new Long(99)));
+		assertEquals(ninetynine, converter.coerceToByte(new Float(99)));
+		assertEquals(ninetynine, converter.coerceToByte(new Double(99)));
+		assertEquals(ninetynine, converter.coerceToByte(new BigDecimal(99)));
+		assertEquals(ninetynine, converter.coerceToByte(new BigInteger("99")));
+		assertEquals(ninetynine, converter.coerceToByte(ninetynine.toString()));
+		try {
+			converter.coerceToByte("foo");
+			fail();
+		} catch (ELException e) {
+		}
+	}
+
+	public <T extends Number> void testToDouble() {
+		Number zero = Double.valueOf(0);
+		Number ninetynine = Double.valueOf(99);
+		assertEquals(zero, converter.coerceToDouble(null));
+		assertEquals(zero, converter.coerceToDouble(""));
+		assertEquals(ninetynine, converter.coerceToDouble(Character.valueOf('c')));
+		assertEquals(ninetynine, converter.coerceToDouble(new Byte((byte)99)));
+		assertEquals(ninetynine, converter.coerceToDouble(new Short((short)99)));
+		assertEquals(ninetynine, converter.coerceToDouble(new Integer(99)));
+		assertEquals(ninetynine, converter.coerceToDouble(new Long(99)));
+		assertEquals(ninetynine, converter.coerceToDouble(new Float(99)));
+		assertEquals(ninetynine, converter.coerceToDouble(new Double(99)));
+		assertEquals(ninetynine, converter.coerceToDouble(new BigDecimal(99)));
+		assertEquals(ninetynine, converter.coerceToDouble(new BigInteger("99")));
+		assertEquals(ninetynine, converter.coerceToDouble(ninetynine.toString()));
+		try {
+			converter.coerceToDouble("foo");
+			fail();
+		} catch (ELException e) {
+		}
+	}
+
+	public <T extends Number> void testToFloat() {
+		Number zero = Float.valueOf(0);
+		Number ninetynine = Float.valueOf(99);
+		assertEquals(zero, converter.coerceToFloat(null));
+		assertEquals(zero, converter.coerceToFloat(""));
+		assertEquals(ninetynine, converter.coerceToFloat(Character.valueOf('c')));
+		assertEquals(ninetynine, converter.coerceToFloat(new Byte((byte)99)));
+		assertEquals(ninetynine, converter.coerceToFloat(new Short((short)99)));
+		assertEquals(ninetynine, converter.coerceToFloat(new Integer(99)));
+		assertEquals(ninetynine, converter.coerceToFloat(new Long(99)));
+		assertEquals(ninetynine, converter.coerceToFloat(new Float(99)));
+		assertEquals(ninetynine, converter.coerceToFloat(new Double(99)));
+		assertEquals(ninetynine, converter.coerceToFloat(new BigDecimal(99)));
+		assertEquals(ninetynine, converter.coerceToFloat(new BigInteger("99")));
+		assertEquals(ninetynine, converter.coerceToFloat(ninetynine.toString()));
+		try {
+			converter.coerceToFloat("foo");
+			fail();
+		} catch (ELException e) {
+		}
+	}
+
+	public <T extends Number> void testToBigDecimal() {
+		Number zero = BigDecimal.valueOf(0);
+		Number ninetynine = BigDecimal.valueOf(99);
+		assertEquals(zero, converter.coerceToBigDecimal(null));
+		assertEquals(zero, converter.coerceToBigDecimal(""));
+		assertEquals(ninetynine, converter.coerceToBigDecimal(Character.valueOf('c')));
+		assertEquals(ninetynine, converter.coerceToBigDecimal(new Byte((byte)99)));
+		assertEquals(ninetynine, converter.coerceToBigDecimal(new Short((short)99)));
+		assertEquals(ninetynine, converter.coerceToBigDecimal(new Integer(99)));
+		assertEquals(ninetynine, converter.coerceToBigDecimal(new Long(99)));
+		assertEquals(ninetynine, converter.coerceToBigDecimal(new Float(99)));
+		assertEquals(ninetynine, converter.coerceToBigDecimal(new Double(99)));
+		assertEquals(ninetynine, converter.coerceToBigDecimal(new BigDecimal(99)));
+		assertEquals(ninetynine, converter.coerceToBigDecimal(new BigInteger("99")));
+		assertEquals(ninetynine, converter.coerceToBigDecimal(ninetynine.toString()));
+		try {
+			converter.coerceToBigDecimal("foo");
+			fail();
+		} catch (ELException e) {
+		}
+	}
+
+	public <T extends Number> void testToBigInteger() {
+		Number zero = BigInteger.valueOf(0);
+		Number ninetynine = BigInteger.valueOf(99);
+		assertEquals(zero, converter.coerceToBigInteger(null));
+		assertEquals(zero, converter.coerceToBigInteger(""));
+		assertEquals(ninetynine, converter.coerceToBigInteger(Character.valueOf('c')));
+		assertEquals(ninetynine, converter.coerceToBigInteger(new Byte((byte)99)));
+		assertEquals(ninetynine, converter.coerceToBigInteger(new Short((short)99)));
+		assertEquals(ninetynine, converter.coerceToBigInteger(new Integer(99)));
+		assertEquals(ninetynine, converter.coerceToBigInteger(new Long(99)));
+		assertEquals(ninetynine, converter.coerceToBigInteger(new Float(99)));
+		assertEquals(ninetynine, converter.coerceToBigInteger(new Double(99)));
+		assertEquals(ninetynine, converter.coerceToBigInteger(new BigDecimal(99)));
+		assertEquals(ninetynine, converter.coerceToBigInteger(new BigInteger("99")));
+		assertEquals(ninetynine, converter.coerceToBigInteger(ninetynine.toString()));
+		try {
+			converter.coerceToBigInteger("foo");
+			fail();
+		} catch (ELException e) {
 		}
 	}
 
