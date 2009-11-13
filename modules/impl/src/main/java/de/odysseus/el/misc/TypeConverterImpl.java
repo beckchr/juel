@@ -338,7 +338,7 @@ public class TypeConverterImpl implements TypeConverter {
 		if (type == BigInteger.class) {
 			return coerceToBigInteger(value);
 		}
-		if (Enum.class.isAssignableFrom(type)) {
+		if (type.getSuperclass() == Enum.class) {
 			return coerceToEnum(value, (Class<? extends Enum>)type);
 		}
 		if (value == null || value.getClass() == type || type.isInstance(value)) {
