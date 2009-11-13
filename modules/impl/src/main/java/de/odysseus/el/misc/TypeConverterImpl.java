@@ -314,7 +314,7 @@ public class TypeConverterImpl implements TypeConverter {
 		if (type == Double.class || type == double.class) {
 			return coerceToDouble(value);
 		}
-		if (type == Boolean.class) {
+		if (type == Boolean.class || type == boolean.class) {
 			return coerceToBoolean(value);
 		}
 		if (type == Integer.class || type == int.class) {
@@ -341,10 +341,7 @@ public class TypeConverterImpl implements TypeConverter {
 		if (Enum.class.isAssignableFrom(type)) {
 			return coerceToEnum(value, (Class<? extends Enum>)type);
 		}
-		if (value == null) {
-			return null;
-		}
-		if (value.getClass() == type || type.isInstance(value)) {
+		if (value == null || value.getClass() == type || type.isInstance(value)) {
 			return value;
 		}
 		if (value instanceof String) {
