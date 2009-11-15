@@ -4,6 +4,11 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
+	<release version="2.2.0" date="2009/12/??">
+		<action dev="cbe" type="update" context="code">
+			Improved implementation of type conversions in <code>de.odysseus.el.misc.TypeConverterImpl</code>.
+		</action>
+	</release>
 	<release version="2.2.0-rc3" date="2009/11/08">
 		<action dev="cbe" type="update" context="code">
 			If no properties are available in <em>JUEL</em>'s expression factory (neither passed in nor from
