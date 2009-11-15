@@ -93,7 +93,7 @@ javax.el.ExpressionFactory factory = new de.odysseus.el.ExpressionFactoryImpl(pr
 			<title>Factory Configuration</title>
 			<p>
 				The factory may be configured via property files. The mechanism described here
-				is used when an expression factory is created using the default constructor.
+				is used when an expression factory is created without specifying properties.
 				The lookup procedure for properties is as follows:
 			</p>
 			<ol>
@@ -104,8 +104,15 @@ javax.el.ExpressionFactory factory = new de.odysseus.el.ExpressionFactoryImpl(pr
 					properties are loaded and taken as default properties.
 				</li>
 				<li>
+					<code>System.getProperties()</code> -
+					if the previous rule (1) did not match and system property
+					<code>javax.el.ExpressionFactory</code> is set to
+					<code>de.odysseus.el.ExpressionFactoryImpl</code>,
+					the system properties are taken as default properties.
+				</li>
+				<li>
 					<code>el.properties</code> anywhere on your classpath -
-					These properties may override the properties from <code>JAVA_HOME/lib/el.properties</code>.
+					These properties may override the default properties from (1) or (2).
 				</li>
 				</ol>
 			<p>

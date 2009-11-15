@@ -43,17 +43,20 @@ import de.odysseus.el.tree.impl.Builder.Feature;
  * {@link ExpressionFactory#newInstance()} will then return an instance of this class, configured as
  * described below.
  * 
- * The default constructor loads properties from resources
+ * If no properties are specified at construction time, properties are read from
  * <ol>
  * <li>
- * <code>JAVA_HOME/lib/el.properties</code> - If this file exists and if it contains property
+ * If the file <code>JAVA_HOME/lib/el.properties</code> exists and if it contains property
  * <code>javax.el.ExpressionFactory</code> whose value is the name of this class, these properties
  * are taken as default properties.</li>
+ * <li>Otherwise, if system property <code>javax.el.ExpressionFactory</code> is set to the name of
+ * this class, the system properties {@link System#getProperties()} are taken as default properties.
+ * </li>
  * <li>
  * <code>el.properties</code> on your classpath. These properties override the properties from
- * <code>JAVA_HOME/lib/el.properties</code>.</li>
+ * <code>JAVA_HOME/lib/el.properties</code> or {@link System#getProperties()}.</li>
  * </ol>
- * There's also a constructor to explicitly pass in an instance of {@link Properties}.
+ * There are also constructors to explicitly pass in an instance of {@link Properties}.
  * 
  * Having this, the following properties are read:
  * <ul>
