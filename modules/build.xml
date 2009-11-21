@@ -163,8 +163,11 @@
 			</classpath>
 		</javac>
 		<copy todir="${build.dir}/classes-test">
-			<fileset dir="src/test/java">
+			<fileset dir="api/src/test/resources">
 				<include name="META-INF/services/*" />
+			</fileset>
+			<fileset dir="impl/src/main/resources">
+				<include name="de/odysseus/el/**/*.properties" />
 			</fileset>
 		</copy>
 		<junit printsummary="false" haltonfailure="true">
@@ -183,5 +186,5 @@
 		</junit>
 	</target>
 
-	<target name="dist" depends="javadoc,jars" description="build everything"/>
+	<target name="dist" depends="javadoc,test,jars" description="build everything"/>
 </project>
