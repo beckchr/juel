@@ -32,6 +32,7 @@ public class AllTests {
 		suite.addTestSuite(ELContextTest.class);
 		suite.addTestSuite(MethodInfoTest.class);
 		suite.addTestSuite(ExpressionFactoryTest.class);
+		suite.addTestSuite(ValueReferenceTest.class);
 		//$JUnit-END$
 		return suite;
 	}
