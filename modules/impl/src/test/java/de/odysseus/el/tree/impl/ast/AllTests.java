@@ -32,6 +32,7 @@ public class AllTests {
 		suite.addTestSuite(AstEvalTest.class);
 		suite.addTestSuite(AstFunctionTest.class);
 		suite.addTestSuite(AstIdentifierTest.class);
+		suite.addTestSuite(AstMethodTest.class);
 		suite.addTestSuite(AstNestedTest.class);
 		suite.addTestSuite(AstNullTest.class);
 		suite.addTestSuite(AstNumberTest.class);

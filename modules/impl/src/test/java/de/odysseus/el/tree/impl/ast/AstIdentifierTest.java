@@ -208,6 +208,19 @@ public class AstIdentifierTest extends TestCase {
 		assertEquals("1", getNode(tree).getValue(bindings, context, String.class));
 	}
 	
+	public void testGetValueReference() {
+		Tree tree = null;
+		Bindings bindings = null;
+
+		tree = parse("${var_long_1}");
+		bindings = tree.bind(null, context.getVariableMapper());
+		assertNull(getNode(tree).getValueReference(bindings, context));
+
+		tree = parse("${property_long_1}");
+		bindings = tree.bind(null, context.getVariableMapper());
+		assertNotNull(getNode(tree).getValueReference(bindings, context));
+	}
+
 	public void testInvoke() {
 		Tree tree = null;
 		Bindings bindings = null;

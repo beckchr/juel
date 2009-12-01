@@ -96,6 +96,10 @@ public class AstMethodTest extends TestCase {
 		assertEquals("3", parseNode("${base.bar(3)}").getValue(bindings, context, String.class));
 	}
 	
+	public void testGetValueReference() {
+		assertNull(parseNode("${base.bar()}").getValueReference(bindings, context));
+	}
+
 	public void testInvoke() {
 		assertEquals(1l, parseNode("${base.bar()}").invoke(bindings, context, null, null, new Object[]{999l}));
 		assertEquals(3l, parseNode("${base.bar(3)}").invoke(bindings, context, null, new Class[]{long.class}, new Object[]{999l}));

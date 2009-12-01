@@ -62,6 +62,10 @@ public class AstTextTest extends TestCase {
 		assertEquals(1l, parseNode("1").getValue(bindings, null, Long.class));
 	}
 	
+	public void testGetValueReference() {
+		assertNull(parseNode("1").getValueReference(null, null));
+	}
+
 	public void testInvoke() {
 		assertEquals("1", parseNode("1").invoke(bindings, null, null, null, null));
 		assertEquals(1l, parseNode("1").invoke(bindings, null, Long.class, null, null));

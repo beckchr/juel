@@ -175,4 +175,8 @@ public class AstFunctionTest extends TestCase {
 		assertEquals(foo(), getNode(tree).getValue(tree.bind(context.getFunctionMapper(), null), null, null));
 		assertEquals("" + foo(), getNode(tree).getValue(tree.bind(context.getFunctionMapper(), null), null, String.class));
 	}
+	
+	public void testGetValueReference() {
+		assertNull(parseNode("${ns:f0()}").getValueReference(null, null));
+	}
 }

@@ -61,4 +61,8 @@ public class AstCompositeTest extends TestCase {
 		assertEquals("101", parseNode("${1}0${1}").getValue(bindings, null, null));
 		assertEquals(101l, parseNode("${1}0${1}").getValue(bindings, null, Long.class));
 	}
+
+	public void testGetValueReference() {
+		assertNull(parseNode("${1}0${1}").getValueReference(bindings, null));
+	}
 }

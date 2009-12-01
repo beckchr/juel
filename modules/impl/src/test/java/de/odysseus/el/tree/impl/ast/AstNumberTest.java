@@ -62,4 +62,8 @@ public class AstNumberTest extends TestCase {
 		assertEquals(1l, parseNode("${1}").getValue(bindings, null, null));
 		assertEquals(1d, parseNode("${1}").getValue(bindings, null, Double.class));
 	}
+
+	public void testGetValueReference() {
+		assertNull(parseNode("${1}").getValueReference(null, null));
+	}
 }

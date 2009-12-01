@@ -62,4 +62,8 @@ public class AstChoiceTest extends TestCase {
 		assertEquals(1l, parseNode("${true?1:2}").getValue(bindings, null, null));
 		assertEquals("1", parseNode("${true?1:2}").getValue(bindings, null, String.class));
 	}
+	
+	public void testGetValueReference() {
+		assertNull(parseNode("${true?1:2}").getValueReference(bindings, null));
+	}
 }

@@ -114,6 +114,10 @@ public class AstBinaryTest extends TestCase {
 		assertEquals("2", parseNode("${1+1}").getValue(bindings, null, String.class));
 	}
 
+	public void testGetValueReference() {
+		assertNull(parseNode("${1+1}").getValueReference(bindings, null));
+	}
+
 	public void testOperators() {
 		assertTrue((Boolean)parseNode("${true and true}").getValue(bindings, null, Boolean.class));
 		assertFalse((Boolean)parseNode("${true and false}").getValue(bindings, null, Boolean.class));

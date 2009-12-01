@@ -35,4 +35,8 @@ public class AstNestedTest extends TestCase {
 		parseNode("${(1)}").appendStructure(s, null);
 		assertEquals("(1)", s.toString());
 	}
+
+	public void testGetValueReference() {
+		assertNull(parseNode("${(1)}").getValueReference(null, null));
+	}
 }

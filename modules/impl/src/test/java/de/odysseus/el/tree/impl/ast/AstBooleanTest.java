@@ -63,4 +63,8 @@ public class AstBooleanTest extends TestCase {
 		assertEquals(true, parseNode("${true}").getValue(bindings, null, null));
 		assertEquals("true", parseNode("${true}").getValue(bindings, null, String.class));
 	}
+	
+	public void testGetValueReference() {
+		assertNull(parseNode("${true}").getValueReference(bindings, null));
+	}
 }

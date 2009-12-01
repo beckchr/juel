@@ -24,6 +24,7 @@ public class AllTests {
 		TestSuite suite = new TestSuite("Test for de.odysseus.el.tree");
 		//$JUnit-BEGIN$
 		suite.addTestSuite(BindingsTest.class);
+		suite.addTestSuite(NodePrinterTest.class);
 		suite.addTestSuite(TreeStoreTest.class);
 		suite.addTestSuite(TreeTest.class);
 		//$JUnit-END$

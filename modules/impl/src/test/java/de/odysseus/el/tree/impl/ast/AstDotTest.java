@@ -102,7 +102,12 @@ public class AstDotTest extends TestCase {
 		assertEquals(1l, parseNode("${base.foo}").getValue(bindings, context, null));
 		assertEquals("1", parseNode("${base.foo}").getValue(bindings, context, String.class));
 	}
-	
+
+	public void testGetValueReference() {
+		assertEquals(this, parseNode("${base.foo}").getValueReference(bindings, context).getBase());
+		assertEquals("foo", parseNode("${base.foo}").getValueReference(bindings, context).getProperty());
+	}
+
 	public void testInvoke() {
 		assertEquals(1l, parseNode("${base.bar}").invoke(bindings, context, long.class, new Class[0], null));
 		assertEquals(2l, parseNode("${base.bar}").invoke(bindings, context, null, new Class[]{long.class}, new Object[]{2l}));

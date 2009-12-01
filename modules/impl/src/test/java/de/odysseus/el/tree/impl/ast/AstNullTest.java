@@ -61,4 +61,8 @@ public class AstNullTest extends TestCase {
 		assertNull(parseNode("${null}").getValue(bindings, null, null));
 		assertEquals("", parseNode("${null}").getValue(bindings, null, String.class));
 	}
+
+	public void testGetValueReference() {
+		assertNull(parseNode("${null}").getValueReference(null, null));
+	}
 }
