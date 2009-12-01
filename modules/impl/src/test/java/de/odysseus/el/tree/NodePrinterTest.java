@@ -33,7 +33,6 @@ public class NodePrinterTest extends TestCase {
 				"      +- foobar",
 				null
 		};
-		System.out.println(writer.toString());
 		BufferedReader reader = new BufferedReader(new StringReader(writer.toString()));
 		for (String line : expected) {
 			assertEquals(line, reader.readLine());
