@@ -67,8 +67,8 @@
 					As of <em>JUEL</em> 2.2, VarArgs are enabled by default.
 				</li>
 				<li>
-					Pluggable EL&ndash;
-					The <em>JUEL</em> jar has been setup to be transparently detected as EL
+					Pluggable &ndash;
+					<em>JUEL</em> can be configured to be transparently detected as EL
 					implementation by a Java runtime environment or JEE application server.
 					Using <em>JUEL</em> does not require an application to explicitly
 					reference any of the <em>JUEL</em> specific implementation classes.
@@ -78,7 +78,7 @@
 		<section>
 			<title>Status</title>
 			<p>
-				<em>JUEL</em> is considered production stable. The code is well tested and feature complete.
+				<em>JUEL</em> is considered production stable. The code is well tested (80% coverage) and feature complete.
 			</p>
 		</section>
 		<section>

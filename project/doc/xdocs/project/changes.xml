@@ -4,9 +4,12 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
-	<release version="2.2.0" date="2009/12/??">
+	<release version="2.2.0" date="2009/12/01">
 		<action dev="cbe" type="update" context="code">
 			Improved implementation of type conversions in <code>de.odysseus.el.misc.TypeConverterImpl</code>.
+		</action>
+		<action dev="cbe" type="add" context="code">
+			Added some more unit tests.
 		</action>
 	</release>
 	<release version="2.2.0-rc3" date="2009/11/08">
