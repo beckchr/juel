@@ -27,9 +27,8 @@
 	</target>
 
 	<target name="coverage" depends="modules" description="compile and run unit tests">
-		<delete file="${build.dir}/jacoco/jacoco.exec"/>
-		<jacoco:coverage file="${build.dir}/jacoco/jacoco.exec" merge="true">
-			<junit printsummary="false" haltonfailure="true" fork="true">
+		<jacoco:coverage file="${build.dir}/jacoco/jacoco.exec" merge="false">
+			<junit printsummary="false" haltonfailure="true" fork="true" forkmode="once">
 				<classpath>
 					<pathelement location="${junit.jar}" />
 					<pathelement location="${build.dir}/juel-${version}.jar" />
