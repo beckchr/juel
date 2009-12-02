@@ -1,24 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE metrics PUBLIC "-//Odysseus Software GmbH//DTD Stan Metric Preferences 1.0//EN" "report.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE metrics PUBLIC "-//Odysseus Software GmbH//DTD Stan Metric Preferences 1.0//EN" "metrics-preferences.dtd">
 <metrics>
-  <metric id="de.odysseus.stan.metrics.ck.rfc">
+  <metric id="de.odysseus.stan.metrics.count.fields">
     <domain enabled="true" name="class">
-      <rating amber="1000.0" anchor="0.0" green="100.0" linear="true" mirror="false"/>
-    </domain>
-  </metric>
-  <metric id="de.odysseus.stan.metrics.complexity.tangled.libraries">
-    <domain enabled="true" name="application">
-      <rating anchor="0.0" linear="true" mirror="false" red="1.0"/>
-    </domain>
-  </metric>
-  <metric id="de.odysseus.stan.metrics.ck.wmc">
-    <domain enabled="true" name="class">
-      <rating amber="200.0" anchor="0.0" green="100.0" linear="true" mirror="false" red="300.0"/>
-    </domain>
-  </metric>
-  <metric id="de.odysseus.stan.metrics.complexity.cc">
-    <domain enabled="true" name="method">
-      <rating amber="20.0" anchor="10.0" green="15.0" linear="true" mirror="false" red="30.0"/>
+      <rating amber="40.0" anchor="10.0" green="20.0" linear="true" mirror="false" red="80.0"/>
     </domain>
   </metric>
   <metric id="de.odysseus.stan.metrics.count.eloc">
@@ -29,40 +14,20 @@
       <rating amber="400.0" anchor="200.0" green="300.0" linear="true" mirror="false" red="500.0"/>
     </domain>
   </metric>
-  <metric id="de.odysseus.stan.metrics.ck.dit.avg">
-    <domain enabled="true" name="subsystem">
-      <rating amber="0.0" anchor="2.0" green="1.0" linear="true" mirror="false"/>
-    </domain>
-  </metric>
   <metric id="de.odysseus.stan.metrics.complexity.fat">
+    <domain enabled="true" name="tree">
+      <rating amber="120.0" anchor="30.0" green="60.0" linear="true" mirror="false" red="240.0"/>
+    </domain>
     <domain enabled="true" name="package">
       <rating amber="120.0" anchor="30.0" green="60.0" linear="true" mirror="false" red="240.0"/>
     </domain>
     <domain enabled="true" name="class">
       <rating amber="120.0" anchor="30.0" green="60.0" linear="true" mirror="false" red="240.0"/>
     </domain>
-    <domain enabled="true" name="tree">
-      <rating amber="120.0" anchor="30.0" green="60.0" linear="true" mirror="false" red="240.0"/>
-    </domain>
   </metric>
-  <metric id="de.odysseus.stan.metrics.complexity.acd.package">
-    <domain enabled="true" name="subsystem">
-      <rating anchor="0.0" green="0.5" linear="true" mirror="false" red="1.0"/>
-    </domain>
-  </metric>
-  <metric id="de.odysseus.stan.metrics.crap">
-    <domain enabled="true" name="method">
-      <rating amber="50.0" anchor="10.0" green="30.0" linear="true" mirror="false" red="70.0"/>
-    </domain>
-  </metric>
-  <metric id="de.odysseus.stan.metrics.martin.distance.abs.avg">
-    <domain enabled="true" name="subsystem">
-      <rating amber="0.5" anchor="0.0" green="0.4" linear="true" mirror="false" red="1.0"/>
-    </domain>
-  </metric>
-  <metric id="de.odysseus.stan.metrics.count.units">
-    <domain enabled="true" name="package">
-      <rating amber="60.0" anchor="20.0" green="40.0" linear="true" mirror="false" red="80.0"/>
+  <metric id="de.odysseus.stan.metrics.ck.wmc">
+    <domain enabled="true" name="class">
+      <rating amber="200.0" anchor="0.0" green="100.0" linear="true" mirror="false" red="300.0"/>
     </domain>
   </metric>
   <metric id="de.odysseus.stan.metrics.ck.cbo">
@@ -70,9 +35,19 @@
       <rating amber="250.0" anchor="0.0" green="25.0" linear="true" mirror="false"/>
     </domain>
   </metric>
-  <metric id="de.odysseus.stan.metrics.ck.dit">
+  <metric id="de.odysseus.stan.metrics.ck.rfc">
     <domain enabled="true" name="class">
-      <rating amber="8.0" anchor="4.0" green="6.0" linear="true" mirror="false" red="10.0"/>
+      <rating amber="1000.0" anchor="0.0" green="100.0" linear="true" mirror="false"/>
+    </domain>
+  </metric>
+  <metric id="de.odysseus.stan.metrics.ck.dit.avg">
+    <domain enabled="true" name="subsystem">
+      <rating amber="0.0" anchor="2.0" green="1.0" linear="true" mirror="false"/>
+    </domain>
+  </metric>
+  <metric id="de.odysseus.stan.metrics.crap">
+    <domain enabled="true" name="method">
+      <rating amber="50.0" anchor="10.0" green="30.0" linear="true" mirror="false" red="70.0"/>
     </domain>
   </metric>
   <metric id="de.odysseus.stan.metrics.count.methods">
@@ -80,9 +55,9 @@
       <rating amber="100.0" anchor="25.0" green="50.0" linear="true" mirror="false" red="200.0"/>
     </domain>
   </metric>
-  <metric id="de.odysseus.stan.metrics.complexity.tangled.packages">
-    <domain enabled="true" name="subsystem">
-      <rating anchor="0.0" linear="true" mirror="false" red="1.0"/>
+  <metric id="de.odysseus.stan.metrics.complexity.cc">
+    <domain enabled="true" name="method">
+      <rating amber="20.0" anchor="10.0" green="15.0" linear="true" mirror="false" red="30.0"/>
     </domain>
   </metric>
   <metric id="de.odysseus.stan.metrics.complexity.acd.library">
@@ -90,9 +65,9 @@
       <rating anchor="0.0" green="0.5" linear="true" mirror="false" red="1.0"/>
     </domain>
   </metric>
-  <metric id="de.odysseus.stan.metrics.martin.distance">
-    <domain enabled="true" name="package">
-      <rating amber="1.0" anchor="0.0" green="0.5" linear="true" mirror="true"/>
+  <metric id="de.odysseus.stan.metrics.complexity.acd.package">
+    <domain enabled="true" name="subsystem">
+      <rating anchor="0.0" green="0.5" linear="true" mirror="false" red="1.0"/>
     </domain>
   </metric>
   <metric id="de.odysseus.stan.metrics.complexity.tangled">
@@ -100,9 +75,39 @@
       <rating anchor="0.0" linear="true" mirror="false" red="1.0"/>
     </domain>
   </metric>
-  <metric id="de.odysseus.stan.metrics.count.fields">
+  <metric id="de.odysseus.stan.metrics.complexity.tangled.libraries">
+    <domain enabled="true" name="application">
+      <rating anchor="0.0" linear="true" mirror="false" red="1.0"/>
+    </domain>
+  </metric>
+  <metric id="de.odysseus.stan.metrics.ck.dit">
     <domain enabled="true" name="class">
-      <rating amber="40.0" anchor="10.0" green="20.0" linear="true" mirror="false" red="80.0"/>
+      <rating amber="8.0" anchor="4.0" green="6.0" linear="true" mirror="false" red="10.0"/>
+    </domain>
+  </metric>
+  <metric id="de.odysseus.stan.metrics.count.units">
+    <domain enabled="true" name="package">
+      <rating amber="60.0" anchor="20.0" green="40.0" linear="true" mirror="false" red="80.0"/>
+    </domain>
+  </metric>
+  <metric id="de.odysseus.stan.metrics.martin.distance.abs.avg">
+    <domain enabled="true" name="subsystem">
+      <rating amber="0.5" anchor="0.0" green="0.4" linear="true" mirror="false" red="1.0"/>
+    </domain>
+  </metric>
+  <metric id="de.odysseus.stan.metrics.complexity.tangled.packages">
+    <domain enabled="false" name="subsystem">
+      <rating anchor="0.0" linear="true" mirror="false" red="1.0"/>
+    </domain>
+  </metric>
+  <metric id="de.odysseus.stan.metrics.coverage">
+    <domain enabled="true" name="method">
+      <rating amber="0.5" anchor="1.0" green="0.75" linear="true" mirror="false" red="0.25"/>
+    </domain>
+  </metric>
+  <metric id="de.odysseus.stan.metrics.martin.distance">
+    <domain enabled="true" name="package">
+      <rating amber="1.0" anchor="0.0" green="0.5" linear="true" mirror="true"/>
     </domain>
   </metric>
 </metrics>
