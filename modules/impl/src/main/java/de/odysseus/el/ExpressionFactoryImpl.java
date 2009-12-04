@@ -315,7 +315,7 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 		// create builder
 		TreeBuilder builder = null;
 		if (properties == null) {
-			builder = createTreeBuilder(properties, profile.features());
+			builder = createTreeBuilder(null, profile.features());
 		} else {
 			EnumSet<Builder.Feature> features = EnumSet.noneOf(Builder.Feature.class);
 			if (getFeatureProperty(profile, properties, Feature.METHOD_INVOCATIONS, PROP_METHOD_INVOCATIONS)) {

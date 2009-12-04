@@ -604,7 +604,11 @@ public class BeanELResolver extends ELResolver {
 	private final BeanProperty toBeanProperty(Object base, Object property) {
 		BeanProperties beanProperties = cache.get(base.getClass());
 		if (beanProperties == null) {
-			cache.putIfAbsent(base.getClass(), beanProperties = new BeanProperties(base.getClass()));
+			BeanProperties newBeanProperties = new BeanProperties(base.getClass());
+			beanProperties = cache.putIfAbsent(base.getClass(), newBeanProperties);
+			if (beanProperties == null) { // put succeeded, use new value
+				beanProperties = newBeanProperties;
+			}
 		}
 		BeanProperty beanProperty = property == null ? null : beanProperties.getBeanProperty(property.toString());
 		if (beanProperty == null) {
