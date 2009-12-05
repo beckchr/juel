@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Java Unified Expression Language
+Bundle-SymbolicName: de.odysseus.el
+Bundle-Version: 2.2.0.qualifier
+Bundle-ClassPath: juel-2.2.0.jar
+Bundle-Vendor: Odysseus.de
+Export-Package: de.odysseus.el,
+ de.odysseus.el.misc,
+ de.odysseus.el.tree,
+ de.odysseus.el.tree.impl,
+ de.odysseus.el.tree.impl.ast,
+ de.odysseus.el.util,
+ javax.el
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
