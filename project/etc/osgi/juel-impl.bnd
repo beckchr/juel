@@ -1,7 +1,0 @@
-Bundle-Name: Java Unified Expression Language Implementation
-Bundle-SymbolicName: de.odysseus.el
-Bundle-Version: @VERSION@.@QUALIFIER@
-Bundle-DocURL: http://juel.sourceforge.net
-Bundle-Vendor: Odysseus Software GmbH
-Export-Package: de.odysseus.el.*;version="@VERSION@"
-Import-Package: !de.odysseus.el.*,javax.el;version="@VERSION@",*

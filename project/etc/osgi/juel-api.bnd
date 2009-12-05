@@ -1,7 +1,0 @@
-Bundle-Name: Java Unified Expression Language API
-Bundle-SymbolicName: de.odysseus.javax.el
-Bundle-Version: @VERSION@.@QUALIFIER@
-Bundle-DocURL: http://juel.sourceforge.net
-Bundle-Vendor: Odysseus Software GmbH
-Export-Package: javax.el;version="@VERSION@"
-Import-Package: !javax.el,*
