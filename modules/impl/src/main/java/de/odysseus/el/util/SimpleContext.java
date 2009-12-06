@@ -28,33 +28,38 @@ import javax.el.VariableMapper;
 
 /**
  * Simple context implementation.
- *
+ * 
  * @author Christoph Beck
  */
 public class SimpleContext extends ELContext {
 	static class Functions extends FunctionMapper {
-		Map<String,Method> map = Collections.emptyMap();
+		Map<String, Method> map = Collections.emptyMap();
+
 		@Override
 		public Method resolveFunction(String prefix, String localName) {
 			return map.get(prefix + ":" + localName);
 		}
+
 		public void setFunction(String prefix, String localName, Method method) {
 			if (map.isEmpty()) {
-				map = new HashMap<String,Method>();
+				map = new HashMap<String, Method>();
 			}
 			map.put(prefix + ":" + localName, method);
 		}
 	}
+
 	static class Variables extends VariableMapper {
-		Map<String,ValueExpression> map = Collections.emptyMap(); 
+		Map<String, ValueExpression> map = Collections.emptyMap();
+
 		@Override
 		public ValueExpression resolveVariable(String variable) {
 			return map.get(variable);
 		}
+
 		@Override
 		public ValueExpression setVariable(String variable, ValueExpression expression) {
 			if (map.isEmpty()) {
-				map = new HashMap<String,ValueExpression>();
+				map = new HashMap<String, ValueExpression>();
 			}
 			return map.put(variable, expression);
 		}
@@ -87,7 +92,7 @@ public class SimpleContext extends ELContext {
 		}
 		functions.setFunction(prefix, localName, method);
 	}
-	
+
 	/**
 	 * Define a variable.
 	 */
@@ -121,8 +126,7 @@ public class SimpleContext extends ELContext {
 	}
 
 	/**
-	 * Get our resolver.
-	 * Lazy initialize a {@link SimpleResolver} if necessary.
+	 * Get our resolver. Lazy initialize to a {@link SimpleResolver} if necessary.
 	 */
 	@Override
 	public ELResolver getELResolver() {
@@ -130,5 +134,14 @@ public class SimpleContext extends ELContext {
 			resolver = new SimpleResolver();
 		}
 		return resolver;
+	}
+
+	/**
+	 * Set our resolver.
+	 * 
+	 * @param resolver
+	 */
+	public void setELResolver(ELResolver resolver) {
+		this.resolver = resolver;
 	}
 }
