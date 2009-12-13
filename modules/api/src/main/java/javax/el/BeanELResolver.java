@@ -126,10 +126,10 @@ public class BeanELResolver extends ELResolver {
 		return method;
 	}
 
-	private static final ExpressionFactory DEFAULT_FACTORY = ExpressionFactory.newInstance();
-
 	private final boolean readOnly;
 	private final ConcurrentHashMap<Class<?>, BeanProperties> cache;
+	
+	private ExpressionFactory defaultFactory;
 
 	/**
 	 * Creates a new read/write BeanELResolver.
@@ -520,7 +520,13 @@ public class BeanELResolver extends ELResolver {
 	 */
 	private ExpressionFactory getExpressionFactory(ELContext context) {
 		Object obj = context.getContext(ExpressionFactory.class);
-		return obj instanceof ExpressionFactory ? (ExpressionFactory)obj : DEFAULT_FACTORY;
+		if (obj instanceof ExpressionFactory) {
+			return (ExpressionFactory)obj;
+		}
+		if (defaultFactory == null) {
+			defaultFactory = ExpressionFactory.newInstance();
+		}
+		return defaultFactory;
 	}
 	
 	private Object[] coerceParams(ExpressionFactory factory, Method method, Object[] params) {
