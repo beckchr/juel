@@ -37,6 +37,10 @@ public final class AstText extends AstNode {
 	public boolean isLeftValue() {
 		return false;
 	}
+	
+	public boolean isMethodInvocation() {
+		return false;
+	}
 
 	public Class<?> getType(Bindings bindings, ELContext context) {
 		return null;

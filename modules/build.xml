@@ -1,7 +1,8 @@
 <project name="juel" default="jars" basedir=".">
 	<property file="build.properties" />
 
-	<property name="version" value="2.2.1-SNAPSHOT" />
+	<property name="version" value="2.2.2-SNAPSHOT" />
+	<property name="bundle.version" value="${version}" />
 
 	<property name="build.dir" value="build" />
 	<property name="dist.dir" value="dist" />
@@ -84,6 +85,13 @@
 				<attribute name="Implementation-Version" value="${version}" />
 				<attribute name="Implementation-Vendor" value="Odysseus Software GmbH" />
 				<attribute name="Implementation-Vendor-Id" value="de.odysseus" />
+				<!-- OSGi properties -->
+				<attribute name="Export-Package" value="javax.el" />
+				<attribute name="Bundle-Vendor" value="Odysseus.de" />
+				<attribute name="Bundle-Version" value="${bundle.version}" />
+				<attribute name="Bundle-Name" value="Expression Language API" />
+				<attribute name="Bundle-ManifestVersion" value="2" />
+				<attribute name="Bundle-SymbolicName" value="de.odysseus.juel-api" />
 			</manifest>
 		</jar>
 	</target>
@@ -101,6 +109,13 @@
 				<attribute name="Implementation-Version" value="${version}" />
 				<attribute name="Implementation-Vendor" value="Odysseus Software GmbH" />
 				<attribute name="Implementation-Vendor-Id" value="de.odysseus" />
+				<!-- OSGi properties -->
+				<attribute name="Export-Package" value="de.odysseus.el,de.odysseus.el.misc,de.odysseus.el.tree,de.odysseus.el.tree.impl,de.odysseus.el.tree.impl.ast,de.odysseus.el.util" />
+				<attribute name="Bundle-Vendor" value="Odysseus.de" />
+				<attribute name="Bundle-Version" value="${bundle.version}" />
+				<attribute name="Bundle-Name" value="Expression Language Implementation" />
+				<attribute name="Bundle-ManifestVersion" value="2" />
+				<attribute name="Bundle-SymbolicName" value="de.odysseus.juel-impl" />
 			</manifest>
 		</jar>
 	</target>
@@ -118,6 +133,13 @@
 				<attribute name="Implementation-Version" value="${version}" />
 				<attribute name="Implementation-Vendor" value="Odysseus Software GmbH" />
 				<attribute name="Implementation-Vendor-Id" value="de.odysseus" />
+				<!-- OSGi properties -->
+				<attribute name="Bundle-Vendor" value="Odysseus.de" />
+				<attribute name="Bundle-Version" value="${bundle.version}" />
+				<attribute name="Bundle-Name" value="Expression Language Service Provider" />
+				<attribute name="Bundle-ManifestVersion" value="2" />
+				<attribute name="Bundle-SymbolicName" value="de.odysseus.juel-spi" />
+				<attribute name="Require-Bundle" value="de.odysseus.juel-impl" />
 			</manifest>
 		</jar>
 	</target>

@@ -93,4 +93,20 @@ public abstract class MethodExpression extends Expression {
 	 *             cause and pass it to the ELException constructor.
 	 */
 	public abstract Object invoke(ELContext context, Object[] params);
+
+	/**
+	 * Return whether this MethodExpression was created with parameters.
+	 * 
+	 * <p>
+	 * This method must return <code>true</code> if and only if parameters are specified in the EL,
+	 * using the expr-a.expr-b(...) syntax.
+	 * </p>
+	 * 
+	 * @return <code>true</code> if the MethodExpression was created with parameters,
+	 *         <code>false</code> otherwise.
+	 * @since 2.2
+	 */
+	public boolean isParmetersProvided() {
+		return false;
+	}
 }

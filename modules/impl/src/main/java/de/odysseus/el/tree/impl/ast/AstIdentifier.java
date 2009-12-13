@@ -58,6 +58,10 @@ public class AstIdentifier extends AstNode implements IdentifierNode {
 		return true;
 	}
 
+	public boolean isMethodInvocation() {
+		return false;
+	}
+	
 	public boolean isLiteralText() {
 		return false;
 	}

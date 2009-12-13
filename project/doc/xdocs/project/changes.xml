@@ -4,7 +4,16 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
-	<release version="2.2.1" date="2010/??/??">
+	<release version="2.2.1" date="2010/12/13">
+		<action dev="cbe" type="add" context="code">
+			Added <code>MethodExpression.isParametersProvided()</code>. This method was added silently
+			to the API (wasn't mentioned anywhere prior to the final release of EE6) and forces this release...
+		</action>
+		<action dev="cbe" type="update" context="build">
+			Added OSGi attributes to manifest files of <code>juel-api-2.2.x.jar</code>,
+			<code>juel-impl-2.2.x.jar</code> and <code>juel-spi-2.2.x.jar</code>.
+			E.g. the latter two can now be added as OSGi modules to glassfish v3.
+		</action>
 		<action dev="cbe" type="add" context="code">
 			Added <code>SimpleResolver.setELResolver(ELResolver)</code>.
 		</action>

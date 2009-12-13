@@ -38,6 +38,10 @@ public final class AstEval extends AstNode {
 		return getChild(0).isLeftValue();
 	}
 
+	public boolean isMethodInvocation() {
+		return getChild(0).isMethodInvocation();
+	}
+	
 	public ValueReference getValueReference(Bindings bindings, ELContext context) {
 		return child.getValueReference(bindings, context);
 	}

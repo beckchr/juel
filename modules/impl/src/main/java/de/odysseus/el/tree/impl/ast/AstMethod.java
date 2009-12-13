@@ -59,6 +59,10 @@ public class AstMethod extends AstNode {
 		return false;
 	}
 	
+	public boolean isMethodInvocation() {
+		return true;
+	}
+	
 	public final ValueReference getValueReference(Bindings bindings, ELContext context) {
 		return null;
 	}
@@ -91,7 +95,10 @@ public class AstMethod extends AstNode {
 		if (!context.isPropertyResolved()) {
 			throw new MethodNotFoundException(LocalMessages.get("error.property.method.notfound", name, base.getClass()));
 		}
-		return returnType == null ? result : bindings.convert(result, returnType);
+//		if (returnType != null && !returnType.isInstance(result)) { // should we check returnType for method invocations?
+//			throw new MethodNotFoundException(LocalMessages.get("error.property.method.notfound", name, base.getClass()));
+//		}
+		return result;
 	}
 
 	public int getCardinality() {

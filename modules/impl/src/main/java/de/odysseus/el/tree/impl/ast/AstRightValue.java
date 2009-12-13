@@ -67,6 +67,10 @@ public abstract class AstRightValue extends AstNode {
 		return false;
 	}
 	
+	public boolean isMethodInvocation() {
+		return false;
+	}
+	
 	public final ValueReference getValueReference(Bindings bindings, ELContext context) {
 		return null;
 	}

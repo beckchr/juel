@@ -74,6 +74,10 @@ public abstract class AstProperty extends AstNode {
 	public final boolean isLeftValue() {
 		return lvalue;
 	}
+	
+	public boolean isMethodInvocation() {
+		return false;
+	}
 
 	public Class<?> getType(Bindings bindings, ELContext context) {
 		if (!lvalue) {

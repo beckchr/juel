@@ -52,7 +52,6 @@ public final class TreeMethodExpression extends javax.el.MethodExpression {
 	private final Class<?> type;
 	private final Class<?>[] types;
 	private final boolean deferred;
-	private final boolean is_void; // deserialization fails for type == void.class with JSF-RI
 
 	private transient ExpressionNode node;
 
@@ -79,17 +78,16 @@ public final class TreeMethodExpression extends javax.el.MethodExpression {
 		this.builder = store.getBuilder();
 		this.bindings = tree.bind(functions, variables, converter);
 		this.expr = expr;
-		this.type = returnType == void.class ? null : returnType;
+		this.type = returnType;
 		this.types = paramTypes;
 		this.node = tree.getRoot();
 		this.deferred = tree.isDeferred();
-		this.is_void = returnType == void.class;
 
 		if (node.isLiteralText()) {
 			if (returnType == void.class) {
 				throw new ELException(LocalMessages.get("error.method.literal.void", expr));
 			}
-		} else {
+		} else if (!node.isMethodInvocation()) {
 			if (!node.isLeftValue()) {
 				throw new ELException(LocalMessages.get("error.method.invalid", expr));
 			}
@@ -114,7 +112,7 @@ public final class TreeMethodExpression extends javax.el.MethodExpression {
    */
 	@Override
 	public MethodInfo getMethodInfo(ELContext context) throws ELException {
-		return node.getMethodInfo(bindings, context, is_void ? void.class : type, types);
+		return node.getMethodInfo(bindings, context, type, types);
 	}
 
 	@Override
@@ -125,12 +123,13 @@ public final class TreeMethodExpression extends javax.el.MethodExpression {
 	/**
    * Evaluates the expression and invokes the method.
    * @param context used to resolve properties (<code>base.property</code> and <code>base[property]</code>)
+   * @param paramValues
    * @return method result or <code>null</code> if this is a literal text expression
    * @throws ELException if evaluation fails (e.g. suitable method not found)
    */
 	@Override
 	public Object invoke(ELContext context, Object[] paramValues) throws ELException {
-		return node.invoke(bindings, context, is_void ? void.class : type, types, paramValues);
+		return node.invoke(bindings, context, type, types, paramValues);
 	}
 
 	/**
@@ -141,6 +140,14 @@ public final class TreeMethodExpression extends javax.el.MethodExpression {
 		return node.isLiteralText();
 	}
 
+	/**
+	 * @return <code>true</code> if this is a method invocation expression
+	 */
+	@Override
+	public boolean isParmetersProvided() {
+		return node.isMethodInvocation();
+	}
+	
 	/**
 	 * Answer <code>true</code> if this is a deferred expression (starting with <code>#{</code>)
 	 */
@@ -157,13 +164,9 @@ public final class TreeMethodExpression extends javax.el.MethodExpression {
 	 * <li>their builders are equal</li>
 	 * <li>their structural id's are equal</li>
 	 * <li>their bindings are equal</li>
-	 * <li>their expected types match (see below)</li>
-	 * <li>their parameter types are equal (no-text method expressions only)</li>
+	 * <li>their expected types match</li>
+	 * <li>their parameter types are equal</li>
 	 * </ol>
-	 * For text method expressions, the two expected types match if both types are the
-	 * same or one of them is <code>null</code> and the other is <code>Object.class</code>.
-	 * For non-text method expressions, the expected types match if both types are the same
-	 * or one of them is <code>null</code>.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -173,20 +176,9 @@ public final class TreeMethodExpression extends javax.el.MethodExpression {
 				return false;
 			}
 			if (type != other.type) {
-				if (type != null && other.type != null) {
-					return false;
-				}
-				if (isLiteralText()) {
-					if (type != Object.class && other.type != Object.class) {
-						return false;
-					}
-				} else {
-					if (type != null && other.is_void || other.type != null && is_void) {
-						return false;
-					}
-				}
+				return false;
 			}
-			if (!isLiteralText() && !Arrays.equals(types, other.types)) {
+			if (!Arrays.equals(types, other.types)) {
 				return false;
 			}			
 			return getStructuralId().equals(other.getStructuralId()) && bindings.equals(other.bindings);
