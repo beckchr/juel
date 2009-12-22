@@ -270,7 +270,8 @@ public abstract class ExpressionFactory {
 	 *            care what the return type is, and the check is disabled.
 	 * @param expectedParamTypes
 	 *            The expected parameter types for the method to be found. Must be an array with no
-	 *            elements if there are no parameters expected. It is illegal to pass null.
+	 *            elements if there are no parameters expected. It is illegal to pass null, unless
+	 *            the method is specified with arguments in the EL expression.
 	 * @return The parsed expression
 	 * @throws ELException
 	 *             Thrown if there are syntactical errors in the provided expression.
