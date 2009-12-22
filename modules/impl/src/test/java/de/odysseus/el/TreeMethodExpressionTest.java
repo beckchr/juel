@@ -20,21 +20,22 @@ import javax.el.MethodInfo;
 
 import de.odysseus.el.tree.TreeStore;
 import de.odysseus.el.tree.impl.Builder;
+import de.odysseus.el.tree.impl.Builder.Feature;
 import de.odysseus.el.util.SimpleContext;
 import de.odysseus.el.util.SimpleResolver;
 
 public class TreeMethodExpressionTest extends TestCase {
 
-	public static int foo() {
+	public int foo() {
 		return 0;
 	}
 
-	public static int bar() {
+	public int bar() {
 		return 0;
 	}
 
 	SimpleContext context;
-	TreeStore store = new TreeStore(new Builder(), null);
+	TreeStore store = new TreeStore(new Builder(Feature.METHOD_INVOCATIONS), null);
 	
 	@Override
 	protected void setUp() throws Exception {
@@ -79,6 +80,7 @@ public class TreeMethodExpressionTest extends TestCase {
 
 	public void testInvoke() {
 		assertEquals(0, new TreeMethodExpression(store, null, null, null, "${base.foo}", null, new Class[0]).invoke(context, null));
+		assertEquals(0, new TreeMethodExpression(store, null, null, null, "${base.foo()}", null, null).invoke(context, null));
 	}
 
 
