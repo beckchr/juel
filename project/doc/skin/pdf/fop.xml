@@ -6,7 +6,7 @@
 				<value>flate</value>
 			</filterList>
 			<fonts>
-				<directory>skin\pdf\fonts</directory>
+				<directory>skin/pdf/fonts</directory>
 			</fonts>
 		</renderer>
 	</renderers>
