@@ -145,6 +145,10 @@ public abstract class AstProperty extends AstNode {
 		} catch (NoSuchMethodException e) {
 			throw new MethodNotFoundException(LocalMessages.get("error.property.method.notfound", name, clazz));
 		}
+		method = findAccessibleMethod(method);
+		if (method == null) {
+			throw new MethodNotFoundException(LocalMessages.get("error.property.method.notfound", name, clazz));
+		}
 		if (returnType != null && !returnType.isAssignableFrom(method.getReturnType())) {
 			throw new MethodNotFoundException(LocalMessages.get("error.property.method.notfound", name, clazz));
 		}

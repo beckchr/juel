@@ -15,6 +15,8 @@
  */
 package de.odysseus.el.tree.impl.ast;
 
+import java.lang.reflect.Method;
+
 import javax.el.ELContext;
 
 import de.odysseus.el.tree.Bindings;
@@ -40,5 +42,48 @@ public abstract class AstNode implements ExpressionNode {
 		StringBuilder builder = new StringBuilder();
 		appendStructure(builder, bindings);
 		return builder.toString();
+	}
+
+	/**
+	 * Find accessible method. Searches the inheritance tree of the class declaring
+	 * the method until it finds a method that can be made accessible.
+	 * @param start method method
+	 * @return accessible method or <code>null</code>
+	 */
+	protected Method findAccessibleMethod(Method method) {
+		if (method == null || method.isAccessible()) {
+			return method;
+		}
+		try {
+			method.setAccessible(true);
+		} catch (SecurityException e) {
+			for (Class<?> cls : method.getDeclaringClass().getInterfaces()) {
+				Method mth = null;
+				try {
+					mth = cls.getMethod(method.getName(), method.getParameterTypes());
+					mth = findAccessibleMethod(mth);
+					if (mth != null) {
+						return mth;
+					}
+				} catch (NoSuchMethodException ignore) {
+					// do nothing
+				}
+			}
+			Class<?> cls = method.getDeclaringClass().getSuperclass();
+			if (cls != null) {
+				Method mth = null;
+				try {
+					mth = cls.getMethod(method.getName(), method.getParameterTypes());
+					mth = findAccessibleMethod(mth);
+					if (mth != null) {
+						return mth;
+					}
+				} catch (NoSuchMethodException ignore) {
+					// do nothing
+				}
+			}
+			return null;
+		}
+		return method;
 	}
 }

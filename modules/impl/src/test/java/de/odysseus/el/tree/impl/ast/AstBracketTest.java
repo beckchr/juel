@@ -23,6 +23,7 @@ import javax.el.MethodInfo;
 import javax.el.ValueExpression;
 
 import de.odysseus.el.TestCase;
+import de.odysseus.el.test.TestClass;
 import de.odysseus.el.tree.Bindings;
 import de.odysseus.el.tree.impl.Builder;
 import de.odysseus.el.util.SimpleContext;
@@ -52,6 +53,10 @@ public class AstBracketTest extends TestCase {
 
 	public long bar(long value) {
 		return value;
+	}
+
+	public TestClass getTestClass() {
+		return new TestClass();
 	}
 
 	@Override
@@ -139,6 +144,9 @@ public class AstBracketTest extends TestCase {
 	public void testInvoke() {
 		assertEquals(1l, parseNode("${base['bar']}").invoke(bindings, context, long.class, new Class[0], null));
 		assertEquals(2l, parseNode("${base['bar']}").invoke(bindings, context, null, new Class[]{long.class}, new Object[]{2l}));
+
+		assertEquals(42, parseNode("${base.testClass.anonymousTestInterface['fourtyTwo']}").invoke(bindings, context, null, new Class[0], null));
+		assertEquals(42, parseNode("${base.testClass.nestedTestInterface['fourtyTwo']}").invoke(bindings, context, null, new Class[0], null));
 	}
 
 	public void testGetMethodInfo() {
