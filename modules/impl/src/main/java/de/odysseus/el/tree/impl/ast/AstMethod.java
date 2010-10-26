@@ -91,7 +91,10 @@ public class AstMethod extends AstNode {
 		paramValues = params.eval(bindings, context);
 
 		context.setPropertyResolved(false);
-		Object result = context.getELResolver().invoke(context, base, name, paramTypes, paramValues);
+		/*
+		 * ignore paramTypes, paramValues passed to this method
+		 */
+		Object result = context.getELResolver().invoke(context, base, name, null, params.eval(bindings, context));
 		if (!context.isPropertyResolved()) {
 			throw new MethodNotFoundException(LocalMessages.get("error.property.method.notfound", name, base.getClass()));
 		}
