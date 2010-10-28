@@ -16,30 +16,43 @@
 package javax.el;
 
 /**
- * An Expression that can get or set a value. In previous incarnations of this API, expressions
- * could only be read. ValueExpression objects can now be used both to retrieve a value and to set a
- * value. Expressions that can have a value set on them are referred to as l-value expressions.
- * Those that cannot are referred to as r-value expressions. Not all r-value expressions can be used
- * as l-value expressions (e.g. "${1+1}" or "${firstName} ${lastName}"). See the EL Specification
- * for details. Expressions that cannot be used as l-values must always return true from
- * isReadOnly(). The {@link ExpressionFactory#createValueExpression(ELContext, String, Class)}
- * method can be used to parse an expression string and return a concrete instance of
- * ValueExpression that encapsulates the parsed expression. The {@link FunctionMapper} is used at
- * parse time, not evaluation time, so one is not needed to evaluate an expression using this class.
- * However, the {@link ELContext} is needed at evaluation time. The {@link #getValue(ELContext)},
- * {@link #setValue(ELContext, Object)}, {@link #isReadOnly(ELContext)} and
- * {@link #getType(ELContext)} methods will evaluate the expression each time they are called. The
- * {@link ELResolver} in the ELContext is used to resolve the top-level variables and to determine
- * the behavior of the . and [] operators. For any of the four methods, the
+ * An Expression that can get or set a value.
+ * <p>
+ * In previous incarnations of this API, expressions could only be read. ValueExpression objects can
+ * now be used both to retrieve a value and to set a value. Expressions that can have a value set on
+ * them are referred to as l-value expressions. Those that cannot are referred to as r-value
+ * expressions. Not all r-value expressions can be used as l-value expressions (e.g. "${1+1}" or
+ * "${firstName} ${lastName}"). See the EL Specification for details. Expressions that cannot be
+ * used as l-values must always return true from isReadOnly().
+ * </p>
+ * <p>
+ * The {@link ExpressionFactory#createValueExpression(ELContext, String, Class)} method can be used
+ * to parse an expression string and return a concrete instance of ValueExpression that encapsulates
+ * the parsed expression. The {@link FunctionMapper} is used at parse time, not evaluation time, so
+ * one is not needed to evaluate an expression using this class. However, the {@link ELContext} is
+ * needed at evaluation time.
+ * </p>
+ * <p>
+ * The {@link #getValue(ELContext)}, {@link #setValue(ELContext, Object)},
+ * {@link #isReadOnly(ELContext)}, {@link #getType(ELContext)} and
+ * {@link #getValueReference(ELContext)} methods will evaluate the expression each time they are
+ * called. The {@link ELResolver} in the ELContext is used to resolve the top-level variables and to
+ * determine the behavior of the . and [] operators. For any of the five methods, the
  * {@link ELResolver#getValue(ELContext, Object, Object)} method is used to resolve all properties
- * up to but excluding the last one. This provides the base object. At the last resolution, the
- * ValueExpression will call the corresponding
- * {@link ELResolver#getValue(ELContext, Object, Object)},
+ * up to but excluding the last one. This provides the base object. For all methods other than the
+ * {@link #getValueReference(ELContext)} method, at the last resolution, the ValueExpression will
+ * call the corresponding {@link ELResolver#getValue(ELContext, Object, Object)},
  * {@link ELResolver#setValue(ELContext, Object, Object, Object)},
  * {@link ELResolver#isReadOnly(ELContext, Object, Object)} or
  * {@link ELResolver#getType(ELContext, Object, Object)} method, depending on which was called on
- * the ValueExpression. See the notes about comparison, serialization and immutability in the
- * {@link Expression} javadocs.
+ * the ValueExpression. For the {@link #getValueReference(ELContext)} method, the (base, property)
+ * is not resolved by the ELResolver, but an instance of {@link ValueReference} is created to
+ * encapsulate this (base, property), and returned.
+ * </p>
+ * <p>
+ * See the notes about comparison, serialization and immutability in the {@link Expression}
+ * javadocs.
+ * </p>
  * 
  * @see ELResolver
  * @see Expression
@@ -152,7 +165,13 @@ public abstract class ValueExpression extends Expression {
 	 *         (null or non-null) and a property. If the base is null, and the property is a EL
 	 *         variable, return the <code>ValueReference</code> for the <code>ValueExpression</code>
 	 *         associated with this EL variable.
-	 * 
+	 * @throws PropertyNotFoundException
+	 *             if one of the property resolutions failed because a specified variable or
+	 *             property does not exist or is not readable.
+	 * @throws ELException
+	 *             if an exception was thrown while performing property or variable resolution. The
+	 *             thrown exception must be included as the cause property of this exception, if
+	 *             available.
 	 * @since 2.2
 	 */
 	public ValueReference getValueReference(ELContext context) {
