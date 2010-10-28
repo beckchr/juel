@@ -75,10 +75,6 @@ public class AstMethod extends AstNode {
 
 	@Override
 	public Object eval(Bindings bindings, ELContext context) {
-		return invoke(bindings, context, null, null, null);
-	}
-
-	public Object invoke(Bindings bindings, ELContext context, Class<?> returnType, Class<?>[] paramTypes, Object[] paramValues) {
 		Object base = property.getPrefix().eval(bindings, context);
 		if (base == null) {
 			throw new PropertyNotFoundException(LocalMessages.get("error.property.base.null", property.getPrefix()));
@@ -88,20 +84,20 @@ public class AstMethod extends AstNode {
 			throw new PropertyNotFoundException(LocalMessages.get("error.property.method.notfound", "null", base));
 		}
 		String name = bindings.convert(method, String.class);
-		paramValues = params.eval(bindings, context);
 
 		context.setPropertyResolved(false);
-		/*
-		 * ignore paramTypes, paramValues passed to this method
-		 */
 		Object result = context.getELResolver().invoke(context, base, name, null, params.eval(bindings, context));
 		if (!context.isPropertyResolved()) {
 			throw new MethodNotFoundException(LocalMessages.get("error.property.method.notfound", name, base.getClass()));
 		}
-//		if (returnType != null && !returnType.isInstance(result)) { // should we check returnType for method invocations?
-//			throw new MethodNotFoundException(LocalMessages.get("error.property.method.notfound", name, base.getClass()));
-//		}
 		return result;
+	}
+
+	public Object invoke(Bindings bindings, ELContext context, Class<?> returnType, Class<?>[] paramTypes, Object[] paramValues) {
+		/*
+		 * ignore returnType, paramTypes and paramValues
+		 */
+		return eval(bindings, context);
 	}
 
 	public int getCardinality() {
