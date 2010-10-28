@@ -46,7 +46,15 @@ public abstract class AstProperty extends AstNode {
 	}
 
 	public ValueReference getValueReference(Bindings bindings, ELContext context) {
-		return new ValueReference(prefix.eval(bindings, context), getProperty(bindings, context));
+		Object base = prefix.eval(bindings, context);
+		if (base == null) {
+			throw new PropertyNotFoundException(LocalMessages.get("error.property.base.null", prefix));
+		}
+		Object property = getProperty(bindings, context);
+		if (property == null && strict) {
+			throw new PropertyNotFoundException(LocalMessages.get("error.property.property.notfound", "null", base));
+		}
+		return new ValueReference(base, property);
 	}
 	
 	@Override
