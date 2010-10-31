@@ -47,7 +47,7 @@ public abstract class AstNode implements ExpressionNode {
 	/**
 	 * Find accessible method. Searches the inheritance tree of the class declaring
 	 * the method until it finds a method that can be made accessible.
-	 * @param start method method
+	 * @param method method
 	 * @return accessible method or <code>null</code>
 	 */
 	protected Method findAccessibleMethod(Method method) {
