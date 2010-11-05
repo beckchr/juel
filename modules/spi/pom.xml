@@ -30,7 +30,7 @@
 							<Specification-Version>2.1</Specification-Version>
 							<Specification-Vendor>Sun Microsystems Inc.</Specification-Vendor>
 							<Implementation-Title>JUEL</Implementation-Title>
-							<Implementation-Version>${version}</Implementation-Version>
+							<Implementation-Version>${project.version}</Implementation-Version>
 							<Implementation-Vendor>Odysseus Software GmbH</Implementation-Vendor>
 							<Implementation-Vendor-Id>de.odysseus</Implementation-Vendor-Id>
 						</manifestEntries>

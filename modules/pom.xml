@@ -3,6 +3,12 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>5</version>
+	</parent>
+
 	<groupId>de.odysseus.juel</groupId>
 	<artifactId>juel</artifactId>
 	<packaging>pom</packaging>
@@ -11,8 +17,8 @@
 	<version>2.2.2-SNAPSHOT</version>
 	<description>
     Implementation of the Java Unified Expression Language as specified
-    by the Expression Language Specification, Version 2.1: part of the
-    JSP 2.1 standard (JSR-245), plus maintenance releases MR1 and MR2.
+    by the Expression Language Specification, Version 2.1 (JEE5, part of
+    the JSP 2.1 standard [JSR-245]), plus maintenance release 2.2 (JEE6).
 	</description>
 
 	<url>http://juel.sourceforge.net/</url>
@@ -44,8 +50,13 @@
 
 	<scm>
 		<connection>scm:svn:https://juel.svn.sourceforge.net/svnroot/juel/trunk</connection>
+		<developerConnection>scm:svn:https://juel.svn.sourceforge.net/svnroot/juel/trunk</developerConnection>
 		<url>http://juel.svn.sourceforge.net/viewvc/juel/trunk/</url>
 	</scm>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -84,6 +95,7 @@
 				<!-- mvn javadoc:jar -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.7</version>
 				<configuration>
 					<bottom>Copyright &amp;copy; {inceptionYear}-{currentYear} {organizationName}.</bottom>
 				</configuration>
