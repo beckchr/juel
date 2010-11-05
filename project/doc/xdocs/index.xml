@@ -3,7 +3,7 @@
 <document>
 	<header>
 		<title>Welcome to JUEL!</title>
-		<meta name="version">2.2.1</meta>
+		<meta name="version">2.2.2</meta>
 		<meta name="keywords">Unified Expression Language, Unified EL, EL, JUEL, javax.el, JSP, JSF</meta>
   	<meta name="description">JUEL is an implementation of the Unified Expression Language (EL), specified as part of the JSP 2.1 standard (JSR-245).</meta>
 	</header>

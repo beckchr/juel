@@ -4,7 +4,25 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
-	<release version="2.2.1" date="2010/12/13">
+	<release version="2.2.2" date="2010/11/??">
+		<action dev="cbe" type="update" context="build">
+			Updated POMs to sync JUEL releases to maven central via Sonatype's repository hosting service.
+		</action>
+		<action dev="cbe" type="update" context="code">
+			fixed: <code>MethodExpression.invoke(...)</code> should ignore passed parameter types if
+			arguments are specified in the expression as in <code>${foo.bar(123)}</code>.
+		</action>
+		<action dev="cbe" type="update" context="code">
+			Improved method lookup in method expressions (when calling <code>MethodExpression.invoke(...)</code>,
+			<code>Method.setAccessible(true)</code> is used if necessary).
+		</action>
+		<action dev="cbe" type="update" context="code">
+			Changed implementation of <code>ASTProperty.getValueReference()</code> to throw
+			an exception if <code>base</code> expression evaluates to <code>null</code>.
+			Updated documentation of <code>ValueExpression.getValueReference()</code> accordingly.
+		</action>
+	</release>
+	<release version="2.2.1" date="2009/12/13">
 		<action dev="cbe" type="add" context="code">
 			Added <code>MethodExpression.isParametersProvided()</code>. This method was added silently
 			to the API (wasn't mentioned anywhere prior to the final release of EE6) and forces this release...
@@ -43,7 +61,7 @@
 		<action dev="cbe" type="add" context="build">
 			Separated the JAR service provider (<code>META-INF/services/javax.el.ExpressionFactory</code>)
 			into its own <code>juel-spi-2.2.x.jar</code>. This allows to have <code>juel-impl-2.2.x.jar</code>
-			on your classpath without forcing <em>JUEL</em> to be used by <code>ExpressioonFactory.newInstance()</code>.
+			on your classpath without forcing <em>JUEL</em> to be used by <code>ExpressionFactory.newInstance()</code>.
 		</action>
 		<action dev="cbe" type="add" context="code">
 			Added <code>ExpressionFactoryImpl.Profile</code> enum type and several new constructors
