@@ -103,8 +103,8 @@
 	</reporting>
 
     <modules>
-        <module>modules/api</module>
-        <module>modules/impl</module>
-        <module>modules/spi</module>
+        <module>api</module>
+        <module>impl</module>
+        <module>spi</module>
     </modules>
 </project>
