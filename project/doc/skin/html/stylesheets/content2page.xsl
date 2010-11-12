@@ -38,7 +38,7 @@
 	</xsl:template>
 
 	<xsl:template name="footer">
-		&#169; 2006-2009 Odysseus Software GmbH. All rights reserved.
+		&#169; 2006-2010 Odysseus Software GmbH. All rights reserved.
 	</xsl:template>
 
 </xsl:stylesheet>
