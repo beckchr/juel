@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.odysseus.juel</groupId>
 		<artifactId>juel</artifactId>
-		<version>2.2.2</version>
+		<version>2.2.3-SNAPSHOT</version>
 	</parent>
 
 	<groupId>de.odysseus.juel</groupId>
@@ -14,7 +14,7 @@
 	<packaging>jar</packaging>
 
 	<name>Java Unified Expression Language API</name>
-	<version>2.2.2</version>
+	<version>2.2.3-SNAPSHOT</version>
 
 	<build>
 		<plugins>
