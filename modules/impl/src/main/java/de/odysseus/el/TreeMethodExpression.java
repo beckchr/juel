@@ -92,7 +92,7 @@ public final class TreeMethodExpression extends javax.el.MethodExpression {
 				throw new ELException(LocalMessages.get("error.method.invalid", expr));
 			}
 			if (paramTypes == null) {
-				throw new ELException(LocalMessages.get("error.method.notypes"));
+				throw new NullPointerException(LocalMessages.get("error.method.notypes")); // EL specification requires NPE
 			}
 		}
 	}
