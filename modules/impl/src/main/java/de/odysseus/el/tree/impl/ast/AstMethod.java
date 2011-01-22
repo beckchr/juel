@@ -73,10 +73,12 @@ public class AstMethod extends AstNode {
 		params.appendStructure(builder, bindings);
 	}
 
-	@Override
-	public Object eval(Bindings bindings, ELContext context) {
+	protected Object eval(Bindings bindings, ELContext context, boolean answerNullIfBaseIsNull) {
 		Object base = property.getPrefix().eval(bindings, context);
 		if (base == null) {
+			if (answerNullIfBaseIsNull) {
+				return null;
+			}
 			throw new PropertyNotFoundException(LocalMessages.get("error.property.base.null", property.getPrefix()));
 		}
 		Object method = property.getProperty(bindings, context);
@@ -93,11 +95,13 @@ public class AstMethod extends AstNode {
 		return result;
 	}
 
+	@Override
+	public Object eval(Bindings bindings, ELContext context) {
+		return eval(bindings, context, true);
+	}
+
 	public Object invoke(Bindings bindings, ELContext context, Class<?> returnType, Class<?>[] paramTypes, Object[] paramValues) {
-		/*
-		 * ignore returnType, paramTypes and paramValues
-		 */
-		return eval(bindings, context);
+		return eval(bindings, context, false);
 	}
 
 	public int getCardinality() {
