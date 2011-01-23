@@ -74,10 +74,13 @@
 			file="${build.dir}/stan/juel-${version}.html"/>
 	</target>
 
-	<target name="dist" depends="clean,modules" description="build juel distribution">
+	<target name="doc" description="generate documentation">
 		<ant antfile="doc/build.xml" inheritall="false" target="dist">
 			<property name="build.dir" location="${build.dir}/forrester" />
 		</ant>
+	</target>
+	
+	<target name="dist" depends="clean,modules,doc" description="build juel distribution">		
 		<mkdir dir="${dist.dir}"/>
 		<zip destfile="${dist.dir}/juel-${version}.zip">
 			<zipfileset prefix="juel-${version}" dir="..">
@@ -87,7 +90,7 @@
 				<include name=".classpath" />
 				<include name="modules/**" />
 				<exclude name="modules/build/**" />
-				<exclude name="modules/*/target/**" />
+				<exclude name="modules/**/target/**" />
 				<exclude name="modules/.*" />
 				<include name="samples/**" />
 			</zipfileset>
