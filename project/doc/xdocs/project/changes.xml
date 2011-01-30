@@ -4,10 +4,14 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
-	<release version="2.2.3" date="2011/01/??">
+	<release version="2.2.3" date="2011/01/30">
 		<action dev="cbe" type="update" context="code" fixes-bug="3154206" due-to="Martin Koci">
 			fixed: a method invocation node invoked via <code>ValueExpression.getValue(...)</code>
 			should return <code>null</code> if its base (prefix) expression evaluates to <code>null</code>.
+		</action>
+		<action dev="cbe" type="update" context="build">
+			Moved parent <code>pom.xml</code> from <code>modules</code> to project root to simplify
+			maven release build.
 		</action>
 	</release>
 	<release version="2.2.2" date="2010/11/12">
