@@ -18,6 +18,7 @@ package de.odysseus.el.tree.impl.ast;
 import javax.el.BeanELResolver;
 import javax.el.ELException;
 import javax.el.MethodNotFoundException;
+import javax.el.PropertyNotFoundException;
 import javax.el.ValueExpression;
 
 import de.odysseus.el.TestCase;
@@ -51,6 +52,10 @@ public class AstMethodTest extends TestCase {
 		return value;
 	}
 
+	public Object getNullObject() {
+		return null;
+	}
+	
 	@Override
 	protected void setUp() throws Exception {
 		context = new SimpleContext(new SimpleResolver(new BeanELResolver()));
@@ -94,6 +99,8 @@ public class AstMethodTest extends TestCase {
 	public void testGetValue() {
 		assertEquals("1", parseNode("${base.bar()}").getValue(bindings, context, String.class));
 		assertEquals("3", parseNode("${base.bar(3)}").getValue(bindings, context, String.class));
+
+		assertNull(parseNode("${base.nullObject.toString()}").getValue(bindings, context, Object.class));
 	}
 	
 	public void testGetValueReference() {
@@ -103,6 +110,13 @@ public class AstMethodTest extends TestCase {
 	public void testInvoke() {
 		assertEquals(1l, parseNode("${base.bar()}").invoke(bindings, context, null, null, new Object[]{999l}));
 		assertEquals(3l, parseNode("${base.bar(3)}").invoke(bindings, context, null, new Class[]{long.class}, new Object[]{999l}));
+		
+		try {
+			parseNode("${base.nullObject.toString()}").invoke(bindings, context, null, null, new Object[0]);
+			fail();
+		} catch (PropertyNotFoundException e) {
+			// ok
+		}
 	}
 
 	public void testGetMethodInfo() {

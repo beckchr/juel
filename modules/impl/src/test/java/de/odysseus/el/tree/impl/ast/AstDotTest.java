@@ -20,6 +20,7 @@ import java.util.Arrays;
 import javax.el.BeanELResolver;
 import javax.el.ELException;
 import javax.el.MethodInfo;
+import javax.el.PropertyNotFoundException;
 import javax.el.ValueExpression;
 
 import de.odysseus.el.TestCase;
@@ -56,6 +57,10 @@ public class AstDotTest extends TestCase {
 
 	public TestClass getTestClass() {
 		return new TestClass();
+	}
+	
+	public Object getNullObject() {
+		return null;
 	}
 	
 	@Override
@@ -106,6 +111,7 @@ public class AstDotTest extends TestCase {
 	public void testGetValue() {
 		assertEquals(1l, parseNode("${base.foo}").getValue(bindings, context, null));
 		assertEquals("1", parseNode("${base.foo}").getValue(bindings, context, String.class));
+		assertNull(parseNode("${base.nullObject.class}").getValue(bindings, context, Object.class));
 	}
 
 	public void testGetValueReference() {
@@ -119,6 +125,13 @@ public class AstDotTest extends TestCase {
 
 		assertEquals(42, parseNode("${base.testClass.anonymousTestInterface.fourtyTwo}").invoke(bindings, context, null, new Class[0], null));
 		assertEquals(42, parseNode("${base.testClass.nestedTestInterface.fourtyTwo}").invoke(bindings, context, null, new Class[0], null));
+
+		try {
+			parseNode("${base.nullObject.class}").invoke(bindings, context, null, null, new Object[0]);
+			fail();
+		} catch (PropertyNotFoundException e) {
+			// ok
+		}
 	}
 
 	public void testGetMethodInfo() {
