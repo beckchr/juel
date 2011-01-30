@@ -1,7 +1,7 @@
 <project name="juel" default="dist" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
 	<property file="build.properties" />
 
-	<property name="version" value="2.2.3-SNAPSHOT" />
+	<property name="version" value="2.2.4-SNAPSHOT" />
 
 	<property name="build.dir" value="build" />
 	<property name="dist.dir" value="dist" />
@@ -74,23 +74,26 @@
 			file="${build.dir}/stan/juel-${version}.html"/>
 	</target>
 
+	<!-- TODO when calling this, fop doesn't find fonts. For now, we build docs
+	     manually and include its build directory into disttribution archive... -->
 	<target name="doc" description="generate documentation">
 		<ant antfile="doc/build.xml" inheritall="false" target="dist">
 			<property name="build.dir" location="${build.dir}/forrester" />
 		</ant>
 	</target>
 	
-	<target name="dist" depends="clean,modules,doc" description="build juel distribution">		
+	<target name="dist" depends="clean,modules" description="build juel distribution">		
 		<mkdir dir="${dist.dir}"/>
 		<zip destfile="${dist.dir}/juel-${version}.zip">
 			<zipfileset prefix="juel-${version}" dir="..">
 				<include name="LICENSE.txt" />
 				<include name="README.txt" />
+				<include name="pom.xml" />
 				<include name=".project" />
 				<include name=".classpath" />
 				<include name="modules/**" />
 				<exclude name="modules/build/**" />
-				<exclude name="modules/**/target/**" />
+				<exclude name="modules/*/target/**" />
 				<exclude name="modules/.*" />
 				<include name="samples/**" />
 			</zipfileset>
@@ -101,7 +104,7 @@
 				<include name="juel-impl-${version}.jar" />
 				<include name="juel-spi-${version}.jar" />
 			</zipfileset>
-			<zipfileset prefix="juel-${version}/doc" dir="${build.dir}/forrester">
+			<zipfileset prefix="juel-${version}/doc" dir="doc/build">
 				<include name="**" />
 			</zipfileset>
 			<zipfileset prefix="juel-${version}/doc/api" dir="${build.dir}/javadoc">
