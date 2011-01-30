@@ -13,7 +13,7 @@
 	<packaging>pom</packaging>
 
 	<name>Java Unified Expression Language</name>
-	<version>2.2.3-SNAPSHOT</version>
+	<version>2.2.3</version>
 	<description>
     Implementation of the Java Unified Expression Language as specified
     by the Expression Language Specification, Version 2.1 (JEE5, part of
@@ -48,9 +48,9 @@
 	</developers>
 
 	<scm>
-		<connection>scm:svn:http://juel.svn.sourceforge.net/svnroot/juel/trunk</connection>
-		<developerConnection>scm:svn:https://juel.svn.sourceforge.net/svnroot/juel/trunk</developerConnection>
-		<url>http://juel.svn.sourceforge.net/viewvc/juel/trunk/</url>
+		<connection>scm:svn:http://juel.svn.sourceforge.net/svnroot/juel/tags/juel-parent-2.2.3</connection>
+		<developerConnection>scm:svn:https://juel.svn.sourceforge.net/svnroot/juel/tags/juel-parent-2.2.3</developerConnection>
+		<url>http://juel.svn.sourceforge.net/viewvc/juel/tags/juel-parent-2.2.3</url>
 	</scm>
 
 	<properties>
