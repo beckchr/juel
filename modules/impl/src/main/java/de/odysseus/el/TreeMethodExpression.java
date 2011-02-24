@@ -84,7 +84,7 @@ public final class TreeMethodExpression extends javax.el.MethodExpression {
 		this.deferred = tree.isDeferred();
 
 		if (node.isLiteralText()) {
-			if (returnType == void.class) {
+			if (returnType == void.class || returnType == Void.class) {
 				throw new ELException(LocalMessages.get("error.method.literal.void", expr));
 			}
 		} else if (!node.isMethodInvocation()) {
