@@ -34,10 +34,16 @@ import de.odysseus.el.tree.IdentifierNode;
 public class AstIdentifier extends AstNode implements IdentifierNode {
 	private final String name;
 	private final int index;
+	private final boolean ignoreReturnType;
 
 	public AstIdentifier(String name, int index) {
+		this(name, index, false);
+	}
+
+	public AstIdentifier(String name, int index, boolean ignoreReturnType) {
 		this.name = name;
 		this.index = index;
+		this.ignoreReturnType = ignoreReturnType;
 	}
 
 	public Class<?> getType(Bindings bindings, ELContext context) {
@@ -124,8 +130,8 @@ public class AstIdentifier extends AstNode implements IdentifierNode {
 			if (method == null) {
 				throw new MethodNotFoundException(LocalMessages.get("error.identifier.method.notfound", name));
 			}
-			if (returnType != null && !returnType.isAssignableFrom(method.getReturnType())) {
-				throw new MethodNotFoundException(LocalMessages.get("error.identifier.method.notfound", name));
+			if (!ignoreReturnType && returnType != null && !returnType.isAssignableFrom(method.getReturnType())) {
+				throw new MethodNotFoundException(LocalMessages.get("error.identifier.method.returntype", method.getReturnType(), name, returnType));
 			}
 			if (!Arrays.equals(method.getParameterTypes(), paramTypes)) {
 				throw new MethodNotFoundException(LocalMessages.get("error.identifier.method.notfound", name));

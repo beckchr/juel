@@ -22,9 +22,13 @@ import de.odysseus.el.tree.Bindings;
 
 public class AstDot extends AstProperty {
 	protected final String property;
-	
+
 	public AstDot(AstNode base, String property, boolean lvalue) {
-		super(base, lvalue, true);
+		this(base, property, lvalue, false);
+	}
+
+	public AstDot(AstNode base, String property, boolean lvalue, boolean ignoreReturnType) {
+		super(base, lvalue, true, ignoreReturnType);
 		this.property = property;
 	}
 

@@ -24,7 +24,11 @@ public class AstBracket extends AstProperty {
 	protected final AstNode property;
 	
 	public AstBracket(AstNode base, AstNode property, boolean lvalue, boolean strict) {
-		super(base, lvalue, strict);
+		this(base, property, lvalue, strict, false);
+	}
+
+	public AstBracket(AstNode base, AstNode property, boolean lvalue, boolean strict, boolean ignoreReturnType) {
+		super(base, lvalue, strict, ignoreReturnType);
 		this.property = property;
 	}
 

@@ -178,7 +178,7 @@ public class Parser {
 	}
 	
 	protected AstBracket createAstBracket(AstNode base, AstNode property, boolean lvalue, boolean strict) {
-		return new AstBracket(base, property, lvalue, strict);
+		return new AstBracket(base, property, lvalue, strict, context.isEnabled(Feature.IGNORE_RETURN_TYPE));
 	}
 	
 	protected AstChoice createAstChoice(AstNode question, AstNode yes, AstNode no) {
@@ -190,7 +190,7 @@ public class Parser {
 	}
 	
 	protected AstDot createAstDot(AstNode base, String property, boolean lvalue) {
-		return new AstDot(base, property, lvalue);
+		return new AstDot(base, property, lvalue, context.isEnabled(Feature.IGNORE_RETURN_TYPE));
 	}
 	
 	protected AstFunction createAstFunction(String name, int index, AstParameters params) {
@@ -198,7 +198,7 @@ public class Parser {
 	}
 
 	protected AstIdentifier createAstIdentifier(String name, int index) {
-		return new AstIdentifier(name, index);
+		return new AstIdentifier(name, index, context.isEnabled(Feature.IGNORE_RETURN_TYPE));
 	}
 	
 	protected AstMethod createAstMethod(AstProperty property, AstParameters params) {

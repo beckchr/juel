@@ -4,6 +4,15 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
+	<release version="2.2.4" date="2011/??/??">
+		<action dev="cbe" type="add" context="code">
+			Added property <code>javax.el.ignoreReturnType</code> to ignore the expected return
+			type passed to <code>EpressionFactory.createMethodExpression()</code> when looking
+			up a method to invoke. (This option has no effect when evaluating literal method
+			expressions, where the expected return type acts as coercion target type.) 
+			
+		</action>
+	</release>
 	<release version="2.2.3" date="2011/01/30">
 		<action dev="cbe" type="update" context="code" fixes-bug="3154206" due-to="Martin Koci">
 			fixed: a method invocation node invoked via <code>ValueExpression.getValue(...)</code>

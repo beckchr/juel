@@ -21,6 +21,7 @@ import java.util.EnumSet;
 import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.ELResolver;
+import javax.el.ExpressionFactory;
 import javax.el.FunctionMapper;
 import javax.el.VariableMapper;
 
@@ -62,7 +63,12 @@ public class Builder implements TreeBuilder {
 		/**
 		 * Allow for use of Java 5 varargs in function calls.
 		 */
-		VARARGS
+		VARARGS,
+		/**
+		 * Do not verify that a method's return type matches the expected return type passed to
+		 * {@link ExpressionFactory#createMethodExpression(ELContext, String, Class, Class[])}. 
+		 */
+		IGNORE_RETURN_TYPE
 	}
 	
 	protected final EnumSet<Feature> features;

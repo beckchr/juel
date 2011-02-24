@@ -32,11 +32,17 @@ public abstract class AstProperty extends AstNode {
 	protected final AstNode prefix;
 	protected final boolean lvalue;
 	protected final boolean strict; // allow null as property value?
-	
+	protected final boolean ignoreReturnType;
+
 	public AstProperty(AstNode prefix, boolean lvalue, boolean strict) {
+		this(prefix, lvalue, strict, false);
+	}
+
+	public AstProperty(AstNode prefix, boolean lvalue, boolean strict, boolean ignoreReturnType) {
 		this.prefix = prefix;
 		this.lvalue = lvalue;
 		this.strict = strict;
+		this.ignoreReturnType = ignoreReturnType;
 	}
 
 	protected abstract Object getProperty(Bindings bindings, ELContext context) throws ELException;
@@ -157,8 +163,8 @@ public abstract class AstProperty extends AstNode {
 		if (method == null) {
 			throw new MethodNotFoundException(LocalMessages.get("error.property.method.notfound", name, clazz));
 		}
-		if (returnType != null && !returnType.isAssignableFrom(method.getReturnType())) {
-			throw new MethodNotFoundException(LocalMessages.get("error.property.method.notfound", name, clazz));
+		if (!ignoreReturnType && returnType != null && !returnType.isAssignableFrom(method.getReturnType())) {
+			throw new MethodNotFoundException(LocalMessages.get("error.property.method.returntype", method.getReturnType(), name, clazz, returnType));
 		}
 		return method;
 	}

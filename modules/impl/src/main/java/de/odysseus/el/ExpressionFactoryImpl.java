@@ -125,6 +125,11 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 	public static final String PROP_NULL_PROPERTIES = "javax.el.nullProperties";
 
 	/**
+	 * <code>javax.el.ignoreReturnType</code>
+	 */
+	public static final String PROP_IGNORE_RETURN_TYPE = "javax.el.ignoreReturnType";	
+	
+	/**
 	 * <code>javax.el.cacheSize</code>
 	 */
 	public static final String PROP_CACHE_SIZE = "javax.el.cacheSize";
@@ -326,6 +331,9 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 			}
 			if (getFeatureProperty(profile, properties, Feature.NULL_PROPERTIES, PROP_NULL_PROPERTIES)) {
 				features.add(Builder.Feature.NULL_PROPERTIES);
+			}
+			if (getFeatureProperty(profile, properties, Feature.IGNORE_RETURN_TYPE, PROP_IGNORE_RETURN_TYPE)) {
+				features.add(Builder.Feature.IGNORE_RETURN_TYPE);
 			}
 			builder = createTreeBuilder(properties, features.toArray(new Builder.Feature[0]));
 		}
