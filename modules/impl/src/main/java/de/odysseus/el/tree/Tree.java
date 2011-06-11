@@ -16,7 +16,7 @@
 package de.odysseus.el.tree;
 
 import java.lang.reflect.Method;
-import java.util.Collection;
+import java.util.List;
 
 import javax.el.ELException;
 import javax.el.FunctionMapper;
@@ -38,8 +38,8 @@ import de.odysseus.el.misc.TypeConverter;
  */
 public class Tree {
 	private final ExpressionNode root;
-	private final Collection<FunctionNode> functions;
-	private final Collection<IdentifierNode> identifiers;
+	private final List<FunctionNode> functions;
+	private final List<IdentifierNode> identifiers;
 	private final boolean deferred;
 
 	/**
@@ -49,7 +49,7 @@ public class Tree {
 	 * @param functions collection of function nodes
 	 * @param identifiers collection of identifier nodes
 	 */
-	public Tree(ExpressionNode root, Collection<FunctionNode> functions, Collection<IdentifierNode> identifiers, boolean deferred) {
+	public Tree(ExpressionNode root, List<FunctionNode> functions, List<IdentifierNode> identifiers, boolean deferred) {
 		super();
 		this.root = root;
 		this.functions = functions;
@@ -111,7 +111,8 @@ public class Tree {
 				throw new ELException(LocalMessages.get("error.function.nomapper"));
 			}
 			methods = new Method[functions.size()];
-			for (FunctionNode node: functions) {
+			for (int i = 0; i < functions.size(); i++) {
+				FunctionNode node = functions.get(i);
 				String image = node.getName();
 				Method method = null;
 				int colon = image.indexOf(':');
@@ -138,7 +139,8 @@ public class Tree {
 		ValueExpression[] expressions = null;
 		if (identifiers.size() > 0) {
 			expressions = new ValueExpression[identifiers.size()];
-			for (IdentifierNode node: identifiers) {
+			for (int i = 0; i < identifiers.size(); i++) {
+				IdentifierNode node = identifiers.get(i);
 				ValueExpression expression = null;
 				if (varMapper != null) {
 					expression = varMapper.resolveVariable(node.getName());
