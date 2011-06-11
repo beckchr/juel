@@ -78,8 +78,8 @@ public class CompositeELResolver extends ELResolver {
 	@Override
 	public Class<?> getCommonPropertyType(ELContext context, Object base) {
 		Class<?> result = null;
-		for (ELResolver resolver : resolvers) {
-			Class<?> type = resolver.getCommonPropertyType(context, base);
+		for (int i = 0, l = resolvers.size(); i < l; i++) {
+			Class<?> type = resolvers.get(i).getCommonPropertyType(context, base);
 			if (type != null) {
 				if (result == null || type.isAssignableFrom(result)) {
 					result = type;
@@ -180,8 +180,8 @@ public class CompositeELResolver extends ELResolver {
 	@Override
 	public Class<?> getType(ELContext context, Object base, Object property) {
 		context.setPropertyResolved(false);
-		for (ELResolver resolver : resolvers) {
-			Class<?> type = resolver.getType(context, base, property);
+		for (int i = 0, l = resolvers.size(); i < l; i++) {
+			Class<?> type = resolvers.get(i).getType(context, base, property);
 			if (context.isPropertyResolved()) {
 				return type;
 			}
@@ -227,8 +227,8 @@ public class CompositeELResolver extends ELResolver {
 	@Override
 	public Object getValue(ELContext context, Object base, Object property) {
 		context.setPropertyResolved(false);
-		for (ELResolver resolver : resolvers) {
-			Object value = resolver.getValue(context, base, property);
+		for (int i = 0, l = resolvers.size(); i < l; i++) {
+			Object value = resolvers.get(i).getValue(context, base, property);
 			if (context.isPropertyResolved()) {
 				return value;
 			}
@@ -275,8 +275,8 @@ public class CompositeELResolver extends ELResolver {
 	@Override
 	public boolean isReadOnly(ELContext context, Object base, Object property) {
 		context.setPropertyResolved(false);
-		for (ELResolver resolver : resolvers) {
-			boolean readOnly = resolver.isReadOnly(context, base, property);
+		for (int i = 0, l = resolvers.size(); i < l; i++) {
+			boolean readOnly = resolvers.get(i).isReadOnly(context, base, property);
 			if (context.isPropertyResolved()) {
 				return readOnly;
 			}
@@ -325,8 +325,8 @@ public class CompositeELResolver extends ELResolver {
 	@Override
 	public void setValue(ELContext context, Object base, Object property, Object value) {
 		context.setPropertyResolved(false);
-		for (ELResolver resolver : resolvers) {
-			resolver.setValue(context, base, property, value);
+		for (int i = 0, l = resolvers.size(); i < l; i++) {
+			resolvers.get(i).setValue(context, base, property, value);
 			if (context.isPropertyResolved()) {
 				return;
 			}
@@ -393,8 +393,8 @@ public class CompositeELResolver extends ELResolver {
 	@Override
 	public Object invoke(ELContext context, Object base, Object method, Class<?>[] paramTypes, Object[] params) {
 		context.setPropertyResolved(false);
-		for (ELResolver resolver : resolvers) {
-			Object result = resolver.invoke(context, base, method, paramTypes, params);
+		for (int i = 0, l = resolvers.size(); i < l; i++) {
+			Object result = resolvers.get(i).invoke(context, base, method, paramTypes, params);
 			if (context.isPropertyResolved()) {
 				return result;
 			}
