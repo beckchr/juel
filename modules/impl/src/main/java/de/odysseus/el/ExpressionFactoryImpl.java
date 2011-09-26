@@ -37,7 +37,7 @@ import de.odysseus.el.tree.impl.Builder.Feature;
 /**
  * Expression factory implementation.
  * 
- * This class is also used as an EL "service provider". The <em>JUEL</em> jar file specifies this
+ * This class is also used as an EL "service provider". The <em>juel-spi</em> jar file specifies this
  * class as el expression factory implementation in
  * <code>META-INF/services/javax.el.ExpressionFactory</code>. Calling
  * {@link ExpressionFactory#newInstance()} will then return an instance of this class, configured as
