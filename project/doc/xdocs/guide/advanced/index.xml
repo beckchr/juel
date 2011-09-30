@@ -150,6 +150,33 @@ ExpressionFactory factory = new ExpressionFactoryImpl(store);</source>
 					The default is not to allow <code>null</code> as an EL property value.
 				</p>
 			</section>
+			<section id="ignoreReturnType">
+				<title>Enabling/Disabling ignoring of expected return type</title>
+				<p>
+					The EL specification allows to determine an expected return type for
+					method expressions. The return type should then be checked to match the
+					actual return type of the method to invoke. Unfortunately, the EL reference
+					implementation ignores this parameter completely. This caused some "legacy"
+					code to not recognize that they're passing wrong types. When switching to
+					JUEL as their EL implementation, this causes an exception to be thrown.  
+				</p>
+				<p>
+					For compatibility, JUEL lets you choose to ignore the expected return
+					type passed to <code>EpressionFactory.createMethodExpression()</code> when looking
+					up a method to invoke. (This option has no effect when evaluating literal method
+					expressions, where the expected return type acts as coercion target type.)
+				</p>
+				<p>
+					To enable (disable) ignoring of the expected return type parameter, you may set property
+				</p>
+				<source>javax.el.ignoreReturnType</source>
+				<p>
+					to <code>true</code> (<code>false</code>).
+				</p>
+				<p>
+					The default is respect (i.e. <em>not</em> to ignore) the expected return type parameter.
+				</p>
+			</section>
 			<section>
 				<title>Using a customized Cache</title>
 				<p>
