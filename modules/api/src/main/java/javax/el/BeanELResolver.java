@@ -67,6 +67,9 @@ public class BeanELResolver extends ELResolver {
 
 	protected static final class BeanProperty {
 		private final PropertyDescriptor descriptor;
+		
+		private Method readMethod;
+		private Method writedMethod;
 
 		public BeanProperty(PropertyDescriptor descriptor) {
 			this.descriptor = descriptor;
@@ -77,15 +80,21 @@ public class BeanELResolver extends ELResolver {
 		}
 
 		public Method getReadMethod() {
-			return findAccessibleMethod(descriptor.getReadMethod());
+			if (readMethod == null) {
+				readMethod = findAccessibleMethod(descriptor.getReadMethod());
+			}
+			return readMethod;
 		}
 
 		public Method getWriteMethod() {
-			return findAccessibleMethod(descriptor.getWriteMethod());
+			if (writedMethod == null) {
+				writedMethod = findAccessibleMethod(descriptor.getWriteMethod());
+			}
+			return writedMethod;
 		}
 
 		public boolean isReadOnly() {
-			return findAccessibleMethod(descriptor.getWriteMethod()) == null;
+			return getWriteMethod() == null;
 		}
 	}
 
