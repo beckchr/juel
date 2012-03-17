@@ -42,8 +42,7 @@ import java.util.Map;
  * ELContext instance between two or more threads.
  */
 public abstract class ELContext {
-	private final Map<Class<?>, Object> context = new HashMap<Class<?>, Object>();
-
+	private Map<Class<?>, Object> context;
 	private Locale locale;
 	private boolean resolved;
 
@@ -65,6 +64,9 @@ public abstract class ELContext {
 	public Object getContext(Class<?> key) {
 		if (key == null) {
 			throw new NullPointerException("key is null");
+		}
+		if (context == null) {
+			return null;
 		}
 		return context.get(key);
 	}
@@ -136,6 +138,9 @@ public abstract class ELContext {
 	public void putContext(Class<?> key, Object contextObject) {
 		if (key == null) {
 			throw new NullPointerException("key is null");
+		}
+		if (context == null) {
+			context = new HashMap<Class<?>, Object>();
 		}
 		context.put(key, contextObject);
 	}
