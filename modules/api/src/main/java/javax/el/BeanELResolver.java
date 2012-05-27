@@ -406,6 +406,8 @@ public class BeanELResolver extends ELResolver {
 				method.invoke(base, value);
 			} catch (InvocationTargetException e) {
 				throw new ELException("Cannot write property: " + property, e.getCause());
+			} catch (IllegalArgumentException e) {
+				throw new ELException("Cannot write property: " + property, e);
 			} catch (IllegalAccessException e) {
 				throw new PropertyNotWritableException("Cannot write property: " + property, e);
 			}
