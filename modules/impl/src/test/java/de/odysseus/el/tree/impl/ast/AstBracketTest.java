@@ -122,6 +122,8 @@ public class AstBracketTest extends TestCase {
 		try { parseNode("${base[bad]}").setValue(bindings, context, "good"); fail(); } catch (ELException e) {}
 		parseNode("${base['foo']}").setValue(bindings, context, 2l);
 		assertEquals(2l, getFoo());
+		parseNode("${base['foo']}").setValue(bindings, context, "3");
+		assertEquals(3l, getFoo());
 		if (BUILDER.isEnabled(Builder.Feature.NULL_PROPERTIES)) {
 			parseNode("${nullmap[null]}").setValue(bindings, context, "bar");
 			assertEquals("bar", parseNode("${nullmap[null]}").eval(bindings, context));

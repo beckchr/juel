@@ -20,6 +20,7 @@ import java.lang.reflect.Method;
 
 import javax.el.ELContext;
 import javax.el.ELException;
+import javax.el.ELResolver;
 import javax.el.MethodInfo;
 import javax.el.MethodNotFoundException;
 import javax.el.PropertyNotFoundException;
@@ -146,6 +147,11 @@ public abstract class AstProperty extends AstNode {
 			throw new PropertyNotFoundException(LocalMessages.get("error.property.property.notfound", "null", base));
 		}
 		context.setPropertyResolved(false);
+		Class<?> type = context.getELResolver().getType(context, base, property);
+		if (context.isPropertyResolved()) {
+			value = bindings.convert(value, type);
+			context.setPropertyResolved(false);
+		}
 		context.getELResolver().setValue(context, base, property, value);
 		if (!context.isPropertyResolved()) {
 			throw new PropertyNotFoundException(LocalMessages.get("error.property.property.notfound", property, base));

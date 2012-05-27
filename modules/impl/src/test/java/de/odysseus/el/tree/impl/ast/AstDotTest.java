@@ -106,6 +106,8 @@ public class AstDotTest extends TestCase {
 		try { parseNode("${base.bad}").setValue(bindings, context, "good"); fail(); } catch (ELException e) {}
 		parseNode("${base.foo}").setValue(bindings, context, 2l);
 		assertEquals(2l, getFoo());
+		parseNode("${base.foo}").setValue(bindings, context, "3");
+		assertEquals(3l, getFoo());
 	}
 
 	public void testGetValue() {

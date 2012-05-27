@@ -101,6 +101,11 @@ public class AstIdentifier extends AstNode implements IdentifierNode {
 			return;
 		}
 		context.setPropertyResolved(false);
+		Class<?> type = context.getELResolver().getType(context, null, name);
+		if (context.isPropertyResolved()) {
+			value = bindings.convert(value, type);
+			context.setPropertyResolved(false);
+		}
 		context.getELResolver().setValue(context, null, name, value);
 		if (!context.isPropertyResolved()) {
 			throw new PropertyNotFoundException(LocalMessages.get("error.identifier.property.notfound", name));
