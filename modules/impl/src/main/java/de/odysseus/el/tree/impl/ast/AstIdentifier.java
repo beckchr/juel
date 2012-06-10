@@ -103,7 +103,9 @@ public class AstIdentifier extends AstNode implements IdentifierNode {
 		context.setPropertyResolved(false);
 		Class<?> type = context.getELResolver().getType(context, null, name);
 		if (context.isPropertyResolved()) {
-			value = bindings.convert(value, type);
+			if (type != null && (value != null || type.isPrimitive())) {
+				value = bindings.convert(value, type);
+			}
 			context.setPropertyResolved(false);
 		}
 		context.getELResolver().setValue(context, null, name, value);
