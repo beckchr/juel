@@ -4,6 +4,29 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
+	<release version="2.2.5" date="2012/07/??">
+		<action dev="cbe" type="update" fixes-bug="3529970" due-to="Martin Koci">
+			Determine target type and coerce argument in <code>ExpressionNode.setValue()</code>.
+		</action>
+		<action dev="cbe" type="fix" fixes-bug="834616" due-to="Martin Koci">
+			Catch and re-throw <code>IllegalArgumentException</code> as <code>ELException</code>
+			in <code>BeanELResolver.setValue()</code>.
+		</action>
+		<action dev="cbe" type="update">
+			Updated messages with keys <code>error.coerce.type</code> and <code>error.coerce.value</code>
+			to include value that could not be coerced.
+		</action>
+		<action dev="cbe" type="update">
+			Create HashMap in <code>ELContext</code> lazily.
+		</action>
+		<action dev="cbe" type="update">
+			<code>BeanELResolver</code> caches property access methods.
+		</action>
+		<action dev="cbe" type="fix" fixes-bug="3420591">
+			<code>ELContext.getContext(key)</code> and <code>putContext(key, value)</code> should
+			throw NPE if key is <code>null</code>
+		</action>
+	</release>
 	<release version="2.2.4" date="2011/09/30">
 		<action dev="cbe" type="add" context="code">
 			Added property <code>javax.el.ignoreReturnType</code> to ignore the expected return
