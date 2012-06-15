@@ -5,6 +5,10 @@
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
 	<release version="2.2.5" date="2012/07/??">
+		<action dev="cbe" type="update">
+			Re-implemented <code>Cache</code> based on <code>ConcurrentHashMap</code> and
+			<code>ConcurrentLinkedQueue</code> to improve performance in multi-threaded environments.
+		</action>
 		<action dev="cbe" type="update" fixes-bug="3529970" due-to="Martin Koci">
 			Determine target type and coerce argument in <code>ExpressionNode.setValue()</code>.
 		</action>

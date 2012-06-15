@@ -15,72 +15,70 @@
  */ 
 package de.odysseus.el.tree.impl;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.WeakHashMap;
-import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import de.odysseus.el.tree.Tree;
 import de.odysseus.el.tree.TreeCache;
 
 /**
- * Simple (thread-safe) LRU cache.
- * After the cache size reached a certain limit, the least recently used entry is removed,
- * when adding a new entry.
- *
+ * Concurrent (thread-safe) FIFO tree cache (using classes from
+ * <code>java.util.concurrent</code>). After the cache size reached a certain
+ * limit, some least recently used entry are removed, when adding a new entry.
+ * 
  * @author Christoph Beck
  */
 public final class Cache implements TreeCache {
-  private final Map<String,Tree> primary;
-  private final Map<String,Tree> secondary;
+	private final ConcurrentMap<String, Tree> map;
+	private final ConcurrentLinkedQueue<String> queue;
+	private final AtomicInteger size;
+	private final int capacity;
 
-  /**
-   * Constructor.
-   * Use a {@link WeakHashMap} as secondary map.
-   * @param size maximum primary cache size
-   */
-	public Cache(int size) {
-		this(size, new WeakHashMap<String,Tree>());
+	/**
+	 * Creates a new cache with the specified capacity
+	 * and default concurrency level (16).
+	 * 
+	 * @param capacity
+	 *            Cache size. The actual size may exceed it temporarily.
+	 */
+	public Cache(int capacity) {
+		this(capacity, 16);
 	}
 
 	/**
-	 * Constructor.
-	 * If the least recently used entry is removed from the primary cache, it is added to
-	 * the secondary map.
-   * @param size maximum primary cache size
-	 * @param secondary the secondary map (may be <code>null</code>)
+	 * Creates a new cache with the specified capacity and concurrency level.
+	 * 
+	 * @param capacity
+	 *            Cache size. The actual map size may exceed it temporarily.
+	 * @param concurrencyLevel
+	 *            The estimated number of concurrently updating threads. The
+	 *            implementation performs internal sizing to try to accommodate
+	 *            this many threads.
 	 */
-	@SuppressWarnings("serial")
-	public Cache(final int size, Map<String,Tree> secondary) {
-		this.primary = Collections.synchronizedMap(new LinkedHashMap<String,Tree>(16, 0.75f, true) {
-			@Override
-			protected boolean removeEldestEntry(Entry<String,Tree> eldest) {
-				if (size() > size) {
-					if (Cache.this.secondary != null) { // move to secondary cache
-						Cache.this.secondary.put(eldest.getKey(), eldest.getValue());
-					}
-					return true;
-				}
-				return false;
-			}
-		});
-		this.secondary = secondary == null ? null : Collections.synchronizedMap(secondary);
+	public Cache(int capacity, int concurrencyLevel) {
+		this.map = new ConcurrentHashMap<String, Tree>(16, 0.75f, concurrencyLevel);
+		this.queue = new ConcurrentLinkedQueue<String>();
+		this.size = new AtomicInteger();
+		this.capacity = capacity;
+	}
+	
+	public int size() {
+		return size.get();
 	}
 
 	public Tree get(String expression) {
-		if (secondary == null) {
-			return primary.get(expression);
-		} else {
-			Tree tree = primary.get(expression);
-			if (tree == null) {
-				tree = secondary.get(expression);
-			}
-			return tree;
-		}
+		return map.get(expression);
 	}
 
 	public void put(String expression, Tree tree) {
-		primary.put(expression, tree);
+		if (map.putIfAbsent(expression, tree) == null) {
+			queue.offer(expression);
+			if (size.incrementAndGet() > capacity) {
+				size.decrementAndGet();
+				map.remove(queue.poll());
+			}
+		}
 	}
 }
