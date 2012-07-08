@@ -5,6 +5,11 @@
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
 	<release version="2.2.5" date="2012/07/08">
+		<action dev="cbe" type="update" fixes-bug="3521406" due-to="Oleg">
+			Changed scope for dependency from <code>juel-impl</code> to <code>juel-api</code>
+			to <code>provided</code>. Therefore, to include <code>juel-api</code>, users now
+			need to explicitly add it as a dependency.
+		</action>
 		<action dev="cbe" type="update">
 			Re-implemented <code>Cache</code> based on <code>ConcurrentHashMap</code> and
 			<code>ConcurrentLinkedQueue</code> to improve performance in multi-threaded environments.
