@@ -4,7 +4,7 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
-	<release version="2.2.5" date="2012/07/??">
+	<release version="2.2.5" date="2012/07/08">
 		<action dev="cbe" type="update">
 			Re-implemented <code>Cache</code> based on <code>ConcurrentHashMap</code> and
 			<code>ConcurrentLinkedQueue</code> to improve performance in multi-threaded environments.
@@ -24,7 +24,7 @@
 			Create HashMap in <code>ELContext</code> lazily.
 		</action>
 		<action dev="cbe" type="update">
-			<code>BeanELResolver</code> caches property access methods.
+			<code>BeanELResolver</code> now caches property access methods.
 		</action>
 		<action dev="cbe" type="fix" fixes-bug="3420591">
 			<code>ELContext.getContext(key)</code> and <code>putContext(key, value)</code> should
