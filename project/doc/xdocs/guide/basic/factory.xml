@@ -34,21 +34,12 @@
 			<p>
 				<em>JUEL</em> provides a caching interface which allows applications to use their
 				own caching mechanism. However, in most scenarios, <em>JUEL</em>'s default
-				implementation should be fine. It uses two maps as follows:
+				implementation (based on <code>java.util.concurrent.ConcurrentHashMap</code> and
+				<code>java.util.concurrent.ConcurrentLinkedQueue</code>) should be fine.
 			</p>
-			<ul>
-				<li>
-					The primary map is implemented by a <code>java.util.LinkedHashMap</code>.
-					If the maximum cache size has been reached and another element should be added, the least
-					recently used (lru) entry is removed from the primary map and added to the secondary map.
-				 </li>
-				 <li>
-					The secondary map is implemented by a <code>java.util.WeakHashMap</code>.
-					Entries are guaranteed to stay as long as there are any strong references to their
-					expression strings. No more referenced, the corresponding map entry may be removed
-					by the garbage collector.
-				 </li>
-			</ul>
+			<note>
+			    The caching mechanism has been rewritten for JUEL 2.2.5 to improve performance.
+			</note>
 			<p>
 				The default constructor uses a maximum cache size of 1000. You may specify a different
 				value - say 5000 - by specifying the <code>javax.el.cacheSize</code> property.

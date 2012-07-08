@@ -61,7 +61,7 @@
 			</fileset>
 			<manifest>
 				<attribute name="Specification-Title" value="Expression Language" />
-				<attribute name="Specification-Version" value="2.1" />
+				<attribute name="Specification-Version" value="2.2" />
 				<attribute name="Specification-Vendor" value="Sun Microsystems Inc." />
 				<attribute name="Implementation-Title" value="JUEL" />
 				<attribute name="Implementation-Version" value="${version}" />
@@ -79,7 +79,7 @@
 			</fileset>
 			<manifest>
 				<attribute name="Specification-Title" value="Expression Language" />
-				<attribute name="Specification-Version" value="2.1" />
+				<attribute name="Specification-Version" value="2.2" />
 				<attribute name="Specification-Vendor" value="Sun Microsystems Inc." />
 				<attribute name="Implementation-Title" value="JUEL" />
 				<attribute name="Implementation-Version" value="${version}" />
@@ -103,7 +103,7 @@
 			</fileset>
 			<manifest>
 				<attribute name="Specification-Title" value="Expression Language" />
-				<attribute name="Specification-Version" value="2.1" />
+				<attribute name="Specification-Version" value="2.2" />
 				<attribute name="Specification-Vendor" value="Sun Microsystems Inc." />
 				<attribute name="Implementation-Title" value="JUEL" />
 				<attribute name="Implementation-Version" value="${version}" />
@@ -127,7 +127,7 @@
 			</fileset>
 			<manifest>
 				<attribute name="Specification-Title" value="Expression Language" />
-				<attribute name="Specification-Version" value="2.1" />
+				<attribute name="Specification-Version" value="2.2" />
 				<attribute name="Specification-Vendor" value="Sun Microsystems Inc." />
 				<attribute name="Implementation-Title" value="JUEL" />
 				<attribute name="Implementation-Version" value="${version}" />
@@ -159,7 +159,7 @@
 
 	<target name="javadoc" depends="prepare" unless="el-api-sources.present">
 		<mkdir dir="${build.dir}/javadoc" />
-		<javadoc destdir="${build.dir}/javadoc" access="protected" doctitle="&lt;h2&gt;JUEL version ${version}&lt;/h2&gt;" windowtitle="JUEL version ${version})" footer="Copyright &amp;copy; 2006-2009 Odysseus Software GmbH.">
+		<javadoc destdir="${build.dir}/javadoc" access="protected" doctitle="&lt;h2&gt;JUEL version ${version}&lt;/h2&gt;" windowtitle="JUEL version ${version})" footer="Copyright &amp;copy; 2006-2012 Odysseus Software GmbH.">
 			<fileset dir="api/src/main/java">
 				<include name="javax/el/**/*.java" />
 			</fileset>
