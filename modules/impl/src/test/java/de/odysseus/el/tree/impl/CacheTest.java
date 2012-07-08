@@ -86,7 +86,7 @@ public class CacheTest extends TestCase {
 		}
 
 		long result = 0;
-		for (Future<Long> future : service.invokeAll(tasks, 1L, TimeUnit.SECONDS)) {
+		for (Future<Long> future : service.invokeAll(tasks, 10L, TimeUnit.SECONDS)) {
 			if (!future.isDone() || future.isCancelled()) {
 				fail();
 			}
