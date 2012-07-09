@@ -11,7 +11,10 @@
 			<item>Home</item>
 		</link>
 		<link href="http://sourceforge.net/projects/juel/">
-			<item>SF Project Page</item>
+			<item>Sourceforge</item>
+		</link>
+		<link href="https://github.com/beckchr/juel/">
+			<item>Github</item>
 		</link>
 	</trail>
 
