@@ -48,11 +48,11 @@
 	</developers>
 
 	<scm>
-		<connection>scm:svn:http://juel.svn.sourceforge.net/svnroot/juel/trunk</connection>
-		<developerConnection>scm:svn:https://juel.svn.sourceforge.net/svnroot/juel/trunk</developerConnection>
-		<url>http://juel.svn.sourceforge.net/viewvc/juel/trunk/</url>
+		<connection>scm:git:https://github.com/beckchr/juel.git</connection>
+		<developerConnection>scm:git:git@github.com:beckchr/juel.git</developerConnection>
+		<url>https://github.com/beckchr/juel</url>
 	</scm>
-
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
