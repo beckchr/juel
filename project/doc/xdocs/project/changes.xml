@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE changes PUBLIC "-//APACHE//DTD Changes V2.0//EN" "../../schema/dtd/changes-v20.dtd">
 <changes>
 	<devs>
@@ -209,7 +209,7 @@
 		</action>
 	</release>
 	<release version="2.1.0-rc3" date="2006/10/20">
-		<action dev="cbe" type="fix" context="code" due-to="Frédéric Esnault">
+		<action dev="cbe" type="fix" context="code" due-to="FrÃ©dÃ©ric Esnault">
 			<code>ListELResolver</code> was missing in <code>SimpleResolver</code>'s
 			default chain of resolver delegates.
 		</action>

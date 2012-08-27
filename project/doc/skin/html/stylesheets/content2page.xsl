@@ -32,9 +32,9 @@
 	</xsl:template>
 
 	<xsl:template name="header">
-    <a href="site:/">
-      <img src="{$skin}/images/juel-logo.gif" alt="JUEL"/>
-    </a>
+	    <a href="site:/">
+	      <img src="{$skin}/images/juel-logo.gif" alt="JUEL"/>
+	    </a>
 	</xsl:template>
 
 	<xsl:template name="footer">
