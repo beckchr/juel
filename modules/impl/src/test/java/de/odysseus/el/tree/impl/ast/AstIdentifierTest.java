@@ -18,7 +18,9 @@ package de.odysseus.el.tree.impl.ast;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+import javax.el.ELContext;
 import javax.el.ELException;
+import javax.el.MethodExpression;
 import javax.el.MethodInfo;
 
 import de.odysseus.el.ObjectValueExpression;
@@ -31,9 +33,44 @@ import de.odysseus.el.tree.TreeStore;
 import de.odysseus.el.util.SimpleContext;
 import de.odysseus.el.util.SimpleResolver;
 
-public class AstIdentifierTest extends TestCase {	
+public class AstIdentifierTest extends TestCase {
 	public static long method_1() {
 		return 1l;
+	}
+
+	class TestMethodExpression extends MethodExpression {
+		final Method method;
+		TestMethodExpression(Method method) {
+			this.method = method;
+		}
+		@Override
+		public int hashCode() {
+			return 0;
+		}
+		@Override
+		public boolean equals(Object obj) {
+			return obj == this;
+		}
+		@Override
+		public String getExpressionString() {
+			return method.getName();
+		}
+		@Override
+		public MethodInfo getMethodInfo(ELContext context) {
+			return new MethodInfo(method.getName(), method.getReturnType(), method.getParameterTypes());
+		}
+		@Override
+		public Object invoke(ELContext context, Object[] params) {
+			try {
+				return method.invoke(null, params);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+		@Override
+		public boolean isLiteralText() {
+			return false;
+		}
 	}
 	
 	AstIdentifier parseNode(String expression) {
@@ -56,11 +93,13 @@ public class AstIdentifierTest extends TestCase {
 		context.setVariable("var_long_1", new ObjectValueExpression(converter, 1l, long.class));
 		context.setVariable("indentifier_string", new ObjectValueExpression(converter, "foo", String.class));
 		context.setVariable("var_method_1", new ObjectValueExpression(converter, getClass().getMethod("method_1"), Method.class));
+		context.setVariable("var_method_1_expr", new ObjectValueExpression(converter, new TestMethodExpression(getClass().getMethod("method_1")), MethodExpression.class));
 
 		// properties property_long_1, indentifier_string
 		context.getELResolver().setValue(context, null, "property_long_1", 1l);
 		context.getELResolver().setValue(context, null, "indentifier_string", "bar"); // shadowed by variable indentifier_string
 		context.getELResolver().setValue(context, null, "property_method_1", getClass().getMethod("method_1"));
+		context.getELResolver().setValue(context, null, "property_method_1_expr", new TestMethodExpression(getClass().getMethod("method_1")));
 
 		// var_var_long_1 --> var_long_1, var_property_long_1 --> property_long_1
 		context.setVariable("var_var_long_1", new TreeValueExpression(new TreeStore(BUILDER, null), null, context.getVariableMapper(), null, "${var_long_1}", long.class));	
@@ -245,6 +284,15 @@ public class AstIdentifierTest extends TestCase {
 		try { getNode(tree).invoke(bindings, context, long.class, new Class[]{String.class}, null); fail(); } catch (ELException e) {}
 		// bad args
 		try { getNode(tree).invoke(bindings, context, long.class, new Class[0], new Object[]{""}); fail(); } catch (ELException e) {}
+
+		tree = parse("${var_method_1_expr}");
+		bindings = tree.bind(null, context.getVariableMapper());
+		assertEquals(1l, getNode(tree).invoke(bindings, context, long.class, new Class[0], null));
+		
+		tree = parse("${property_method_1_expr}");
+		bindings = tree.bind(null, context.getVariableMapper());
+		assertEquals(1l, getNode(tree).invoke(bindings, context, null, new Class[0], null));
+
 	}
 
 	public void testGetMethodInfo() {

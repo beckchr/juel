@@ -21,6 +21,7 @@ import java.util.Arrays;
 
 import javax.el.ELContext;
 import javax.el.ELException;
+import javax.el.MethodExpression;
 import javax.el.MethodInfo;
 import javax.el.MethodNotFoundException;
 import javax.el.PropertyNotFoundException;
@@ -127,13 +128,13 @@ public class AstIdentifier extends AstNode implements IdentifierNode {
 		return result;
 	}
 
-	protected Method getMethod(Bindings bindings, ELContext context, Class<?> returnType, Class<?>[] paramTypes) {
+	protected MethodExpression getMethodExpression(Bindings bindings, ELContext context, Class<?> returnType, Class<?>[] paramTypes) {
 		Object value = eval(bindings, context);
 		if (value == null) {
 			throw new MethodNotFoundException(LocalMessages.get("error.identifier.method.notfound", name));
 		}
 		if (value instanceof Method) {
-			Method method = findAccessibleMethod((Method)value);
+			final Method method = findAccessibleMethod((Method)value);
 			if (method == null) {
 				throw new MethodNotFoundException(LocalMessages.get("error.identifier.method.notfound", name));
 			}
@@ -143,27 +144,53 @@ public class AstIdentifier extends AstNode implements IdentifierNode {
 			if (!Arrays.equals(method.getParameterTypes(), paramTypes)) {
 				throw new MethodNotFoundException(LocalMessages.get("error.identifier.method.notfound", name));
 			}
-			return method;
+			return new MethodExpression() {
+				private static final long serialVersionUID = 1L;
+				@Override
+				public boolean isLiteralText() {
+					return false;
+				}
+				@Override
+				public String getExpressionString() {
+					return null;
+				}
+				@Override
+				public int hashCode() {
+					return 0;
+				}
+				@Override
+				public boolean equals(Object obj) {
+					return obj == this;
+				}
+				@Override
+				public Object invoke(ELContext context, Object[] params) {
+					try {
+						return method.invoke(null, params);
+					} catch (IllegalAccessException e) {
+						throw new ELException(LocalMessages.get("error.identifier.method.access", name));
+					} catch (IllegalArgumentException e) {
+						throw new ELException(LocalMessages.get("error.identifier.method.invocation", name, e));
+					} catch (InvocationTargetException e) {
+						throw new ELException(LocalMessages.get("error.identifier.method.invocation", name, e.getCause()));
+					}
+				}			
+				@Override
+				public MethodInfo getMethodInfo(ELContext context) {
+					return new MethodInfo(method.getName(), method.getReturnType(), method.getParameterTypes());
+				}
+			};
+		} else if (value instanceof MethodExpression) {
+			return (MethodExpression)value;
 		}
 		throw new MethodNotFoundException(LocalMessages.get("error.identifier.method.notamethod", name, value.getClass()));
 	}
 
 	public MethodInfo getMethodInfo(Bindings bindings, ELContext context, Class<?> returnType, Class<?>[] paramTypes) {
-		Method method = getMethod(bindings, context, returnType, paramTypes);
-		return new MethodInfo(method.getName(), method.getReturnType(), paramTypes);
+		return getMethodExpression(bindings, context, returnType, paramTypes).getMethodInfo(context);
 	}
 
 	public Object invoke(Bindings bindings, ELContext context, Class<?> returnType, Class<?>[] paramTypes, Object[] params) {
-		Method method = getMethod(bindings, context, returnType, paramTypes);
-		try {
-			return method.invoke(null, params);
-		} catch (IllegalAccessException e) {
-			throw new ELException(LocalMessages.get("error.identifier.method.access", name));
-		} catch (IllegalArgumentException e) {
-			throw new ELException(LocalMessages.get("error.identifier.method.invocation", name, e));
-		} catch (InvocationTargetException e) {
-			throw new ELException(LocalMessages.get("error.identifier.method.invocation", name, e.getCause()));
-		}
+		return getMethodExpression(bindings, context, returnType, paramTypes).invoke(context, params);
 	}
 
 	@Override
