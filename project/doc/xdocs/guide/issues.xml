@@ -84,6 +84,20 @@
 							</li>
 						</ul>
 					</li>
+					<li>
+						<em>JUEL 2.2.6 and later:</em>
+						If the result is an instance of <code>javax.el.MethodExpression</code>
+						<ul>
+							<li>
+								If <code>MethodExpression.invoke(...)</code> was called, delegate to
+								<code>invoke(...)</code> on the found method expression.
+							</li>
+							<li>
+								If <code>MethodExpression.getMethodInfo(...)</code> was called, delegate to
+								<code>getMethodInfo(...)</code> on the found method expression.
+							</li>
+						</ul>
+					</li>
 					<li>Otherwise, error</li>				
 				</ul>
 			</li>

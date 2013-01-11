@@ -4,34 +4,47 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
+	<release version="2.2.6" date="2013/01/11">
+		<action dev="cbe" type="update" fixes-bug="71" due-to="Oleg Varaksin, Arjan Tijms">
+			For a single identifier method expression, if the identifier evaluates to another
+			method expression, invoke that method expression. (The semantics for this case is not
+			covered in the specification.
+			See also <a href="http://java.net/jira/browse/EL_SPEC-11"><em>this issue</em></a>.
+			This change was made to improve compatibility with other EL implementations.)
+		</action>
+		<action dev="cbe" type="add" context="build" due-to="Adam Crume">
+			Added OSGi bundle manifest entries for <code>juel-api</code> and <code>juel-impl</code>
+			and declared <code>de.odysseus.el.ExpressionFactoryImpl</code> as an OSGi service.
+		</action>
+	</release>
 	<release version="2.2.5" date="2012/07/08">
-		<action dev="cbe" type="update" fixes-bug="3521406" due-to="Oleg">
+		<action dev="cbe" type="update" context="build" fixes-bug="3521406" due-to="Oleg Varaksin">
 			Changed scope for dependency from <code>juel-impl</code> to <code>juel-api</code>
 			to <code>provided</code>. Therefore, to include <code>juel-api</code>, users now
 			need to explicitly add it as a dependency.
 		</action>
-		<action dev="cbe" type="update">
+		<action dev="cbe" type="update" context="code">
 			Re-implemented <code>Cache</code> based on <code>ConcurrentHashMap</code> and
 			<code>ConcurrentLinkedQueue</code> to improve performance in multi-threaded environments.
 		</action>
-		<action dev="cbe" type="update" fixes-bug="3529970" due-to="Martin Koci">
+		<action dev="cbe" type="update" context="code" fixes-bug="3529970" due-to="Martin Koci">
 			Determine target type and coerce argument in <code>ExpressionNode.setValue()</code>.
 		</action>
-		<action dev="cbe" type="fix" fixes-bug="834616" due-to="Martin Koci">
+		<action dev="cbe" type="fix" context="code" fixes-bug="834616" due-to="Martin Koci">
 			Catch and re-throw <code>IllegalArgumentException</code> as <code>ELException</code>
 			in <code>BeanELResolver.setValue()</code>.
 		</action>
-		<action dev="cbe" type="update">
+		<action dev="cbe" type="update" context="code">
 			Updated messages with keys <code>error.coerce.type</code> and <code>error.coerce.value</code>
 			to include value that could not be coerced.
 		</action>
-		<action dev="cbe" type="update">
+		<action dev="cbe" type="update" context="code">
 			Create HashMap in <code>ELContext</code> lazily.
 		</action>
-		<action dev="cbe" type="update">
+		<action dev="cbe" type="update" context="code">
 			<code>BeanELResolver</code> now caches property access methods.
 		</action>
-		<action dev="cbe" type="fix" fixes-bug="3420591">
+		<action dev="cbe" type="fix" context="code" fixes-bug="3420591">
 			<code>ELContext.getContext(key)</code> and <code>putContext(key, value)</code> should
 			throw NPE if key is <code>null</code>
 		</action>
