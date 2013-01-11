@@ -1,77 +1,28 @@
 <project name="juel" default="dist" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
 	<property file="build.properties" />
 
-	<property name="version" value="2.2.6-SNAPSHOT" />
+	<property name="version" value="2.2.6" />
 
 	<property name="build.dir" value="build" />
 	<property name="dist.dir" value="dist" />
+	<property name="mvn.repo" value="http://repo.maven.apache.org/maven2" />	
 
 	<property name="junit.jar" value="lib/junit.jar" />
-
-	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
-		<classpath>
-			<pathelement location="lib/jacocoant.jar"/>
-		</classpath>
-	</taskdef>
 
 	<target name="clean" description="cleanup build directory">
 		<delete dir="${build.dir}" />
 	</target>
 
-	<target name="modules" description="build juel modules">
-		<ant antfile="../modules/build.xml" inheritall="false" target="dist">
-			<property name="build.dir" location="${build.dir}" />
-			<property name="junit.jar" location="${junit.jar}" />
-			<property name="version" value="${version}" />
-		</ant>
-	</target>
-
-	<target name="coverage" depends="modules" description="compile and run unit tests">
-		<jacoco:coverage file="${build.dir}/jacoco/jacoco.exec" merge="false">
-			<junit printsummary="false" haltonfailure="true" fork="true" forkmode="once">
-				<classpath>
-					<pathelement location="${junit.jar}" />
-					<pathelement location="${build.dir}/juel-${version}.jar" />
-					<pathelement location="${build.dir}/classes-test" />
-				</classpath>
-				<test name="javax.el.AllTests">
-					<formatter type="plain" usefile="false" />
-				</test>
-				<test name="de.odysseus.el.AllSuites">
-					<formatter type="plain" usefile="false" />
-				</test>
-			</junit>
-		</jacoco:coverage>
-	</target>
-
-	<target name="reports" depends="coverage" description="build juel reports">
-		<jacoco:report>
-			<executiondata>
-				<fileset file="${build.dir}/jacoco/jacoco.exec"/>
-			</executiondata>
-			<structure name="juel-${version}">
-				<classfiles>
-					<fileset file="${build.dir}/juel-${version}.jar"/>
-				</classfiles>
-				<!--
-				<sourcefiles>
-					<fileset dir="../modules/api/src/main/java"/>
-					<fileset dir="../modules/impl/src/main/java"/>
-				</sourcefiles>
-				-->
-			</structure>
-			<html destdir="${build.dir}/jacoco"/>
-		</jacoco:report>
-		<stan.report name="juel-${version}" level="member" preferences="metrics.xml"
-			outdir="${build.dir}/stan">
-			<libraries>
-				<path location="${build.dir}/juel-api-${version}.jar"/>
-				<path location="${build.dir}/juel-impl-${version}.jar"/>
-			</libraries>
-		</stan.report>
-		<move 
-			tofile="${build.dir}/stan/index.html"
-			file="${build.dir}/stan/juel-${version}.html"/>
+	<target name="modules" description="download juel jars">
+		<get dest="${build.dir}">
+			<url url="${mvn.repo}/de/odysseus/juel/juel-api/${version}/juel-api-${version}.jar"/> 
+			<url url="${mvn.repo}/de/odysseus/juel/juel-api/${version}/juel-api-${version}-sources.jar"/> 
+			<url url="${mvn.repo}/de/odysseus/juel/juel-api/${version}/juel-api-${version}-javadoc.jar"/> 
+			<url url="${mvn.repo}/de/odysseus/juel/juel-impl/${version}/juel-impl-${version}.jar"/> 
+			<url url="${mvn.repo}/de/odysseus/juel/juel-impl/${version}/juel-impl-${version}-sources.jar"/> 
+			<url url="${mvn.repo}/de/odysseus/juel/juel-impl/${version}/juel-impl-${version}-javadoc.jar"/> 
+			<url url="${mvn.repo}/de/odysseus/juel/juel-spi/${version}/juel-spi-${version}.jar"/> 
+		</get>
 	</target>
 
 	<!-- TODO when calling this, fop doesn't find fonts. For now, we build docs
@@ -92,22 +43,21 @@
 				<include name=".project" />
 				<include name=".classpath" />
 				<include name="modules/**" />
-				<exclude name="modules/build/**" />
 				<exclude name="modules/*/target/**" />
 				<exclude name="modules/.*" />
 				<include name="samples/**" />
+				<exclude name="**/.DS_Store" />
 			</zipfileset>
 			<zipfileset prefix="juel-${version}" dir="${build.dir}">
-				<include name="juel-${version}.jar" />
-				<include name="juel-${version}-sources.jar" />
 				<include name="juel-api-${version}.jar" />
+				<include name="juel-api-${version}-sources.jar" />
+				<include name="juel-api-${version}-javadoc.jar" />
 				<include name="juel-impl-${version}.jar" />
+				<include name="juel-impl-${version}-sources.jar" />
+				<include name="juel-impl-${version}-javadoc.jar" />
 				<include name="juel-spi-${version}.jar" />
 			</zipfileset>
 			<zipfileset prefix="juel-${version}/doc" dir="doc/build">
-				<include name="**" />
-			</zipfileset>
-			<zipfileset prefix="juel-${version}/doc/api" dir="${build.dir}/javadoc">
 				<include name="**" />
 			</zipfileset>
 		</zip>

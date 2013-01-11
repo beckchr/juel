@@ -23,19 +23,10 @@
 				language implementations on your classpath and want to force <em>JUEL</em>s
 				implementation to be chosen by <code>ExpressionFactory.newInstance()</code>).
 			</li>
-			<li>
-				<code>juel-2.2.x.jar</code> - contains the <code>javax.el</code> API
-				as well as the <code>de.odysseus.el</code> implementation classes and
-				service provider interface (spi).
-			</li>
 		</ol>
 		<p>
-			That is: <code>juel-2.2.x.jar</code> = <code>juel-api-2.2.x.jar</code> +
-			<code>juel-impl-2.2.x.jar</code> + <code>juel-spi-2.2.x.jar</code>.
-		</p>
-		<p>
 			Here's all you need to use the EL in your application (assuming you added
-			<code>juel-2.2.x.jar</code> to your classpath and did <code>import javax.el.*</code>):
+			the JUEL JAR files to your classpath and did <code>import javax.el.*</code>):
 		</p>
 		<ol>
 			<li>

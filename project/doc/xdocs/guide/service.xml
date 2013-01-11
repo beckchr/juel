@@ -40,7 +40,7 @@
 		</p>
 		<ul>
 			<li>
-				Place <code>juel-2.2.x.jar</code> into directory <code>JRE_HOME/lib/ext</code>.
+				Place the JUEL JARs into directory <code>JRE_HOME/lib/ext</code>.
 				This will make JUEL available globally for all applications running in that
 				environment.
 			</li>
