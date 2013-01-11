@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.odysseus.juel</groupId>
 		<artifactId>juel-parent</artifactId>
-		<version>2.2.6-SNAPSHOT</version>
+		<version>2.2.6</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
@@ -15,7 +15,7 @@
 	<packaging>jar</packaging>
 
 	<name>Java Unified Expression Language Service Provider</name>
-	<version>2.2.6-SNAPSHOT</version>
+	<version>2.2.6</version>
 
 	<build>
 		<plugins>
