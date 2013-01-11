@@ -13,7 +13,7 @@
 	<packaging>pom</packaging>
 
 	<name>Java Unified Expression Language</name>
-	<version>2.2.6</version>
+	<version>2.2.7-SNAPSHOT</version>
 	<description>
     Implementation of the Java Unified Expression Language as specified
     by the Expression Language Specification, Version 2.1 (JEE5, part of
