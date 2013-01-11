@@ -23,7 +23,7 @@
   <xsl:variable name="show-external-urls" select="'false'"/>
 
   <xsl:param name="footertext">
-    <xsl:text>Copyright &#169; 2006-2012 Odysseus Software GmbH. All rights reserved.</xsl:text>
+    <xsl:text>Copyright &#169; 2006-2013 Odysseus Software GmbH. All rights reserved.</xsl:text>
   </xsl:param>
   <xsl:param name="footerurl">http://juel.sourceforge.net/</xsl:param>
 
