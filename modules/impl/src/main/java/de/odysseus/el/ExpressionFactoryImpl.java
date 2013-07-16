@@ -255,23 +255,27 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 		String home = System.getProperty("java.home");
 		String path = home + File.separator + "lib" + File.separator + "el.properties";
 		File file = new File(path);
-		if (file.exists()) {
-			Properties properties = new Properties();
-			InputStream input = null;
-			try {
-				properties.load(input = new FileInputStream(file));
-			} catch (IOException e) {
-				throw new ELException("Cannot read default EL properties", e);
-			} finally {
+		try {
+			if (file.exists()) {
+				Properties properties = new Properties();
+				InputStream input = null;
 				try {
-					input.close();
+					properties.load(input = new FileInputStream(file));
 				} catch (IOException e) {
-					// ignore...
+					throw new ELException("Cannot read default EL properties", e);
+				} finally {
+					try {
+						input.close();
+					} catch (IOException e) {
+						// ignore...
+					}
+				}
+				if (getClass().getName().equals(properties.getProperty("javax.el.ExpressionFactory"))) {
+					return properties;
 				}
 			}
-			if (getClass().getName().equals(properties.getProperty("javax.el.ExpressionFactory"))) {
-				return properties;
-			}
+		} catch (SecurityException e) {
+			// ignore...
 		}
 		if (getClass().getName().equals(System.getProperty("javax.el.ExpressionFactory"))) {
 			return System.getProperties();
