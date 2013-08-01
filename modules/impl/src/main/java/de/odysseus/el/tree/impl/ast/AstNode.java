@@ -16,6 +16,7 @@
 package de.odysseus.el.tree.impl.ast;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 import javax.el.ELContext;
 
@@ -46,7 +47,7 @@ public abstract class AstNode implements ExpressionNode {
 
 	/**
 	 * Find accessible method. Searches the inheritance tree of the class declaring
-	 * the method until it finds a method that can be made accessible.
+	 * the method until it finds a method that can be invoked.
 	 * @param method method
 	 * @return accessible method or <code>null</code>
 	 */
@@ -54,36 +55,34 @@ public abstract class AstNode implements ExpressionNode {
 		if (method == null || method.isAccessible()) {
 			return method;
 		}
-		try {
-			method.setAccessible(true);
-		} catch (SecurityException e) {
-			for (Class<?> cls : method.getDeclaringClass().getInterfaces()) {
-				Method mth = null;
-				try {
-					mth = cls.getMethod(method.getName(), method.getParameterTypes());
-					mth = findAccessibleMethod(mth);
-					if (mth != null) {
-						return mth;
-					}
-				} catch (NoSuchMethodException ignore) {
-					// do nothing
-				}
-			}
-			Class<?> cls = method.getDeclaringClass().getSuperclass();
-			if (cls != null) {
-				Method mth = null;
-				try {
-					mth = cls.getMethod(method.getName(), method.getParameterTypes());
-					mth = findAccessibleMethod(mth);
-					if (mth != null) {
-						return mth;
-					}
-				} catch (NoSuchMethodException ignore) {
-					// do nothing
-				}
-			}
-			return null;
+		if (Modifier.isPublic(method.getModifiers()) && Modifier.isPublic(method.getDeclaringClass().getModifiers())) {
+			return method;
 		}
-		return method;
+		for (Class<?> cls : method.getDeclaringClass().getInterfaces()) {
+			Method mth = null;
+			try {
+				mth = cls.getMethod(method.getName(), method.getParameterTypes());
+				mth = findAccessibleMethod(mth);
+				if (mth != null) {
+					return mth;
+				}
+			} catch (NoSuchMethodException ignore) {
+				// do nothing
+			}
+		}
+		Class<?> cls = method.getDeclaringClass().getSuperclass();
+		if (cls != null) {
+			Method mth = null;
+			try {
+				mth = cls.getMethod(method.getName(), method.getParameterTypes());
+				mth = findAccessibleMethod(mth);
+				if (mth != null) {
+					return mth;
+				}
+			} catch (NoSuchMethodException ignore) {
+				// do nothing
+			}
+		}
+		return null;
 	}
 }
