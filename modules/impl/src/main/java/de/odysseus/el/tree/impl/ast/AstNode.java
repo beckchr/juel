@@ -51,18 +51,17 @@ public abstract class AstNode implements ExpressionNode {
 	 * @param method method
 	 * @return accessible method or <code>null</code>
 	 */
-	protected Method findAccessibleMethod(Method method) {
-		if (method == null || method.isAccessible()) {
-			return method;
+	private static Method findPublicAccessibleMethod(Method method) {
+		if (method == null || !Modifier.isPublic(method.getModifiers())) {
+			return null;
 		}
-		if (Modifier.isPublic(method.getModifiers()) && Modifier.isPublic(method.getDeclaringClass().getModifiers())) {
+		if (method.isAccessible() || Modifier.isPublic(method.getDeclaringClass().getModifiers())) {
 			return method;
 		}
 		for (Class<?> cls : method.getDeclaringClass().getInterfaces()) {
 			Method mth = null;
 			try {
-				mth = cls.getMethod(method.getName(), method.getParameterTypes());
-				mth = findAccessibleMethod(mth);
+				mth = findPublicAccessibleMethod(cls.getMethod(method.getName(), method.getParameterTypes()));
 				if (mth != null) {
 					return mth;
 				}
@@ -74,8 +73,7 @@ public abstract class AstNode implements ExpressionNode {
 		if (cls != null) {
 			Method mth = null;
 			try {
-				mth = cls.getMethod(method.getName(), method.getParameterTypes());
-				mth = findAccessibleMethod(mth);
+				mth = findPublicAccessibleMethod(cls.getMethod(method.getName(), method.getParameterTypes()));
 				if (mth != null) {
 					return mth;
 				}
@@ -84,5 +82,18 @@ public abstract class AstNode implements ExpressionNode {
 			}
 		}
 		return null;
+	}
+
+	protected Method findAccessibleMethod(Method method) {
+		Method result = findPublicAccessibleMethod(method);
+		if (result == null && method != null && Modifier.isPublic(method.getModifiers())) {
+			result = method;
+			try {
+				method.setAccessible(true);
+			} catch (SecurityException e) {
+				result = null; 
+			}
+		}
+		return result;
 	}
 }

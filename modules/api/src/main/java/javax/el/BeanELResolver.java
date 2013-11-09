@@ -99,18 +99,17 @@ public class BeanELResolver extends ELResolver {
 		}
 	}
 
-	private static Method findAccessibleMethod(Method method) {
-		if (method == null || method.isAccessible()) {
-			return method;
+	private static Method findPublicAccessibleMethod(Method method) {
+		if (method == null || !Modifier.isPublic(method.getModifiers())) {
+			return null;
 		}
-		if (Modifier.isPublic(method.getModifiers()) && Modifier.isPublic(method.getDeclaringClass().getModifiers())) {
+		if (method.isAccessible() || Modifier.isPublic(method.getDeclaringClass().getModifiers())) {
 			return method;
 		}
 		for (Class<?> cls : method.getDeclaringClass().getInterfaces()) {
 			Method mth = null;
 			try {
-				mth = cls.getMethod(method.getName(), method.getParameterTypes());
-				mth = findAccessibleMethod(mth);
+				mth = findPublicAccessibleMethod(cls.getMethod(method.getName(), method.getParameterTypes()));
 				if (mth != null) {
 					return mth;
 				}
@@ -122,8 +121,7 @@ public class BeanELResolver extends ELResolver {
 		if (cls != null) {
 			Method mth = null;
 			try {
-				mth = cls.getMethod(method.getName(), method.getParameterTypes());
-				mth = findAccessibleMethod(mth);
+				mth = findPublicAccessibleMethod(cls.getMethod(method.getName(), method.getParameterTypes()));
 				if (mth != null) {
 					return mth;
 				}
@@ -133,7 +131,20 @@ public class BeanELResolver extends ELResolver {
 		}
 		return null;
 	}
-	
+
+	private static Method findAccessibleMethod(Method method) {
+		Method result = findPublicAccessibleMethod(method);
+		if (result == null && method != null && Modifier.isPublic(method.getModifiers())) {
+			result = method;
+			try {
+				method.setAccessible(true);
+			} catch (SecurityException e) {
+				result = null; 
+			}
+		}
+		return result;
+	}
+
 	private final boolean readOnly;
 	private final ConcurrentHashMap<Class<?>, BeanProperties> cache;
 	
