@@ -62,7 +62,15 @@ public class TypeConverterImplTest extends TestCase {
 	/**
 	 * Test enum type
 	 */
-	static enum Foo { BAR };
+	static enum Foo { 
+		BAR,
+		BAZ {
+			@Override
+			public String toString() {
+				return "XXX";
+			}
+		}
+	};
 	
 	TypeConverterImpl converter = new TypeConverterImpl();
 
@@ -293,6 +301,7 @@ public class TypeConverterImplTest extends TestCase {
 		assertSame(Foo.BAR, converter.coerceToEnum(Foo.BAR, Foo.class));
 		assertNull(converter.coerceToEnum("", Foo.class));
 		assertSame(Foo.BAR, converter.coerceToEnum("BAR", Foo.class));
+		assertSame(Foo.BAZ, converter.coerceToEnum("BAZ", Foo.class));
 	}
 
 	public void testToType() {
