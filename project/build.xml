@@ -1,7 +1,7 @@
 <project name="juel" default="dist" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
 	<property file="build.properties" />
 
-	<property name="version" value="2.2.6" />
+	<property name="version" value="2.2.7" />
 
 	<property name="build.dir" value="build" />
 	<property name="dist.dir" value="dist" />

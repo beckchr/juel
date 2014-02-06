@@ -4,6 +4,14 @@
 	<devs>
 		<person name="Christoph Beck" email="beckchr@users.sourceforge.net" id="cbe" />
 	</devs>
+	<release version="2.2.7" date="2014/02/06">
+		<action dev="cbe" type="update" fixes-bug="73">
+			updated method invocation code to use <code>Method.setAccessible()</code> only if necessary.
+		</action>
+		<action dev="cbe" type="add" context="build" fixes-bug="79">
+			Catch <code>SecurityException</code> when accessing <code>default el.properties</code>.
+		</action>
+	</release>
 	<release version="2.2.6" date="2013/01/11">
 		<action dev="cbe" type="update" fixes-bug="71" due-to="Oleg Varaksin, Arjan Tijms">
 			For a single identifier method expression, if the identifier evaluates to another
