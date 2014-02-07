@@ -107,13 +107,35 @@ public abstract class ExpressionFactory {
 	 *             if a factory class cannot be found or instantiation fails.
 	 */
 	public static ExpressionFactory newInstance(Properties properties) {
-		ClassLoader classLoader;
 		try {
-			classLoader = Thread.currentThread().getContextClassLoader();
+			return newInstance(properties, Thread.currentThread().getContextClassLoader());
 		} catch (SecurityException e) {
-			classLoader = ExpressionFactory.class.getClassLoader();
+		} catch (ClassNotFoundException e) {
 		}
 
+		try {
+			return newInstance(properties, ExpressionFactory.class.getClassLoader());
+		} catch (ClassNotFoundException e) {
+			throw new ELException("Could not find expression factory class", e);
+		}
+	}
+
+
+	/**
+	 * Create an ExpressionFactory instance.
+	 * 
+	 * @param properties
+	 *            Properties passed to the constructor of the implementation.
+	 * @param classLoader
+	 *            The class loader to be used to load the class.
+	 * @return An instance of ExpressionFactory.
+	 * @throws ClassNotFoundException
+	 *             if the ExpressionFactory implementation class is not found
+	 * @throws ELException
+	 *             if the class could not be found or if it is not a subclass of ExpressionFactory
+	 *             or if the class could not be instantiated.
+	 */
+	private static ExpressionFactory newInstance ( Properties properties, ClassLoader classLoader) throws ClassNotFoundException {
 		String className = null;
 
 		String serviceId = "META-INF/services/" + ExpressionFactory.class.getName();
