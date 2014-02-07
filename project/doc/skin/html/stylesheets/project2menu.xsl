@@ -24,8 +24,13 @@
 			  </a>
 			  <p/>
 			  <a href="http://stan4j.com">
-				<img src="http://logo.stan4j.com/stan4j-125x40-t0.png" target="_blank"
+				<img src="http://logo.stan4j.com/stan4j-125x40-t1.png" target="_blank"
 					width="125" height="40" alt="stan4j.com" title="stan4j.com" border="0"/>
+			  </a>			  
+			  <p/>
+			  <a href="http://musicmount.org">
+				<img src="http://musicmount.org/img/musicmount-125x65.png" target="_blank"
+					width="125" height="65" alt="MusicMount.org" title="MusicMount.org" border="0"/>
 			  </a>			  
 			</xsl:if>
 		</div>
