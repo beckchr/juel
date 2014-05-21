@@ -63,7 +63,7 @@ The JARs are also available via Maven:
 	</dependency>
 
 	<dependency>
-	  <groupId>de.odysseus.juel/groupId>
+	  <groupId>de.odysseus.juel</groupId>
 	  <artifactId>juel-spi</artifactId>
 	  <version>2.2.x</version>
 	</dependency>
