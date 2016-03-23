@@ -134,6 +134,11 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 	 */
 	public static final String PROP_CACHE_SIZE = "javax.el.cacheSize";
 
+	/**
+	 * <code>javax.el.cacheSize</code>
+	 */
+	public static final String PROP_CACHE_SIZE_FAIL_ON_RESIZE = "javax.el.cacheSize.failOnResize";
+
 	private final TreeStore store;
 	private final TypeConverter converter;
 
@@ -343,6 +348,7 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 		}
 
 		// create cache
+		Cache cache = null;
 		int cacheSize = defaultCacheSize;
 		if (properties != null && properties.containsKey(PROP_CACHE_SIZE)) {
 			try {
@@ -351,7 +357,16 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 				throw new ELException("Cannot parse EL property " + PROP_CACHE_SIZE, e);
 			}
 		}
-		Cache cache = cacheSize > 0 ? new Cache(cacheSize) : null;
+		if (properties != null && properties.containsKey(PROP_CACHE_SIZE_FAIL_ON_RESIZE)) {
+			try {
+				boolean failOnCacheResize = Boolean.parseBoolean(properties.getProperty(PROP_CACHE_SIZE_FAIL_ON_RESIZE));
+				cache = cacheSize > 0 ? new Cache(cacheSize, failOnCacheResize) : null;
+			} catch (NumberFormatException e) {
+				throw new ELException("Cannot parse EL property " + PROP_CACHE_SIZE, e);
+			}
+		}else{
+			cache = cacheSize > 0 ? new Cache(cacheSize) : null;
+		}
 
 		return new TreeStore(builder, cache);
 	}

@@ -170,12 +170,20 @@ public abstract class AstProperty extends AstNode {
 		if (method == null) {
 			throw new MethodNotFoundException(LocalMessages.get("error.property.method.notfound", name, clazz));
 		}
-		if (!ignoreReturnType && returnType != null && !returnType.isAssignableFrom(method.getReturnType())) {
+		if (!ignoreReturnType && returnType != null
+				&& !isReturnTypeSame(returnType, method)) {
 			throw new MethodNotFoundException(LocalMessages.get("error.property.method.returntype", method.getReturnType(), name, clazz, returnType));
 		}
 		return method;
 	}
-	
+
+	private boolean isReturnTypeSame(Class<?> returnType, Method method) {
+		if(java.lang.Void.class == returnType){
+            return true;
+        }
+		return returnType.isAssignableFrom(method.getReturnType());
+	}
+
 	public MethodInfo getMethodInfo(Bindings bindings, ELContext context, Class<?> returnType, Class<?>[] paramTypes) {
 		Object base = prefix.eval(bindings, context);
 		if (base == null) {
