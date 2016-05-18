@@ -274,7 +274,13 @@ public class BeanELResolver extends ELResolver {
 		}
 		Class<?> result = null;
 		if (isResolvable(base)) {
-			result = toBeanProperty(base, property).getPropertyType();
+            
+            // result = toBeanProperty(base, property).getPropertyType();
+            BeanProperty beanProperty = toBeanProperty(base, property);
+            if( beanProperty == null ){
+                // We could return null...?  Or have some `Class onPropertyNotFoundType`...?
+                throw new PropertyNotFoundException("Could not find property " + property + " in " + base.getClass());
+            }
 			context.setPropertyResolved(true);
 		}
 		return result;
@@ -314,7 +320,14 @@ public class BeanELResolver extends ELResolver {
 		}
 		Object result = null;
 		if (isResolvable(base)) {
-			Method method = toBeanProperty(base, property).getReadMethod();
+            BeanProperty beanProperty = toBeanProperty(base, property);
+            if( beanProperty == null ){
+                Object ret = this.onPropertyNotFoundRead(base, property); // May throw, and if we need to do:
+                context.setPropertyResolved(true);
+                return ret;
+            }
+            
+			Method method = beanProperty.getReadMethod();
 			if (method == null) {
 				throw new PropertyNotFoundException("Cannot read property " + property);
 			}
@@ -330,6 +343,12 @@ public class BeanELResolver extends ELResolver {
 		return result;
 	}
 
+    /** Overrides may throw or return custom object / string. */
+    protected Object onPropertyNotFoundRead( Object base, Object property ) {
+        throw new PropertyNotFoundException("Could not find property " + property + " in " + base.getClass());
+    }
+    
+    
 	/**
 	 * If the base object is not null, returns whether a call to
 	 * {@link #setValue(ELContext, Object, Object, Object)} will always fail. If the base is not
@@ -362,7 +381,10 @@ public class BeanELResolver extends ELResolver {
 		}
 		boolean result = readOnly;
 		if (isResolvable(base)) {
-			result |= toBeanProperty(base, property).isReadOnly();
+            BeanProperty beanProperty = toBeanProperty(base, property);
+            if( null == beanProperty )  result = false;
+            else
+                result |= toBeanProperty(base, property).isReadOnly();
 			context.setPropertyResolved(true);
 		}
 		return result;
@@ -408,7 +430,11 @@ public class BeanELResolver extends ELResolver {
 			if (readOnly) {
 				throw new PropertyNotWritableException("resolver is read-only");
 			}
-			Method method = toBeanProperty(base, property).getWriteMethod();
+            final BeanProperty beanProperty = toBeanProperty(base, property);
+            if( beanProperty == null ){
+                throw new PropertyNotFoundException("Could not find property " + property + " in " + base.getClass());
+            }
+			Method method = beanProperty.getWriteMethod();
 			if (method == null) {
 				throw new PropertyNotWritableException("Cannot write property: " + property);
 			}
@@ -638,12 +664,9 @@ public class BeanELResolver extends ELResolver {
 			}
 		}
 		BeanProperty beanProperty = property == null ? null : beanProperties.getBeanProperty(property.toString());
-		if (beanProperty == null) {
-			throw new PropertyNotFoundException("Could not find property " + property + " in " + base.getClass());
-		}
 		return beanProperty;
 	}
-
+    
 	/**
 	 * This method is not part of the API, though it can be used (reflectively) by clients of this
 	 * class to remove entries from the cache when the beans are being unloaded.
