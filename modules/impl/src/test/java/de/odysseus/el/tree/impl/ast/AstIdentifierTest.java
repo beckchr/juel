@@ -17,6 +17,7 @@ package de.odysseus.el.tree.impl.ast;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Date;
 
 import javax.el.ELContext;
 import javax.el.ELException;
@@ -91,6 +92,7 @@ public class AstIdentifierTest extends TestCase {
 		
 		// variables var_long_1, indentifier_string
 		context.setVariable("var_long_1", new ObjectValueExpression(converter, 1l, long.class));
+
 		context.setVariable("indentifier_string", new ObjectValueExpression(converter, "foo", String.class));
 		context.setVariable("var_method_1", new ObjectValueExpression(converter, getClass().getMethod("method_1"), Method.class));
 		context.setVariable("var_method_1_expr", new ObjectValueExpression(converter, new TestMethodExpression(getClass().getMethod("method_1")), MethodExpression.class));
@@ -103,7 +105,8 @@ public class AstIdentifierTest extends TestCase {
 
 		// var_var_long_1 --> var_long_1, var_property_long_1 --> property_long_1
 		context.setVariable("var_var_long_1", new TreeValueExpression(new TreeStore(BUILDER, null), null, context.getVariableMapper(), null, "${var_long_1}", long.class));	
-		context.setVariable("var_property_long_1", new TreeValueExpression(new TreeStore(BUILDER, null), null, context.getVariableMapper(), null, "${property_long_1}", long.class));	
+		context.setVariable("var_property_long_1", new TreeValueExpression(new TreeStore(BUILDER, null), null, context.getVariableMapper(), null, "${property_long_1}", long.class));
+		context.setVariable("var_date_1", new TreeValueExpression(new TreeStore(BUILDER, null), null, context.getVariableMapper(), converter, "", Date.class));
 	}
 
 	public void testEval() {
@@ -139,6 +142,10 @@ public class AstIdentifierTest extends TestCase {
 		StringBuilder s = new StringBuilder();
 		parseNode("${foo}").appendStructure(s, null);
 		assertEquals("foo", s.toString());
+	}
+
+	public void testIsLiteralTextFalseForDate() throws Exception {
+		assertFalse(context.getVariableMapper().resolveVariable("var_date_1").isLiteralText());
 	}
 
 	public void testIsLiteralText() {

@@ -35,6 +35,7 @@ public final class Cache implements TreeCache {
 	private final ConcurrentLinkedQueue<String> queue;
 	private final AtomicInteger size;
 	private final int capacity;
+	private boolean failOnResize;
 
 	/**
 	 * Creates a new cache with the specified capacity
@@ -45,6 +46,12 @@ public final class Cache implements TreeCache {
 	 */
 	public Cache(int capacity) {
 		this(capacity, 16);
+		this.failOnResize = false;
+	}
+
+	public Cache(int capacity, boolean failOnResize) {
+		this(capacity, 16);
+		this.failOnResize = failOnResize;
 	}
 
 	/**
@@ -76,6 +83,9 @@ public final class Cache implements TreeCache {
 		if (map.putIfAbsent(expression, tree) == null) {
 			queue.offer(expression);
 			if (size.incrementAndGet() > capacity) {
+				if(failOnResize){
+					throw new IllegalMonitorStateException("Resize occured for capacity:"+capacity);
+				}
 				size.decrementAndGet();
 				map.remove(queue.poll());
 			}

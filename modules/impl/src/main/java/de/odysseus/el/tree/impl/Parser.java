@@ -284,7 +284,7 @@ public class Parser {
 		AstNode t = text();
 		if (token.getSymbol() == EOF) {
 			if (t == null) {
-				t = new AstText("");
+				t = new AstTextForNull("");
 			}
 			return new Tree(t, functions, identifiers, false);
 		}
