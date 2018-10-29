@@ -35,6 +35,7 @@
 							<Implementation-Vendor>Odysseus Software GmbH</Implementation-Vendor>
 							<Implementation-Vendor-Id>de.odysseus</Implementation-Vendor-Id>
 							<Export-Package>javax.el</Export-Package>
+							<Import-Package>de.odysseus.el;resolution:=optional</Import-Package>
 							<Bundle-Vendor>Odysseus.de</Bundle-Vendor>
 							<Bundle-Version>${project.version}</Bundle-Version>
 							<Bundle-Name>Expression Language API</Bundle-Name>
