@@ -36,7 +36,7 @@
 							<Implementation-Vendor-Id>de.odysseus</Implementation-Vendor-Id>
 							<Main-Class>de.odysseus.el.tree.impl.Builder</Main-Class>
 							<Import-Package>javax.el</Import-Package>
-							<Export-Package>de.odysseus.el,de.odysseus.el.util</Export-Package>
+							<Export-Package>de.odysseus.el;version=${project.version},de.odysseus.el.util;version=${project.version}</Export-Package>
 							<Bundle-Vendor>Odysseus.de</Bundle-Vendor>
 							<Bundle-Version>${project.version}</Bundle-Version>
 							<Bundle-Name>Expression Language Implementation</Bundle-Name>
