@@ -6,36 +6,35 @@
 	<parent>
 		<groupId>de.odysseus.juel</groupId>
 		<artifactId>juel-parent</artifactId>
-		<version>2.2.8-SNAPSHOT</version>
+		<version>4.0.0-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
-	<groupId>de.odysseus.juel</groupId>
 	<artifactId>juel-impl</artifactId>
+	<version>4.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Java Unified Expression Language Implementation</name>
-	<version>2.2.8-SNAPSHOT</version>
+	<name>Jakarta Expression Language Implementation</name>
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
+				<version>3.3.0</version>
 				<configuration>
 					<archive>
 						<addMavenDescriptor>false</addMavenDescriptor>
 						<manifestEntries>
-							<Specification-Title>Expression Language</Specification-Title>
-							<Specification-Version>2.2</Specification-Version>
-							<Specification-Vendor>Sun Microsystems Inc.</Specification-Vendor>
+							<Specification-Title>Jakarta Expression Language</Specification-Title>
+							<Specification-Version>4.0.0</Specification-Version>
+							<Specification-Vendor>Eclipse Foundation</Specification-Vendor>
 							<Implementation-Title>JUEL</Implementation-Title>
 							<Implementation-Version>${project.version}</Implementation-Version>
 							<Implementation-Vendor>Odysseus Software GmbH</Implementation-Vendor>
 							<Implementation-Vendor-Id>de.odysseus</Implementation-Vendor-Id>
 							<Main-Class>de.odysseus.el.tree.impl.Builder</Main-Class>
-							<Import-Package>javax.el</Import-Package>
+							<Import-Package>jakarta.el</Import-Package>
 							<Export-Package>de.odysseus.el,de.odysseus.el.util</Export-Package>
 							<Bundle-Vendor>Odysseus.de</Bundle-Vendor>
 							<Bundle-Version>${project.version}</Bundle-Version>
@@ -52,9 +51,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>juel-api</artifactId>
-			<version>${project.version}</version>
+			<groupId>jakarta.el</groupId>
+			<artifactId>jakarta.el-api</artifactId>
+			<version>4.0.0</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

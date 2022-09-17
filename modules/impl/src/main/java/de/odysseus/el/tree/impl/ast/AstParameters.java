@@ -17,7 +17,7 @@ package de.odysseus.el.tree.impl.ast;
 
 import java.util.List;
 
-import javax.el.ELContext;
+import jakarta.el.ELContext;
 
 import de.odysseus.el.tree.Bindings;
 

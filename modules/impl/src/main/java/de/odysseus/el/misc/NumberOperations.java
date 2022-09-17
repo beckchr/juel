@@ -18,7 +18,7 @@ package de.odysseus.el.misc;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import javax.el.ELException;
+import jakarta.el.ELException;
 
 /**
  * Arithmetic Operations as specified in chapter 1.7.

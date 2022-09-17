@@ -15,7 +15,7 @@
  */ 
 package de.odysseus.el.tree.impl.ast;
 
-import javax.el.ELException;
+import jakarta.el.ELException;
 
 import de.odysseus.el.TestCase;
 import de.odysseus.el.tree.Bindings;

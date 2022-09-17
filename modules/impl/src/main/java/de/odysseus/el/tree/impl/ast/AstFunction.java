@@ -19,8 +19,8 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import javax.el.ELContext;
-import javax.el.ELException;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
 
 import de.odysseus.el.misc.LocalMessages;
 import de.odysseus.el.tree.Bindings;

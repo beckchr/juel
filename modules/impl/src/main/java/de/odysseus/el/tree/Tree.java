@@ -18,10 +18,10 @@ package de.odysseus.el.tree;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import javax.el.ELException;
-import javax.el.FunctionMapper;
-import javax.el.ValueExpression;
-import javax.el.VariableMapper;
+import jakarta.el.ELException;
+import jakarta.el.FunctionMapper;
+import jakarta.el.ValueExpression;
+import jakarta.el.VariableMapper;
 
 import de.odysseus.el.misc.LocalMessages;
 import de.odysseus.el.misc.TypeConverter;

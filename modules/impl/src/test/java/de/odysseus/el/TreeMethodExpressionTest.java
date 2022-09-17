@@ -15,8 +15,8 @@
  */ 
 package de.odysseus.el;
 
-import javax.el.BeanELResolver;
-import javax.el.MethodInfo;
+import jakarta.el.BeanELResolver;
+import jakarta.el.MethodInfo;
 
 import de.odysseus.el.tree.TreeStore;
 import de.odysseus.el.tree.impl.Builder;

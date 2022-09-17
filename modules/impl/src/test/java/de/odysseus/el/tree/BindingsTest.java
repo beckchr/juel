@@ -17,7 +17,7 @@ package de.odysseus.el.tree;
 
 import java.lang.reflect.Method;
 
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 
 import de.odysseus.el.ObjectValueExpression;
 import de.odysseus.el.TestCase;

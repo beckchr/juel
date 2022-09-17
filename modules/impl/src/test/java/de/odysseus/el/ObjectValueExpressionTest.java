@@ -15,7 +15,7 @@
  */ 
 package de.odysseus.el;
 
-import javax.el.ELException;
+import jakarta.el.ELException;
 
 import de.odysseus.el.misc.TypeConverter;
 

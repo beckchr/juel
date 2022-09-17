@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-import javax.el.ELException;
+import jakarta.el.ELException;
 
 import junit.framework.TestCase;
 

@@ -18,12 +18,12 @@ package de.odysseus.el.tree.impl;
 import java.io.PrintWriter;
 import java.util.EnumSet;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ELResolver;
-import javax.el.ExpressionFactory;
-import javax.el.FunctionMapper;
-import javax.el.VariableMapper;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
+import jakarta.el.ELResolver;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.FunctionMapper;
+import jakarta.el.VariableMapper;
 
 import de.odysseus.el.tree.Bindings;
 import de.odysseus.el.tree.NodePrinter;
@@ -44,12 +44,12 @@ public class Builder implements TreeBuilder {
 	/**
 	 * Feature enumeration type.
 	 */
-	public static enum Feature {
+	public enum Feature {
 		/**
 		 * Method invocations as in <code>${foo.bar(1)}</code> as specified in JSR 245,
 		 * maintenance release 2.
 		 * The method to be invoked is resolved at evaluation time by calling
-		 * {@link ELResolver#invoke(javax.el.ELContext, Object, Object, Class[], Object[])}.
+		 * {@link ELResolver#invoke(jakarta.el.ELContext, Object, Object, Class[], Object[])}.
 		 */
 		METHOD_INVOCATIONS,
 		/**

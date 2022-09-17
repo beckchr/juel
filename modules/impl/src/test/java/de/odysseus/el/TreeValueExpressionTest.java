@@ -15,8 +15,8 @@
  */ 
 package de.odysseus.el;
 
-import javax.el.BeanELResolver;
-import javax.el.PropertyNotFoundException;
+import jakarta.el.BeanELResolver;
+import jakarta.el.PropertyNotFoundException;
 
 import de.odysseus.el.tree.TreeStore;
 import de.odysseus.el.tree.impl.Builder;

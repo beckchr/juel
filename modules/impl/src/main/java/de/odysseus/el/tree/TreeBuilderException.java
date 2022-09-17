@@ -15,7 +15,7 @@
  */ 
 package de.odysseus.el.tree;
 
-import javax.el.ELException;
+import jakarta.el.ELException;
 
 import de.odysseus.el.misc.LocalMessages;
 

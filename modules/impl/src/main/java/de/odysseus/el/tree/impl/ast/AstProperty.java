@@ -18,12 +18,12 @@ package de.odysseus.el.tree.impl.ast;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.MethodInfo;
-import javax.el.MethodNotFoundException;
-import javax.el.PropertyNotFoundException;
-import javax.el.ValueReference;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
+import jakarta.el.MethodInfo;
+import jakarta.el.MethodNotFoundException;
+import jakarta.el.PropertyNotFoundException;
+import jakarta.el.ValueReference;
 
 import de.odysseus.el.misc.LocalMessages;
 import de.odysseus.el.tree.Bindings;

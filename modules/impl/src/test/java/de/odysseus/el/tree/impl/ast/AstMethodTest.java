@@ -15,11 +15,11 @@
  */ 
 package de.odysseus.el.tree.impl.ast;
 
-import javax.el.BeanELResolver;
-import javax.el.ELException;
-import javax.el.MethodNotFoundException;
-import javax.el.PropertyNotFoundException;
-import javax.el.ValueExpression;
+import jakarta.el.BeanELResolver;
+import jakarta.el.ELException;
+import jakarta.el.MethodNotFoundException;
+import jakarta.el.PropertyNotFoundException;
+import jakarta.el.ValueExpression;
 
 import de.odysseus.el.TestCase;
 import de.odysseus.el.tree.Bindings;

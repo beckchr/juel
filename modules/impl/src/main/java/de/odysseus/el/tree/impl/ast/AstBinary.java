@@ -15,7 +15,7 @@
  */
 package de.odysseus.el.tree.impl.ast;
 
-import javax.el.ELContext;
+import jakarta.el.ELContext;
 
 import de.odysseus.el.misc.BooleanOperations;
 import de.odysseus.el.misc.NumberOperations;
