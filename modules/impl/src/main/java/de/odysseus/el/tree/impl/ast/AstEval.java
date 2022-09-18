@@ -15,9 +15,9 @@
  */
 package de.odysseus.el.tree.impl.ast;
 
-import javax.el.ELContext;
-import javax.el.MethodInfo;
-import javax.el.ValueReference;
+import jakarta.el.ELContext;
+import jakarta.el.MethodInfo;
+import jakarta.el.ValueReference;
 
 import de.odysseus.el.tree.Bindings;
 

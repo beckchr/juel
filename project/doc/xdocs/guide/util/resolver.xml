@@ -26,7 +26,7 @@
 			method will throw an exception.
 		</p>
 		<source>import java.util.Date;
-import javax.el.*;
+import jakarta.el.*;
 import de.odysseus.el.util.SimpleContext;
 import de.odysseus.el.util.SimpleResolver;
 import de.odysseus.el.ExpressionFactoryImpl;

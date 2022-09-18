@@ -17,7 +17,7 @@ package de.odysseus.el.tree;
 
 import java.io.Serializable;
 
-import javax.el.ELException;
+import jakarta.el.ELException;
 
 /**
  * Tree builder interface.

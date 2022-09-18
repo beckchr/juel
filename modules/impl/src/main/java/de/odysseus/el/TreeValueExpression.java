@@ -19,11 +19,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.FunctionMapper;
-import javax.el.ValueReference;
-import javax.el.VariableMapper;
+import jakarta.el.*;
 
 import de.odysseus.el.misc.LocalMessages;
 import de.odysseus.el.misc.TypeConverter;
@@ -43,7 +39,7 @@ import de.odysseus.el.tree.TreeStore;
  *
  * @author Christoph Beck
  */
-public final class TreeValueExpression extends javax.el.ValueExpression {
+public final class TreeValueExpression extends ValueExpression {
 	private static final long serialVersionUID = 1L;
 
 	private final TreeBuilder builder;

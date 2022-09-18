@@ -3,7 +3,7 @@
 	<scr:component name="de.odysseus.el.ExpressionFactoryImpl">
 		<implementation class="de.odysseus.el.ExpressionFactoryImpl"/>
 		<service>
-			<provide interface="javax.el.ExpressionFactory"/>
+			<provide interface="jakarta.el.ExpressionFactory"/>
 		</service>
 	</scr:component>
 </root>
