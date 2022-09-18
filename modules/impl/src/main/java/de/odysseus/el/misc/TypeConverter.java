@@ -17,7 +17,7 @@ package de.odysseus.el.misc;
 
 import java.io.Serializable;
 
-import javax.el.ELException;
+import jakarta.el.ELException;
 
 public interface TypeConverter extends Serializable {
 	/**

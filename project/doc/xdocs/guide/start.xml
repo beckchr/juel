@@ -26,7 +26,7 @@
 		</ol>
 		<p>
 			Here's all you need to use the EL in your application (assuming you added
-			the JUEL JAR files to your classpath and did <code>import javax.el.*</code>):
+			the JUEL JAR files to your classpath and did <code>import jakarta.el.*</code>):
 		</p>
 		<ol>
 			<li>

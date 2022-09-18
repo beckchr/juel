@@ -18,7 +18,7 @@ package de.odysseus.el.tree.impl.ast;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import javax.el.ELContext;
+import jakarta.el.ELContext;
 
 import de.odysseus.el.tree.Bindings;
 import de.odysseus.el.tree.ExpressionNode;

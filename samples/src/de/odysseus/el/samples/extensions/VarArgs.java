@@ -17,8 +17,8 @@ package de.odysseus.el.samples.extensions;
 
 import java.lang.reflect.Method;
 
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.ValueExpression;
 
 import de.odysseus.el.ExpressionFactoryImpl;
 import de.odysseus.el.util.SimpleContext;

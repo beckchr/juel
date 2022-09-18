@@ -20,11 +20,7 @@ import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.FunctionMapper;
-import javax.el.MethodInfo;
-import javax.el.VariableMapper;
+import jakarta.el.*;
 
 import de.odysseus.el.misc.LocalMessages;
 import de.odysseus.el.misc.TypeConverter;
@@ -38,12 +34,11 @@ import de.odysseus.el.tree.NodePrinter;
 /**
  * A method expression is ready to be evaluated (by calling either
  * {@link #invoke(ELContext, Object[])} or {@link #getMethodInfo(ELContext)}).
- *
  * Instances of this class are usually created using an {@link ExpressionFactoryImpl}.
  * 
  * @author Christoph Beck
  */
-public final class TreeMethodExpression extends javax.el.MethodExpression {
+public final class TreeMethodExpression extends MethodExpression {
 	private static final long serialVersionUID = 1L;
 
 	private final TreeBuilder builder;
@@ -140,14 +135,6 @@ public final class TreeMethodExpression extends javax.el.MethodExpression {
 		return node.isLiteralText();
 	}
 
-	/**
-	 * @return <code>true</code> if this is a method invocation expression
-	 */
-	@Override
-	public boolean isParmetersProvided() {
-		return node.isMethodInvocation();
-	}
-	
 	/**
 	 * Answer <code>true</code> if this is a deferred expression (starting with <code>#{</code>)
 	 */

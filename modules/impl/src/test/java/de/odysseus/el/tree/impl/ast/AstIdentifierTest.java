@@ -18,10 +18,10 @@ package de.odysseus.el.tree.impl.ast;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.MethodExpression;
-import javax.el.MethodInfo;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
+import jakarta.el.MethodExpression;
+import jakarta.el.MethodInfo;
 
 import de.odysseus.el.ObjectValueExpression;
 import de.odysseus.el.TestCase;

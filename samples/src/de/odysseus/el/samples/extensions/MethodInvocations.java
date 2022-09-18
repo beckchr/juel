@@ -15,11 +15,11 @@
  */ 
 package de.odysseus.el.samples.extensions;
 
-import javax.el.BeanELResolver;
-import javax.el.CompositeELResolver;
-import javax.el.ELContext;
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
+import jakarta.el.BeanELResolver;
+import jakarta.el.CompositeELResolver;
+import jakarta.el.ELContext;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.ValueExpression;
 
 import de.odysseus.el.ExpressionFactoryImpl;
 import de.odysseus.el.util.SimpleContext;

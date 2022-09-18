@@ -15,9 +15,9 @@
  */ 
 package de.odysseus.el.samples.xml.sax;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ExpressionFactory;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
+import jakarta.el.ExpressionFactory;
 
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLFilterImpl;

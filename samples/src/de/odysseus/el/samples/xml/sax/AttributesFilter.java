@@ -18,8 +18,8 @@ package de.odysseus.el.samples.xml.sax;
 import java.io.IOException;
 import java.io.StringReader;
 
-import javax.el.ELContext;
-import javax.el.ELException;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;

@@ -15,18 +15,19 @@
  */ 
 package de.odysseus.el;
 
-import javax.el.ELContext;
-import javax.el.ELException;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
 
 import de.odysseus.el.misc.LocalMessages;
 import de.odysseus.el.misc.TypeConverter;
+import jakarta.el.ValueExpression;
 
 /**
  * Object wrapper expression.
  *
  * @author Christoph Beck
  */
-public final class ObjectValueExpression extends javax.el.ValueExpression {
+public final class ObjectValueExpression extends ValueExpression {
 	private static final long serialVersionUID = 1L;
 
 	private final TypeConverter converter;

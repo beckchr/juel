@@ -18,10 +18,10 @@ package de.odysseus.el.tree.impl.ast;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import javax.el.ELException;
-import javax.el.MethodInfo;
-import javax.el.PropertyNotFoundException;
-import javax.el.ValueExpression;
+import jakarta.el.ELException;
+import jakarta.el.MethodInfo;
+import jakarta.el.PropertyNotFoundException;
+import jakarta.el.ValueExpression;
 
 import de.odysseus.el.TestCase;
 import de.odysseus.el.test.TestClass;
