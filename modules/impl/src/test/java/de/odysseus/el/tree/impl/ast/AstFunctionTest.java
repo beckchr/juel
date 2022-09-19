@@ -23,6 +23,10 @@ import de.odysseus.el.tree.Tree;
 import de.odysseus.el.tree.impl.Builder;
 import de.odysseus.el.tree.impl.Builder.Feature;
 import de.odysseus.el.util.SimpleContext;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AstFunctionTest extends TestCase {
 	public static int foo() {
@@ -65,7 +69,7 @@ public class AstFunctionTest extends TestCase {
 	
 	SimpleContext context;
 	
-	@Override
+	@BeforeAll
 	protected void setUp() throws Exception {
 		context = new SimpleContext();
 		
@@ -84,6 +88,7 @@ public class AstFunctionTest extends TestCase {
 		context.getELResolver().setValue(context, null, "var111s", new String[]{"1","1","1"});
 	}
 
+	@Test
 	public void testVarargs() {
 		Builder builder = new Builder(Feature.VARARGS);
 		Tree tree = null;
@@ -107,6 +112,7 @@ public class AstFunctionTest extends TestCase {
 		assertEquals(foovar(1,1,1), getNode(tree).eval(tree.bind(context.getFunctionMapper(), null), context));
 	}
 
+	@Test
 	public void testEval() {
 		Tree tree = null;
 
@@ -129,6 +135,7 @@ public class AstFunctionTest extends TestCase {
 		assertEquals(foobar(21,21), getNode(tree).eval(tree.bind(context.getFunctionMapper(), null), null));
 	}
 
+	@Test
 	public void testAppendStructure() {
 		StringBuilder s = null;
 
@@ -147,26 +154,32 @@ public class AstFunctionTest extends TestCase {
 		assertEquals("p:f()p:f(x)p:f(x, y)", s.toString());
 	}
 
+	@Test
 	public void testIsLiteralText() {
 		assertFalse(parseNode("${f()}").isLiteralText());
 	}
 
+	@Test
 	public void testIsLeftValue() {
 		assertFalse(parseNode("${f()}").isLeftValue());
 	}
 
+	@Test
 	public void testGetType() {
 		assertNull(parseNode("${f()}").getType(null, null));
 	}
 
+	@Test
 	public void testIsReadOnly() {
 		assertTrue(parseNode("${f()}").isReadOnly(null, null));
 	}
 
+	@Test
 	public void testSetValue() {
 		try { parseNode("${f()}").setValue(null, null, null); fail(); } catch (ELException e) {}
 	}
 
+	@Test
 	public void testGetValue() {
 		Tree tree = null;
 
@@ -176,6 +189,7 @@ public class AstFunctionTest extends TestCase {
 		assertEquals("" + foo(), getNode(tree).getValue(tree.bind(context.getFunctionMapper(), null), null, String.class));
 	}
 	
+	@Test
 	public void testGetValueReference() {
 		assertNull(parseNode("${ns:f0()}").getValueReference(null, null));
 	}

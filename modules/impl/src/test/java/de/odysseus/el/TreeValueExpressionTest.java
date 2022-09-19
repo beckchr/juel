@@ -22,6 +22,11 @@ import de.odysseus.el.tree.TreeStore;
 import de.odysseus.el.tree.impl.Builder;
 import de.odysseus.el.util.SimpleContext;
 import de.odysseus.el.util.SimpleResolver;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TreeValueExpressionTest extends TestCase {
 
@@ -42,7 +47,7 @@ public class TreeValueExpressionTest extends TestCase {
 	SimpleContext context;
 	TreeStore store = new TreeStore(new Builder(), null);
 	
-	@Override
+	@BeforeAll
 	protected void setUp() throws Exception {
 		context = new SimpleContext(new SimpleResolver(new BeanELResolver()));
 		context.getELResolver().setValue(context, null, "base", this);
@@ -67,6 +72,7 @@ public class TreeValueExpressionTest extends TestCase {
 		context.getELResolver().setValue(context, null, "property_foo", "foo");
 	}
 
+	@Test
 	public void testEqualsAndHashCode() throws NoSuchMethodException {
 		TreeValueExpression e1, e2;
 
@@ -116,34 +122,41 @@ public class TreeValueExpressionTest extends TestCase {
 		assertFalse(e1.equals(e2));
 	}
 
+	@Test
 	public void testGetExpressionString() {
 		assertEquals("foo", new TreeValueExpression(store, null, null, null, "foo", Object.class).getExpressionString());
 	}
 
+	@Test
 	public void testIsLiteralText() {
 		assertTrue(new TreeValueExpression(store, null, null, null, "foo", Object.class).isLiteralText());
 		assertFalse(new TreeValueExpression(store, null, null, null, "${foo}", Object.class).isLiteralText());
 	}
 
+	@Test
 	public void testIsDeferred() {
 		assertFalse(new TreeValueExpression(store, null, null, null, "foo", Object.class).isDeferred());
 		assertFalse(new TreeValueExpression(store, null, null, null, "${foo}", Object.class).isDeferred());
 		assertTrue(new TreeValueExpression(store, null, null, null, "#{foo}", Object.class).isDeferred());
 	}
 
+	@Test
 	public void testGetExpectedType() {
 		assertEquals(Object.class, new TreeValueExpression(store, null, null, null, "${foo}", Object.class).getExpectedType());
 		assertEquals(String.class, new TreeValueExpression(store, null, null, null, "${foo}", String.class).getExpectedType());
 	}
 
+	@Test
 	public void testGetType() {
 		assertFalse(new TreeValueExpression(store, null, null, null, "${property_foo}", Object.class).isReadOnly(context));
 	}
 
+	@Test
 	public void testIsReadOnly() {
 		assertFalse(new TreeValueExpression(store, null, null, null, "${property_foo}", Object.class).isReadOnly(context));
 	}
 
+	@Test
 	public void testSetValue() {
 		new TreeValueExpression(store, null, null, null, "${property_foo}", Object.class).setValue(context, "bar");
 		assertEquals("bar", new TreeValueExpression(store, null, null, null, "${property_foo}", Object.class).getValue(context));
@@ -159,10 +172,12 @@ public class TreeValueExpressionTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testGetValue() {
 		assertEquals("foo", new TreeValueExpression(store, null, null, null, "${property_foo}", Object.class).getValue(context));
 	}
 
+	@Test
 	public void testSerialize() throws Exception  {
 		TreeValueExpression expression = new TreeValueExpression(store, context.getFunctionMapper(), context.getVariableMapper(), null, "${var_long_1 + foo()}", Object.class);
 		assertEquals(expression, deserialize(serialize(expression)));

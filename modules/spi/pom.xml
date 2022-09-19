@@ -15,14 +15,14 @@
 	<packaging>jar</packaging>
 
 	<name>Java Unified Expression Language Service Provider</name>
-	<version>2.2.8-SNAPSHOT</version>
+	<version>${parent.version}</version>
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
+				<version>${maven-jar-plugin.version}</version>
 				<configuration>
 					<archive>
 						<addMavenDescriptor>false</addMavenDescriptor>

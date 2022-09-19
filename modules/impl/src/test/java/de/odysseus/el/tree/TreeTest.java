@@ -20,6 +20,10 @@ import de.odysseus.el.TestCase;
 import de.odysseus.el.misc.TypeConverter;
 import de.odysseus.el.tree.Bindings;
 import de.odysseus.el.util.SimpleContext;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TreeTest extends TestCase {
 	
@@ -33,7 +37,7 @@ public class TreeTest extends TestCase {
 
 	private SimpleContext context;
 	
-	@Override
+	@BeforeAll
 	protected void setUp() throws Exception {
 		context = new SimpleContext();
 		
@@ -50,6 +54,7 @@ public class TreeTest extends TestCase {
 		context.setVariable("v1", new ObjectValueExpression(TypeConverter.DEFAULT, 1, long.class));
 	}
 
+	@Test
 	public void testBindFunctions() throws Exception {
 		Bindings bindings = null;
 		
@@ -85,6 +90,7 @@ public class TreeTest extends TestCase {
 		try { parse("${g1(1,2)}").bind(context.getFunctionMapper(), null); fail(); } catch (Exception e) {}
 	}
 
+	@Test
 	public void testBindVariables() throws Exception {
 		Bindings bindings = null;
 				
@@ -106,6 +112,7 @@ public class TreeTest extends TestCase {
 		try { bindings.getVariable(1); fail(); } catch (Exception e) {}
 	}
 
+	@Test
 	public void testBindFunctionsAndVariables() throws Exception {
 		Bindings bindings = parse("${ns:f0()+v0+g1(1)+v1+foo}").bind(context.getFunctionMapper(), context.getVariableMapper());
 		assertSame(context.getFunctionMapper().resolveFunction("ns", "f0"), bindings.getFunction(0));

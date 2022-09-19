@@ -19,6 +19,9 @@ import javax.el.ELException;
 
 import de.odysseus.el.TestCase;
 import de.odysseus.el.tree.Bindings;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AstBinaryTest extends TestCase {
 	private Bindings bindings = new Bindings(null, null, null);
@@ -27,6 +30,7 @@ public class AstBinaryTest extends TestCase {
 		return (AstBinary)parse(expression).getRoot().getChild(0);
 	}
 
+	@Test
 	public void testEval() {
 		assertEquals(6l, parseNode("${4+2}").eval(bindings, null));
 		assertEquals(8l, parseNode("${4*2}").eval(bindings, null));
@@ -62,6 +66,7 @@ public class AstBinaryTest extends TestCase {
 		assertEquals(true, parseNode("${2 >= 1}").eval(bindings, null));
 	}
 
+	@Test
 	public void testAppendStructure() {
 		StringBuilder s = null;
 		s = new StringBuilder();
@@ -89,35 +94,43 @@ public class AstBinaryTest extends TestCase {
 		assertEquals("1 && 11 || 1", s.toString());
 	}
 
+	@Test
 	public void testIsLiteralText() {
 		assertFalse(parseNode("${1+1}").isLiteralText());
 	}
 
+	@Test
 	public void testIsLeftValue() {
 		assertFalse(parseNode("${1+1}").isLeftValue());
 	}
 
+	@Test
 	public void testGetType() {
 		assertNull(parseNode("${1+1}").getType(bindings, null));
 	}
 
+	@Test
 	public void testIsReadOnly() {
 		assertTrue(parseNode("${1+1}").isReadOnly(bindings, null));
 	}
 
+	@Test
 	public void testSetValue() {
 		try { parseNode("${1+1}").setValue(bindings, null, null); fail(); } catch (ELException e) {}
 	}
 
+	@Test
 	public void testGetValue() {
 		assertEquals(Long.valueOf(2l), parseNode("${1+1}").getValue(bindings, null, null));
 		assertEquals("2", parseNode("${1+1}").getValue(bindings, null, String.class));
 	}
 
+	@Test
 	public void testGetValueReference() {
 		assertNull(parseNode("${1+1}").getValueReference(bindings, null));
 	}
 
+	@Test
 	public void testOperators() {
 		assertTrue((Boolean)parseNode("${true and true}").getValue(bindings, null, Boolean.class));
 		assertFalse((Boolean)parseNode("${true and false}").getValue(bindings, null, Boolean.class));

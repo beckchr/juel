@@ -15,18 +15,23 @@
  */ 
 package javax.el;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
-public class MethodInfoTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
 
+public class MethodInfoTest {
+
+	@Test
 	public void testGetName() {
 		assertEquals("foo", new MethodInfo("foo", Integer.class, new Class<?>[]{String.class}).getName());
 	}
 
+	@Test
 	public void testGetParamTypes() {
 		assertEquals(String.class, new MethodInfo("foo", Integer.class, new Class<?>[]{String.class}).getParamTypes()[0]);
 	}
 
+	@Test
 	public void testGetReturnType() {
 		assertEquals(Integer.class, new MethodInfo("foo", Integer.class, new Class<?>[]{String.class}).getReturnType());
 	}

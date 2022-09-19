@@ -17,8 +17,11 @@ package de.odysseus.el;
 
 import de.odysseus.el.util.SimpleContext;
 import de.odysseus.el.util.SimpleResolver;
+import org.junit.jupiter.api.Test;
 
-public class ExpressionFactoryImplTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+
+public class ExpressionFactoryImplTest {
 
 	public static long bar() {
 		return 1;
@@ -26,20 +29,24 @@ public class ExpressionFactoryImplTest extends TestCase {
 	
 	private ExpressionFactoryImpl factory = new ExpressionFactoryImpl();
 
+	@Test
 	public void testCoerceToType() {
 		assertEquals("1", factory.coerceToType(1l, String.class));
 	}
 
+	@Test
 	public void testCreateTreeValueExpression() {
 		SimpleContext context = new SimpleContext(new SimpleResolver());
 		assertEquals(1l, factory.createValueExpression(context, "${1}", Object.class).getValue(context));
 	}
 
+	@Test
 	public void testCreateObjectValueExpression() {
 		SimpleContext context = new SimpleContext(new SimpleResolver());
 		assertEquals("1", factory.createValueExpression("1", Object.class).getValue(context));
 	}
 
+	@Test
 	public void testCreateMethodExpression() throws NoSuchMethodException {
 		SimpleContext context = new SimpleContext(new SimpleResolver());
 		context.getELResolver().setValue(context, null, "foo", this);

@@ -29,6 +29,10 @@ import de.odysseus.el.tree.Bindings;
 import de.odysseus.el.tree.impl.Builder;
 import de.odysseus.el.util.SimpleContext;
 import de.odysseus.el.util.SimpleResolver;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AstBracketTest extends TestCase {
 	AstBracket parseNode(String expression) {
@@ -64,7 +68,7 @@ public class AstBracketTest extends TestCase {
 		return null;
 	}
 
-	@Override
+	@BeforeAll
 	protected void setUp() throws Exception {
 		context = new SimpleContext(new SimpleResolver());
 		context.getELResolver().setValue(context, null, "base", this);
@@ -76,27 +80,32 @@ public class AstBracketTest extends TestCase {
 		bindings = new Bindings(null, new ValueExpression[2]);
 	}
 
+	@Test
 	public void testEval() {
 		try { parseNode("${base[bad]}").eval(bindings, context); fail(); } catch (ELException e) {}
 		assertEquals(1l, parseNode("${base['foo']}").eval(bindings, context));
 	}
 
+	@Test
 	public void testAppendStructure() {
 		StringBuilder s = new StringBuilder();
 		parseNode("${foo[bar]}").appendStructure(s, new Bindings(null, null));
 		assertEquals("foo[bar]", s.toString());
 	}
 
+	@Test
 	public void testIsLiteralText() {
 		assertFalse(parseNode("${foo[bar]}").isLiteralText());
 	}
 
 
+	@Test
 	public void testIsLeftValue() {
 		assertFalse(parseNode("${'foo'[bar]}").isLeftValue());
 		assertTrue(parseNode("${foo[bar]}").isLeftValue());
 	}
 
+	@Test
 	public void testGetType() {
 		try { parseNode("${base[bad]}").getType(bindings, context); fail(); } catch (ELException e) {}
 		assertEquals(long.class, parseNode("${base['foo']}").getType(bindings, context));
@@ -108,6 +117,7 @@ public class AstBracketTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testIsReadOnly() {
 		assertFalse(parseNode("${base['foo']}").isReadOnly(bindings, context));
 		assertTrue(parseNode("${'base'['foo']}").isReadOnly(bindings, context));
@@ -118,6 +128,7 @@ public class AstBracketTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testSetValue() {
 		try { parseNode("${base[bad]}").setValue(bindings, context, "good"); fail(); } catch (ELException e) {}
 		parseNode("${base['foo']}").setValue(bindings, context, 2l);
@@ -133,6 +144,7 @@ public class AstBracketTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testGetValue() {
 		assertEquals(1l, parseNode("${base['foo']}").getValue(bindings, context, null));
 		assertEquals("1", parseNode("${base['foo']}").getValue(bindings, context, String.class));
@@ -144,11 +156,13 @@ public class AstBracketTest extends TestCase {
 		}
 	}
 	
+	@Test
 	public void testGetValueReference() {
 		assertEquals(this, parseNode("${base['foo']}").getValueReference(bindings, context).getBase());
 		assertEquals("foo", parseNode("${base['foo']}").getValueReference(bindings, context).getProperty());
 	}
 	
+	@Test
 	public void testInvoke() {
 		assertEquals(1l, parseNode("${base['bar']}").invoke(bindings, context, long.class, new Class[0], null));
 		assertEquals(2l, parseNode("${base['bar']}").invoke(bindings, context, null, new Class[]{long.class}, new Object[]{2l}));
@@ -164,6 +178,7 @@ public class AstBracketTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testGetMethodInfo() {
 		MethodInfo info = null;
 		

@@ -32,6 +32,11 @@ import de.odysseus.el.tree.Tree;
 import de.odysseus.el.tree.TreeStore;
 import de.odysseus.el.util.SimpleContext;
 import de.odysseus.el.util.SimpleResolver;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AstIdentifierTest extends TestCase {
 	public static long method_1() {
@@ -83,7 +88,7 @@ public class AstIdentifierTest extends TestCase {
 
 	SimpleContext context;
 	
-	@Override
+	@BeforeAll
 	protected void setUp() throws Exception {
 		context = new SimpleContext(new SimpleResolver());
 		
@@ -106,6 +111,7 @@ public class AstIdentifierTest extends TestCase {
 		context.setVariable("var_property_long_1", new TreeValueExpression(new TreeStore(BUILDER, null), null, context.getVariableMapper(), null, "${property_long_1}", long.class));	
 	}
 
+	@Test
 	public void testEval() {
 		Tree tree = null;
 		Bindings bindings = null;
@@ -135,20 +141,24 @@ public class AstIdentifierTest extends TestCase {
 		assertEquals(1l, getNode(tree).eval(bindings, context));
 	}
 
+	@Test
 	public void testAppendStructure() {
 		StringBuilder s = new StringBuilder();
 		parseNode("${foo}").appendStructure(s, null);
 		assertEquals("foo", s.toString());
 	}
 
+	@Test
 	public void testIsLiteralText() {
 		assertFalse(parseNode("${foo}").isLiteralText());
 	}
 
+	@Test
 	public void testIsLeftValue() {
 		assertTrue(parseNode("${foo}").isLeftValue());
 	}
 
+	@Test
 	public void testGetType() {
 		Tree tree = null;
 		Bindings bindings = null;
@@ -174,6 +184,7 @@ public class AstIdentifierTest extends TestCase {
 		assertEquals(null, getNode(tree).getType(bindings, context));
 	}
 
+	@Test
 	public void testIsReadOnly() {
 		Tree tree = null;
 		Bindings bindings = null;
@@ -199,6 +210,7 @@ public class AstIdentifierTest extends TestCase {
 		assertTrue(getNode(tree).isReadOnly(bindings, context));
 	}
 
+	@Test
 	public void testSetValue() {
 		Tree tree = null;
 		Bindings bindings = null;
@@ -233,6 +245,7 @@ public class AstIdentifierTest extends TestCase {
 		try { getNode(tree).setValue(bindings, context, "bar"); fail(); } catch (ELException e) {}
 	}
 
+	@Test
 	public void testGetValue() {
 		Tree tree = null;
 		Bindings bindings = null;
@@ -247,6 +260,7 @@ public class AstIdentifierTest extends TestCase {
 		assertEquals("1", getNode(tree).getValue(bindings, context, String.class));
 	}
 	
+	@Test
 	public void testGetValueReference() {
 		Tree tree = null;
 		Bindings bindings = null;
@@ -260,6 +274,7 @@ public class AstIdentifierTest extends TestCase {
 		assertNotNull(getNode(tree).getValueReference(bindings, context));
 	}
 
+	@Test
 	public void testInvoke() {
 		Tree tree = null;
 		Bindings bindings = null;
@@ -295,6 +310,7 @@ public class AstIdentifierTest extends TestCase {
 
 	}
 
+	@Test
 	public void testGetMethodInfo() {
 		Tree tree = null;
 		Bindings bindings = null;

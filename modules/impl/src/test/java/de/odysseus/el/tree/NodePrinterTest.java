@@ -6,13 +6,16 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import de.odysseus.el.TestCase;
 import de.odysseus.el.tree.impl.Builder;
 import de.odysseus.el.tree.impl.Builder.Feature;
+import org.junit.jupiter.api.Test;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NodePrinterTest extends TestCase {
 
+	@Test
 	public void testDump() throws IOException {
 		Tree tree = new Builder(Feature.METHOD_INVOCATIONS).build("${foo.bar[baz] + foobar}");
 		StringWriter writer = new StringWriter();

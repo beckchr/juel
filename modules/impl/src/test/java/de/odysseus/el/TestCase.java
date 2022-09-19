@@ -24,14 +24,15 @@ import java.io.ObjectOutputStream;
 
 import de.odysseus.el.tree.Tree;
 import de.odysseus.el.tree.impl.Builder;
+import org.junit.jupiter.api.TestInstance;
 
-public abstract class TestCase extends junit.framework.TestCase {
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public abstract class TestCase {
 	protected static final Builder BUILDER = new Builder(Builder.Feature.METHOD_INVOCATIONS);
 
 	protected static final Tree parse(String expression) {
 		return BUILDER.build(expression);
 	}
-
 
 	protected static byte[] serialize(Object value) throws Exception {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();

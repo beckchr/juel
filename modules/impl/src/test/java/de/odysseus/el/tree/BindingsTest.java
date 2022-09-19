@@ -25,6 +25,13 @@ import de.odysseus.el.misc.TypeConverter;
 import de.odysseus.el.tree.Bindings;
 import de.odysseus.el.tree.Tree;
 import de.odysseus.el.util.SimpleContext;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BindingsTest extends TestCase {
 	
@@ -38,7 +45,7 @@ public class BindingsTest extends TestCase {
 
 	private SimpleContext context;
 	
-	@Override
+	@BeforeAll
 	protected void setUp() throws Exception {
 		context = new SimpleContext();
 		
@@ -52,6 +59,7 @@ public class BindingsTest extends TestCase {
 		context.setVariable("v", new ObjectValueExpression(TypeConverter.DEFAULT, new Long(0), long.class));
 	}
 
+	@Test
 	public void testSerialize() throws Exception {
 		Bindings bindings = null;
 
@@ -62,6 +70,7 @@ public class BindingsTest extends TestCase {
 		assertEquals(bindings, deserialize(serialize(bindings)));
 	}
 	
+	@Test
 	public void testEqualsAndHashcode() throws Exception {
 		Bindings bindings1 = null;
 		Bindings bindings2 = null;

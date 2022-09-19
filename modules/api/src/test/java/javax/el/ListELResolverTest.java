@@ -15,15 +15,19 @@
  */ 
 package javax.el;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
 import java.util.List;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
 import javax.el.TestContext;
 
-public class ListELResolverTest extends TestCase {
+
+public class ListELResolverTest  {
 	ELContext context = new TestContext();
 
+	@Test
 	public void testGetCommonPropertyType() {
 		Integer scalar = 0;
 		List<Integer> list = Arrays.asList(1, 2, 3);
@@ -39,6 +43,7 @@ public class ListELResolverTest extends TestCase {
 		assertNull(resolver.getCommonPropertyType(context, null));
 	}
 
+	@Test
 	public void testGetFeatureDescriptors() {
 		Integer scalar = 0;
 		List<Integer> list = Arrays.asList(1, 2, 3);
@@ -50,6 +55,7 @@ public class ListELResolverTest extends TestCase {
 		assertNull(resolver.getFeatureDescriptors(context, null));
 	}
 
+	@Test
 	public void testGetType() {
 		Integer scalar = 0;
 		List<Integer> list = Arrays.asList(1, 2, 3);
@@ -97,6 +103,7 @@ public class ListELResolverTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testGetValue() {
 		Integer scalar = 0;
 		List<Integer> list = Arrays.asList(1, 2, 3);
@@ -134,6 +141,7 @@ public class ListELResolverTest extends TestCase {
 		assertNull(resolver.getValue(context, list, list.size()));
 	}
 
+	@Test
 	public void testIsReadOnly() {
 		Integer scalar = 0;
 		List<Integer> list = Arrays.asList(1, 2, 3);
@@ -187,6 +195,7 @@ public class ListELResolverTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testSetValue() {
 		Integer scalar = 0;
 		List<Integer> list = Arrays.asList(1, 2, 3);
