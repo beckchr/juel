@@ -120,8 +120,14 @@ public abstract class ExpressionFactory {
 		InputStream input = classLoader.getResourceAsStream(serviceId);
 		try {
 			if (input != null) {
+				String line = null;
 				BufferedReader reader = new BufferedReader(new InputStreamReader(input, "UTF-8"));
-				className = reader.readLine();
+				while ((line = reader.readLine()) != null) {
+					if (!line.startsWith("#") && line.trim().length() > 0) {
+						className = line;
+						break;
+					}
+				}
 				reader.close();
 			}
 		} catch (IOException e) {
