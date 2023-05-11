@@ -23,6 +23,10 @@ import de.odysseus.el.tree.impl.Builder;
 import de.odysseus.el.tree.impl.Builder.Feature;
 import de.odysseus.el.util.SimpleContext;
 import de.odysseus.el.util.SimpleResolver;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TreeMethodExpressionTest extends TestCase {
 
@@ -37,13 +41,14 @@ public class TreeMethodExpressionTest extends TestCase {
 	SimpleContext context;
 	TreeStore store = new TreeStore(new Builder(Feature.METHOD_INVOCATIONS), null);
 	
-	@Override
+	@BeforeAll
 	protected void setUp() throws Exception {
 		context = new SimpleContext(new SimpleResolver(new BeanELResolver()));
 		context.getELResolver().setValue(context, null, "base", this);
 	}
 
 
+	@Test
 	public void testEqualsAndHashCode() {
 		TreeMethodExpression e1, e2;
 		e1 = new TreeMethodExpression(store, null, null, null, "${base.foo}", null, new Class[0]);
@@ -55,21 +60,25 @@ public class TreeMethodExpressionTest extends TestCase {
 		assertFalse(e1.equals(e2));
 	}
 
+	@Test
 	public void testGetExpressionString() {
 		assertEquals("${base.foo}", new TreeMethodExpression(store, null, null, null, "${base.foo}", null, new Class[0]).getExpressionString());
 	}
 
+	@Test
 	public void testIsLiteralText() {
 		assertFalse(new TreeMethodExpression(store, null, null, null, "${base.foo}", null, new Class[0]).isLiteralText());
 		assertTrue(new TreeMethodExpression(store, null, null, null, "base.foo", null, new Class[0]).isLiteralText());
 	}
 
+	@Test
 	public void testIsDeferred() {
 		assertFalse(new TreeMethodExpression(store, null, null, null, "foo", null, new Class[0]).isDeferred());
 		assertFalse(new TreeMethodExpression(store, null, null, null, "${foo}", null, new Class[0]).isDeferred());
 		assertTrue(new TreeMethodExpression(store, null, null, null, "#{foo}", null, new Class[0]).isDeferred());
 	}
 
+	@Test
 	public void testGetMethodInfo() {
 		TreeMethodExpression e = new TreeMethodExpression(store, null, null, null, "${base.foo}", null, new Class[0]);
 		MethodInfo info = e.getMethodInfo(context);
@@ -78,12 +87,14 @@ public class TreeMethodExpressionTest extends TestCase {
 		assertEquals(int.class, info.getReturnType());
 	}
 
+	@Test
 	public void testInvoke() {
 		assertEquals(0, new TreeMethodExpression(store, null, null, null, "${base.foo}", null, new Class[0]).invoke(context, null));
 		assertEquals(0, new TreeMethodExpression(store, null, null, null, "${base.foo()}", null, null).invoke(context, null));
 	}
 
 
+	@Test
 	public void testSerialize() throws Exception  {
 		TreeMethodExpression expression = new TreeMethodExpression(store, null,  null, null, "${base.foo}", null, new Class[0]);
 		assertEquals(expression, deserialize(serialize(expression)));

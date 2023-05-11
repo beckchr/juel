@@ -15,12 +15,16 @@
  */ 
 package de.odysseus.el.misc;
 
+import de.odysseus.el.TestCase;
+import org.junit.jupiter.api.Test;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BooleanOperationsTest extends TestCase {
 
@@ -34,6 +38,7 @@ public class BooleanOperationsTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.BooleanOperations.lt(Object, Object)'
 	 */
+	@Test
 	public void testLt() {
 		assertFalse(BooleanOperations.lt(converter, Boolean.TRUE, Boolean.TRUE));
 		assertFalse(BooleanOperations.lt(converter, null, Boolean.TRUE));
@@ -85,6 +90,7 @@ public class BooleanOperationsTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.BooleanOperations.gt(Object, Object)'
 	 */
+	@Test
 	public void testGt() {
 		assertFalse(BooleanOperations.gt(converter, Boolean.TRUE, Boolean.TRUE));
 		assertFalse(BooleanOperations.gt(converter, null, Boolean.TRUE));
@@ -136,6 +142,7 @@ public class BooleanOperationsTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.BooleanOperations.ge(Object, Object)'
 	 */
+	@Test
 	public void testGe() {
 		assertTrue(BooleanOperations.ge(converter, Boolean.TRUE, Boolean.TRUE));
 		assertFalse(BooleanOperations.ge(converter, null, Boolean.TRUE));
@@ -187,6 +194,7 @@ public class BooleanOperationsTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.BooleanOperations.le(Object, Object)'
 	 */
+	@Test
 	public void testLe() {
 		assertTrue(BooleanOperations.le(converter, Boolean.TRUE, Boolean.TRUE));
 		assertFalse(BooleanOperations.le(converter, null, Boolean.TRUE));
@@ -238,6 +246,7 @@ public class BooleanOperationsTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.BooleanOperations.eq(Object, Object)'
 	 */
+	@Test
 	public void testEq() {
 		assertTrue(BooleanOperations.eq(converter, Boolean.TRUE, Boolean.TRUE));
 		assertFalse(BooleanOperations.eq(converter, null, Boolean.TRUE));
@@ -293,6 +302,7 @@ public class BooleanOperationsTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.BooleanOperations.ne(Object, Object)'
 	 */
+	@Test
 	public void testNe() {
 		assertFalse(BooleanOperations.ne(converter, Boolean.TRUE, Boolean.TRUE));
 		assertTrue(BooleanOperations.ne(converter, null, Boolean.TRUE));
@@ -348,6 +358,7 @@ public class BooleanOperationsTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.BooleanOperations.empty(Object)'
 	 */
+	@Test
 	public void testEmpty() {
 		assertTrue(BooleanOperations.empty(converter, null));
 		assertTrue(BooleanOperations.empty(converter, ""));

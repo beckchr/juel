@@ -19,6 +19,9 @@ import javax.el.ELException;
 
 import de.odysseus.el.TestCase;
 import de.odysseus.el.tree.Bindings;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AstBooleanTest extends TestCase {
 	private Bindings bindings = new Bindings(null, null, null);
@@ -27,11 +30,13 @@ public class AstBooleanTest extends TestCase {
 		return (AstBoolean)parse(expression).getRoot().getChild(0);
 	}
 
+	@Test
 	public void testEval() {
 		assertEquals(true, parseNode("${true}").eval(bindings, null));
 		assertEquals(false, parseNode("${false}").eval(bindings, null));
 	}
 
+	@Test
 	public void testAppendStructure() {
 		StringBuilder s = new StringBuilder();
 		parseNode("${true}").appendStructure(s, bindings);
@@ -39,31 +44,38 @@ public class AstBooleanTest extends TestCase {
 		assertEquals("truefalse", s.toString());
 	}
 
+	@Test
 	public void testIsLiteralText() {
 		assertFalse(parseNode("${true}").isLiteralText());
 	}
 
+	@Test
 	public void testIsLeftValue() {
 		assertFalse(parseNode("${true}").isLeftValue());
 	}
 
+	@Test
 	public void testGetType() {
 		assertNull(parseNode("${true}").getType(bindings, null));
 	}
 
+	@Test
 	public void testIsReadOnly() {
 		assertTrue(parseNode("${true}").isReadOnly(bindings, null));
 	}
 
+	@Test
 	public void testSetValue() {
 		try { parseNode("${true}").setValue(bindings, null, null); fail(); } catch (ELException e) {}
 	}
 
+	@Test
 	public void testGetValue() {
 		assertEquals(true, parseNode("${true}").getValue(bindings, null, null));
 		assertEquals("true", parseNode("${true}").getValue(bindings, null, String.class));
 	}
 	
+	@Test
 	public void testGetValueReference() {
 		assertNull(parseNode("${true}").getValueReference(bindings, null));
 	}

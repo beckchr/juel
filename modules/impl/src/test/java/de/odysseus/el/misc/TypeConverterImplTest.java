@@ -15,9 +15,11 @@
  */ 
 package de.odysseus.el.misc;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import de.odysseus.el.TestCase;
+import org.junit.jupiter.api.Test;
+
+import javax.el.ELException;
+import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
@@ -25,9 +27,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-import javax.el.ELException;
-
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * JUnit test case for {@link de.odysseus.el.misc.TypeConverterImpl}.
@@ -74,6 +74,7 @@ public class TypeConverterImplTest extends TestCase {
 	
 	TypeConverterImpl converter = new TypeConverterImpl();
 
+	@Test
 	public void testToBoolean() {
 		assertFalse(converter.coerceToBoolean(null));
 		assertFalse(converter.coerceToBoolean(""));
@@ -84,6 +85,7 @@ public class TypeConverterImplTest extends TestCase {
 		assertFalse(converter.coerceToBoolean("yes")); // Boolean.valueOf(String) never throws an exception...
 	}
 
+	@Test
 	public void testToCharacter() {
 		assertEquals(Character.valueOf((char)0), converter.coerceToCharacter(null));
 		assertEquals(Character.valueOf((char)0), converter.coerceToCharacter(""));
@@ -288,6 +290,7 @@ public class TypeConverterImplTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testToString() {
 		assertSame("foo", converter.coerceToString("foo"));
 		assertEquals("", converter.coerceToString(null));
@@ -296,6 +299,7 @@ public class TypeConverterImplTest extends TestCase {
 		assertEquals(value.toString(), converter.coerceToString(value));
 	}
 
+	@Test
 	public void testToEnum() {
 		assertNull(converter.coerceToEnum(null, Foo.class));
 		assertSame(Foo.BAR, converter.coerceToEnum(Foo.BAR, Foo.class));
@@ -304,6 +308,7 @@ public class TypeConverterImplTest extends TestCase {
 		assertSame(Foo.BAZ, converter.coerceToEnum("BAZ", Foo.class));
 	}
 
+	@Test
 	public void testToType() {
 		assertEquals("foo", converter.coerceToType("foo", String.class));
 		assertEquals(new Long(0), converter.coerceToType("0", Long.class));

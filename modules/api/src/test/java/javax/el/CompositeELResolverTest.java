@@ -15,16 +15,18 @@
  */ 
 package javax.el;
 
+import org.junit.jupiter.api.Test;
+
 import java.beans.FeatureDescriptor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
 import javax.el.TestContext;
 
-public class CompositeELResolverTest extends TestCase {
+public class CompositeELResolverTest {
 	ELContext context = new TestContext();
 
 	Map<Integer,Integer> sampleMap() {
@@ -35,6 +37,7 @@ public class CompositeELResolverTest extends TestCase {
 		return map;
 	}
 
+	@Test
 	public void testGetCommonPropertyType() {
 		CompositeELResolver resolver = new CompositeELResolver();
 		assertNull(resolver.getCommonPropertyType(context, null));
@@ -65,6 +68,7 @@ public class CompositeELResolverTest extends TestCase {
 		return count;
 	}
 	
+	@Test
 	public void testGetFeatureDescriptors() {
 		CompositeELResolver resolver = new CompositeELResolver();
 		assertFalse(resolver.getFeatureDescriptors(context, null).hasNext());
@@ -80,6 +84,7 @@ public class CompositeELResolverTest extends TestCase {
 		assertEquals(5, count(resolver.getFeatureDescriptors(context, sampleMap()))); // 0, 1, 2, class, empty
 	}
 
+	@Test
 	public void testGetType() {
 		CompositeELResolver resolver = new CompositeELResolver();
 		assertNull(resolver.getType(context, null, "foo"));
@@ -98,6 +103,7 @@ public class CompositeELResolverTest extends TestCase {
 		assertEquals(Object.class, resolver.getType(context, sampleMap(), 0));		
 	}
 
+	@Test
 	public void testGetValue() {
 		CompositeELResolver resolver = new CompositeELResolver();
 		assertNull(resolver.getValue(context, null, "foo"));
@@ -116,6 +122,7 @@ public class CompositeELResolverTest extends TestCase {
 		assertEquals(1, resolver.getValue(context, sampleMap(), 0));
 	}
 
+	@Test
 	public void testIsReadOnly() {
 		CompositeELResolver resolver = new CompositeELResolver();
 		assertFalse(resolver.isReadOnly(context, null, "foo"));
@@ -134,6 +141,7 @@ public class CompositeELResolverTest extends TestCase {
 		assertFalse(resolver.isReadOnly(context, sampleMap(), 0));
 	}
 
+	@Test
 	public void testSetValue() {
 		CompositeELResolver resolver = new CompositeELResolver();
 		resolver.setValue(context, null, "foo", "bar");

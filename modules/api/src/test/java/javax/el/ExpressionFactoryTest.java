@@ -15,15 +15,17 @@
  */ 
 package javax.el;
 
+import org.junit.jupiter.api.Test;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class ExpressionFactoryTest extends TestCase {
+public class ExpressionFactoryTest {
 	private String getFactoryClassName() throws IOException {
 		String className = null;
 		String serviceId = "META-INF/services/" + ExpressionFactory.class.getName();
@@ -36,12 +38,14 @@ public class ExpressionFactoryTest extends TestCase {
 		return className;
 	}
 	
+	@Test
 	public void testNewInstance() throws IOException {
 		ExpressionFactory factory = ExpressionFactory.newInstance();
 		assertNotNull(factory);
 		assertEquals(factory.getClass().getName(), getFactoryClassName());
 	}
 
+	@Test
 	public void testNewInstanceProperties() throws IOException  {
 		Properties properties = new Properties();
 		

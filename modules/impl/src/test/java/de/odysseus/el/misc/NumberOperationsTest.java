@@ -15,10 +15,13 @@
  */ 
 package de.odysseus.el.misc;
 
+import de.odysseus.el.TestCase;
+import org.junit.jupiter.api.Test;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NumberOperationsTest extends TestCase {
 
@@ -27,6 +30,7 @@ public class NumberOperationsTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.NumberOperations.add(Object, Object)'
 	 */
+	@Test
 	public void testAdd() {
 		assertEquals(new Long(0), NumberOperations.add(converter, null, null));
 
@@ -78,6 +82,7 @@ public class NumberOperationsTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.NumberOperations.sub(Object, Object)'
 	 */
+	@Test
 	public void testSub() {
 		assertEquals(new Long(0), NumberOperations.sub(converter, null, null));
 
@@ -129,6 +134,7 @@ public class NumberOperationsTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.NumberOperations.mul(Object, Object)'
 	 */
+	@Test
 	public void testMul() {
 		assertEquals(new Long(0), NumberOperations.mul(converter, null, null));
 
@@ -180,6 +186,7 @@ public class NumberOperationsTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.NumberOperations.div(Object, Object)'
 	 */
+	@Test
 	public void testDiv() {
 		assertEquals(new Long(0), NumberOperations.div(converter, null, null));
 
@@ -220,6 +227,7 @@ public class NumberOperationsTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.NumberOperations.mod(Object, Object)'
 	 */
+	@Test
 	public void testMod() {
 		assertEquals(new Long(0), NumberOperations.mod(converter, null, null));
 
@@ -270,6 +278,7 @@ public class NumberOperationsTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.NumberOperations.neg(Object)'
 	 */
+	@Test
 	public void testNeg() {
 		assertEquals(new Long(0), NumberOperations.neg(converter, null));
 

@@ -15,13 +15,17 @@
  */ 
 package de.odysseus.el.misc;
 
-import junit.framework.TestCase;
+import de.odysseus.el.TestCase;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MessagesTest extends TestCase {
 
 	/*
 	 * Test method for 'de.odysseus.el.lang.Messages.get(String)'
 	 */
+	@Test
 	public void testGetString() {
 		assertTrue(LocalMessages.get("foo").matches(".*foo"));
 	}
@@ -29,6 +33,7 @@ public class MessagesTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.Messages.get(String, Object)'
 	 */
+	@Test
 	public void testGetStringObject() {
 		assertTrue(LocalMessages.get("foo", "bar").matches(".*foo\\(bar\\)"));
 	}
@@ -36,6 +41,7 @@ public class MessagesTest extends TestCase {
 	/*
 	 * Test method for 'de.odysseus.el.lang.Messages.get(String, Object, Object)'
 	 */
+	@Test
 	public void testGetStringObjectObject() {
 		assertTrue(LocalMessages.get("foo", "bar", "baz").matches(".*foo\\(bar,\\s*baz\\)"));
 	}

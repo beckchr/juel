@@ -18,6 +18,9 @@ package de.odysseus.el.tree.impl;
 import de.odysseus.el.TestCase;
 import de.odysseus.el.tree.Tree;
 import de.odysseus.el.tree.impl.ast.AstBinary;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest extends TestCase {
 	static Tree verifyLiteralExpression(String expression) {
@@ -55,6 +58,7 @@ public class ParserTest extends TestCase {
 		return tree;
 	}
 
+	@Test
 	public void testLiteral() {
 		verifyLiteralExpression("");
 		verifyLiteralExpression("$");
@@ -79,6 +83,7 @@ public class ParserTest extends TestCase {
 		return tree;
 	}
 
+	@Test
 	public void testBinray() {
 		verifyEvalExpression("${a * a}");
 		verifyEvalExpression("${a / a}", "${a div a}");
@@ -121,6 +126,7 @@ public class ParserTest extends TestCase {
 		verifyBinary(AstBinary.OR, "${! a || a}");
 	}
 
+	@Test
 	public void testUnary() {
 		verifyEvalExpression("${- a}");
 		verifyEvalExpression("${- - a}");
@@ -130,11 +136,13 @@ public class ParserTest extends TestCase {
 		verifyEvalExpression("${! ! a}", "${not not a}", "${not ! a}");
 	}
 
+	@Test
 	public void testDeferredExpression() {
 		verifyEvalExpression("#{a}", "#{ a }");
 	}
 
 	
+	@Test
 	public void testComposite() {
 		verifyCompositeExpression("a${a}a");
 		verifyCompositeExpression("a ${a} a");
@@ -142,19 +150,23 @@ public class ParserTest extends TestCase {
 		try { parse("#{a}${a}"); fail(); } catch (Exception e) {}
 	}
 
+	@Test
 	public void testInteger() {
 		verifyEvalExpression("${0}");
 	}
 
+	@Test
 	public void testBoolean() {
 		verifyEvalExpression("${true}");
 		verifyEvalExpression("${false}");
 	}
 
+	@Test
 	public void testNull() {
 		verifyEvalExpression("${null}");
 	}
 
+	@Test
 	public void testString() {
 		verifyEvalExpression("${''}", "${\"\"}");
 		verifyEvalExpression("${'\\''}", "${\"'\"}");
@@ -162,6 +174,7 @@ public class ParserTest extends TestCase {
 		verifyEvalExpression("${'a'}", "${\"a\"}");
 	}
 
+	@Test
 	public void testFloat() {
 		verifyEvalExpression("${0.0}", "${0.0e0}");
 		verifyEvalExpression("${0.0}", "${0e0}", "${0E0}");
@@ -170,6 +183,7 @@ public class ParserTest extends TestCase {
 		verifyEvalExpression("${0.0}", "${0e+0}", "${0e-0}");
 	}
 
+	@Test
 	public void testChoice() {
 		verifyEvalExpression("${a ? a : a}", "${a?a:a}");
 		verifyEvalExpression("${a ? b ? b : b : a}", "${a?b?b:b:a}");
@@ -181,16 +195,19 @@ public class ParserTest extends TestCase {
 		try { parse("${a?a:f()}"); fail(); } catch (Exception e) {}
 	}
 
+	@Test
 	public void testNested() {
 		verifyEvalExpression("${(a)}", "${ ( a ) }");
 		verifyEvalExpression("${((a))}");
 	}
 
+	@Test
 	public void testIdentifier() {
 		verifyEvalExpression("${a}", "${ a}", "${a }");
 		assertTrue(parse("${a}").getRoot().isLeftValue());
 	}
 
+	@Test
 	public void testFunction() {
 		verifyEvalExpression("${a()}");
 		verifyEvalExpression("${a(a)}");
@@ -200,6 +217,7 @@ public class ParserTest extends TestCase {
 		verifyEvalExpression("${a:a(a, a)}");
 	}
 
+	@Test
 	public void testProperty() {
 		verifyEvalExpression("${a.a}", "${ a . a }");
 		verifyEvalExpression("${a.a.a}");
@@ -216,6 +234,7 @@ public class ParserTest extends TestCase {
 		assertTrue(parse("${(1)[a]}").getRoot().isLeftValue());
 	}
 
+	@Test
 	public void testIsDeferred() {
 		assertFalse(parse("foo").isDeferred());
 		assertFalse(parse("${foo}").isDeferred());

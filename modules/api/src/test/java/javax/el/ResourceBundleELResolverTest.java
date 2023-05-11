@@ -15,6 +15,8 @@
  */ 
 package javax.el;
 
+import org.junit.jupiter.api.Test;
+
 import java.beans.FeatureDescriptor;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,10 +24,10 @@ import java.util.List;
 import java.util.ListResourceBundle;
 import java.util.ResourceBundle;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
 import javax.el.TestContext;
 
-public class ResourceBundleELResolverTest extends TestCase {
+public class ResourceBundleELResolverTest {
 	ELContext context = new TestContext();
 
 	ResourceBundle sampleBundle() {
@@ -41,6 +43,7 @@ public class ResourceBundleELResolverTest extends TestCase {
 		};
 	}
 	
+	@Test
 	public void testGetCommonPropertyType() {
 		Integer scalar = 0;
 		ResourceBundle bundle = sampleBundle();
@@ -56,6 +59,7 @@ public class ResourceBundleELResolverTest extends TestCase {
 		assertNull(resolver.getCommonPropertyType(context, null));
 	}
 
+	@Test
 	public void testGetFeatureDescriptors() {
 		Integer scalar = 0;
 		ResourceBundle bundle = sampleBundle();
@@ -83,6 +87,7 @@ public class ResourceBundleELResolverTest extends TestCase {
 		assertEquals(3, names.size());		
 	}
 
+	@Test
 	public void testGetType() {
 		Integer scalar = 0;
 		ResourceBundle bundle = sampleBundle();
@@ -112,6 +117,7 @@ public class ResourceBundleELResolverTest extends TestCase {
 		assertTrue(context.isPropertyResolved());
 	}
 
+	@Test
 	public void testGetValue() {
 		Integer scalar = 0;
 		ResourceBundle bundle = sampleBundle();
@@ -143,6 +149,7 @@ public class ResourceBundleELResolverTest extends TestCase {
 		assertTrue(context.isPropertyResolved());
 	}
 
+	@Test
 	public void testIsReadOnly() {
 		Integer scalar = 0;
 		ResourceBundle bundle = sampleBundle();
@@ -172,6 +179,7 @@ public class ResourceBundleELResolverTest extends TestCase {
 		assertTrue(context.isPropertyResolved());
 	}
 
+	@Test
 	public void testSetValue() {
 		Integer scalar = 0;
 		ResourceBundle bundle = sampleBundle();

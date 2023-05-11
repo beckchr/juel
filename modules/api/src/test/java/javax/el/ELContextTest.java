@@ -15,14 +15,17 @@
  */ 
 package javax.el;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.Locale;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
 
 import javax.el.TestContext;
 
-public class ELContextTest extends TestCase {
+public class ELContextTest {
 
+	@Test
 	public void testContext() {
 		ELContext context = new TestContext();
 		assertNull(context.getContext(Integer.class));
@@ -30,6 +33,7 @@ public class ELContextTest extends TestCase {
 		assertEquals("foo", context.getContext(Integer.class));
 	}
 
+	@Test
 	public void testLocale() {
 		ELContext context = new TestContext();
 		assertNull(context.getLocale());
@@ -37,6 +41,7 @@ public class ELContextTest extends TestCase {
 		assertEquals(Locale.ENGLISH, context.getLocale());
 	}
 
+	@Test
 	public void testPropertyResolved() {
 		ELContext context = new TestContext();
 		assertFalse(context.isPropertyResolved());

@@ -15,6 +15,8 @@
  */ 
 package javax.el;
 
+import org.junit.jupiter.api.Test;
+
 import java.beans.FeatureDescriptor;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,10 +24,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
 import javax.el.TestContext;
 
-public class MapELResolverTest extends TestCase {
+public class MapELResolverTest {
 	ELContext context = new TestContext();
 
 	Map<Integer,Integer> sampleMap() {
@@ -36,6 +38,7 @@ public class MapELResolverTest extends TestCase {
 		return map;
 	}
 	
+	@Test
 	public void testGetCommonPropertyType() {
 		Integer scalar = 0;
 		Map<Integer,Integer> map = sampleMap();
@@ -51,6 +54,7 @@ public class MapELResolverTest extends TestCase {
 		assertNull(resolver.getCommonPropertyType(context, null));
 	}
 
+	@Test
 	public void testGetFeatureDescriptors() {
 		Integer scalar = 0;
 		Map<Integer,Integer> map = sampleMap();
@@ -78,6 +82,7 @@ public class MapELResolverTest extends TestCase {
 		assertEquals(3, names.size());		
 	}
 
+	@Test
 	public void testGetType() {
 		Integer scalar = 0;
 		Map<Integer,Integer> map = sampleMap();
@@ -107,6 +112,7 @@ public class MapELResolverTest extends TestCase {
 		assertTrue(context.isPropertyResolved());
 	}
 
+	@Test
 	public void testGetValue() {
 		Integer scalar = 0;
 		Map<Integer,Integer> map = sampleMap();
@@ -137,6 +143,7 @@ public class MapELResolverTest extends TestCase {
 		assertTrue(context.isPropertyResolved());
 	}
 
+	@Test
 	public void testIsReadOnly() {
 		Integer scalar = 0;
 		Map<Integer,Integer> map = sampleMap();
@@ -173,6 +180,7 @@ public class MapELResolverTest extends TestCase {
 		assertTrue(context.isPropertyResolved());
 	}
 
+	@Test
 	public void testSetValue() {
 		Integer scalar = 0;
 		Map<Integer,Integer> map = sampleMap();

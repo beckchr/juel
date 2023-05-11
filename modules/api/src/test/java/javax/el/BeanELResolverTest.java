@@ -15,6 +15,8 @@
  */ 
 package javax.el;
 
+import org.junit.jupiter.api.Test;
+
 import java.beans.FeatureDescriptor;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,9 +25,11 @@ import java.util.Properties;
 
 import javax.el.test.TestClass;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class BeanELResolverTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+
+public class BeanELResolverTest  {
 	public static class TestBean {
 		int readOnly = 123;
 		int readWrite = 456;
@@ -68,6 +72,7 @@ public class BeanELResolverTest extends TestCase {
 
 	ELContext context = new TestContext();
 
+	@Test
 	public void testGetCommonPropertyType() {
 		BeanELResolver resolver = new BeanELResolver();
 
@@ -78,6 +83,7 @@ public class BeanELResolverTest extends TestCase {
 		assertNull(resolver.getCommonPropertyType(context, null));
 	}
 
+	@Test
 	public void testGetFeatureDescriptors() {
 		BeanELResolver resolver = new BeanELResolver();
 
@@ -101,6 +107,7 @@ public class BeanELResolverTest extends TestCase {
 		assertEquals(4, names.size());		
 	}
 
+	@Test
 	public void testGetType() {
 		BeanELResolver resolver = new BeanELResolver();
 
@@ -131,6 +138,7 @@ public class BeanELResolverTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testGetValue() {
 		Properties properties = new Properties();
 		properties.setProperty(ExpressionFactory.class.getName(), TestFactory.class.getName());
@@ -163,6 +171,7 @@ public class BeanELResolverTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testGetValue2() {
 		Properties properties = new Properties();
 		properties.setProperty(ExpressionFactory.class.getName(), TestFactory.class.getName());
@@ -181,6 +190,7 @@ public class BeanELResolverTest extends TestCase {
 		assertTrue(context.isPropertyResolved());
 	}
 
+	@Test
 	public void testIsReadOnly() {
 		BeanELResolver resolver = new BeanELResolver();
 		BeanELResolver resolverReadOnly = new BeanELResolver(true);
@@ -219,6 +229,7 @@ public class BeanELResolverTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testSetValue() {
 		BeanELResolver resolver = new BeanELResolver();
 		BeanELResolver resolverReadOnly = new BeanELResolver(true);
@@ -270,6 +281,7 @@ public class BeanELResolverTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testInvoke() {
 		BeanELResolver resolver = new BeanELResolver();
 		
@@ -299,6 +311,7 @@ public class BeanELResolverTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testInvoke2() {
 		BeanELResolver resolver = new BeanELResolver();
 		assertEquals(42, resolver.invoke(context, new TestClass().getAnonymousTestInterface(), "getFourtyTwo", null, new Class[]{}));

@@ -25,6 +25,10 @@ import de.odysseus.el.TestCase;
 import de.odysseus.el.tree.Bindings;
 import de.odysseus.el.util.SimpleContext;
 import de.odysseus.el.util.SimpleResolver;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AstMethodTest extends TestCase {
 	AstMethod parseNode(String expression) {
@@ -56,7 +60,7 @@ public class AstMethodTest extends TestCase {
 		return null;
 	}
 	
-	@Override
+	@BeforeAll
 	protected void setUp() throws Exception {
 		context = new SimpleContext(new SimpleResolver(new BeanELResolver()));
 		context.getELResolver().setValue(context, null, "base", this);
@@ -64,38 +68,46 @@ public class AstMethodTest extends TestCase {
 		bindings = new Bindings(null, new ValueExpression[1]);
 	}
 
+	@Test
 	public void testEval() {
 		try { parseNode("${base.bad()}").eval(bindings, context); fail(); } catch (MethodNotFoundException e) {}
 		assertEquals(1l, parseNode("${base.bar()}").eval(bindings, context));
 		assertEquals(3l, parseNode("${base.bar(3)}").eval(bindings, context));
 	}
 
+	@Test
 	public void testAppendStructure() {
 		StringBuilder s = new StringBuilder();
 		parseNode("${foo.bar(1)}").appendStructure(s, new Bindings(null, null, null));
 		assertEquals("foo.bar(1)", s.toString());
 	}
 
+	@Test
 	public void testIsLiteralText() {
 		assertFalse(parseNode("${foo.bar()}").isLiteralText());
 	}
 
+	@Test
 	public void testIsLeftValue() {
 		assertFalse(parseNode("${foo.bar()}").isLeftValue());
 	}
 
+	@Test
 	public void testGetType() {
 		assertNull(parseNode("${base.foo()}").getType(bindings, context));
 	}
 
+	@Test
 	public void testIsReadOnly() {
 		assertTrue(parseNode("${base.foo()}").isReadOnly(bindings, context));
 	}
 
+	@Test
 	public void testSetValue() {
 		try { parseNode("${base.foo()}").setValue(bindings, context, 0); fail(); } catch (ELException e) {}
 	}
 
+	@Test
 	public void testGetValue() {
 		assertEquals("1", parseNode("${base.bar()}").getValue(bindings, context, String.class));
 		assertEquals("3", parseNode("${base.bar(3)}").getValue(bindings, context, String.class));
@@ -103,10 +115,12 @@ public class AstMethodTest extends TestCase {
 		assertNull(parseNode("${base.nullObject.toString()}").getValue(bindings, context, Object.class));
 	}
 	
+	@Test
 	public void testGetValueReference() {
 		assertNull(parseNode("${base.bar()}").getValueReference(bindings, context));
 	}
 
+	@Test
 	public void testInvoke() {
 		assertEquals(1l, parseNode("${base.bar()}").invoke(bindings, context, null, null, new Object[]{999l}));
 		assertEquals(3l, parseNode("${base.bar(3)}").invoke(bindings, context, null, new Class[]{long.class}, new Object[]{999l}));
@@ -119,6 +133,7 @@ public class AstMethodTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testGetMethodInfo() {
 		assertNull(parseNode("${base.bar()}").getMethodInfo(bindings, context, null, new Class[]{long.class}));
 	}

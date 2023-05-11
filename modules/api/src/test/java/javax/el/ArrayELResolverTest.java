@@ -15,12 +15,15 @@
  */ 
 package javax.el;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 import javax.el.TestContext;
 
-public class ArrayELResolverTest extends TestCase {
+public class ArrayELResolverTest {
 	ELContext context = new TestContext();
 
+	@Test
 	public void testGetCommonPropertyType() {
 		int scalar = 0;
 		int[] array = { 1, 2, 3 };
@@ -36,6 +39,7 @@ public class ArrayELResolverTest extends TestCase {
 		assertNull(resolver.getCommonPropertyType(context, null));
 	}
 
+	@Test
 	public void testGetFeatureDescriptors() {
 		int scalar = 0;
 		int[] array = { 1, 2, 3 };
@@ -47,6 +51,7 @@ public class ArrayELResolverTest extends TestCase {
 		assertNull(resolver.getFeatureDescriptors(context, null));
 	}
 
+	@Test
 	public void testGetType() {
 		int scalar = 0;
 		int[] array = { 1, 2, 3 };
@@ -94,6 +99,7 @@ public class ArrayELResolverTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testGetValue() {
 		int scalar = 0;
 		int[] array = { 1, 2, 3 };
@@ -131,6 +137,7 @@ public class ArrayELResolverTest extends TestCase {
 		assertNull(resolver.getValue(context, array, array.length));
 	}
 
+	@Test
 	public void testIsReadOnly() {
 		int scalar = 0;
 		int[] array = { 1, 2, 3 };
@@ -184,6 +191,7 @@ public class ArrayELResolverTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testSetValue() {
 		int scalar = 0;
 		int[] array = { 1, 2, 3 };

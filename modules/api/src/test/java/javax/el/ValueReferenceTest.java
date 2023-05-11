@@ -1,13 +1,17 @@
 package javax.el;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
-public class ValueReferenceTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
 
+public class ValueReferenceTest {
+
+	@Test
 	public void testGetBase() {
 		assertEquals("foo", new ValueReference("foo", "bar").getBase());
 	}
 
+	@Test
 	public void testGetProperty() {
 		assertEquals("bar", new ValueReference("foo", "bar").getProperty());
 	}

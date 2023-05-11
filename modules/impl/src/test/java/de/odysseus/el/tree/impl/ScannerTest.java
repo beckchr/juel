@@ -18,13 +18,14 @@ package de.odysseus.el.tree.impl;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.odysseus.el.tree.impl.Scanner.*;
+import org.junit.jupiter.api.Test;
 
 import static de.odysseus.el.tree.impl.Scanner.Symbol.*;
 
-public class ScannerTest extends TestCase {
+public class ScannerTest {
 	void assertEquals(Object[] a1, Object[] a2) {
 		assertTrue(Arrays.equals(a1, a2));
 	}
@@ -40,6 +41,7 @@ public class ScannerTest extends TestCase {
 		return list.toArray(new Symbol[list.size()]);
 	}
 	
+	@Test
 	public void testInteger() throws ScanException {
 		Symbol[] expected = { START_EVAL_DYNAMIC, INTEGER, END_EVAL };
 
@@ -48,6 +50,7 @@ public class ScannerTest extends TestCase {
 		assertEquals(expected, symbols("${01234567890}"));
 	}
 
+	@Test
 	public void testFloat() throws ScanException {
 		Symbol[] expected = { START_EVAL_DYNAMIC, FLOAT, END_EVAL };
 
@@ -86,6 +89,7 @@ public class ScannerTest extends TestCase {
 		assertEquals(expected, symbols("${0.0E-0}"));
 	}
 
+	@Test
 	public void testString() throws ScanException {
 		Symbol[] expected = { START_EVAL_DYNAMIC, STRING, END_EVAL };
 
@@ -104,6 +108,7 @@ public class ScannerTest extends TestCase {
 		try { symbols("${\"foo"); fail(); } catch (ScanException e) {}
 	}
 
+	@Test
 	public void testKeywords() throws ScanException {
 		assertEquals(new Symbol[]{ START_EVAL_DYNAMIC, NULL, END_EVAL }, symbols("${null}"));
 		assertEquals(new Symbol[]{ START_EVAL_DYNAMIC, TRUE, END_EVAL }, symbols("${true}"));
@@ -126,6 +131,7 @@ public class ScannerTest extends TestCase {
 		assertEquals(new Symbol[]{ START_EVAL_DYNAMIC, IDENTIFIER, END_EVAL }, symbols("${nullx}"));
 	}
 
+	@Test
 	public void testOperators() throws ScanException {
 		assertEquals(new Symbol[]{ START_EVAL_DYNAMIC, MUL, END_EVAL }, symbols("${*}"));
 		assertEquals(new Symbol[]{ START_EVAL_DYNAMIC, DIV, END_EVAL }, symbols("${/}"));
@@ -155,10 +161,12 @@ public class ScannerTest extends TestCase {
 		try { symbols("${=)"); fail(); } catch (ScanException e) {}
 	}
 
+	@Test
 	public void testWhitespace() throws ScanException {
 		assertEquals(new Symbol[]{ START_EVAL_DYNAMIC, END_EVAL }, symbols("${\t\n\r }"));		
 	}
 
+	@Test
 	public void testIdentifier() throws ScanException {
 		Symbol[] expected = { START_EVAL_DYNAMIC, IDENTIFIER, END_EVAL };
 
@@ -166,6 +174,7 @@ public class ScannerTest extends TestCase {
 		assertEquals(expected, symbols("${foo_1}"));
 	}
 
+	@Test
 	public void testText() throws ScanException {
 		Symbol[] expected = { TEXT };
 
@@ -179,6 +188,7 @@ public class ScannerTest extends TestCase {
 		assertEquals(expected, symbols("\\${foo}"));
 	}
 
+	@Test
 	public void testMixed() throws ScanException {
 		assertEquals(new Symbol[]{ TEXT, START_EVAL_DYNAMIC }, symbols("foo${"));	
 		assertEquals(new Symbol[]{ START_EVAL_DYNAMIC, IDENTIFIER }, symbols("${bar"));
@@ -186,6 +196,7 @@ public class ScannerTest extends TestCase {
 		assertEquals(new Symbol[]{ TEXT, START_EVAL_DYNAMIC, END_EVAL, TEXT }, symbols("foo${}bar"));
 	}
 
+	@Test
 	public void testDeferred() throws ScanException {
 		assertEquals(new Symbol[]{ START_EVAL_DEFERRED }, symbols("#{"));	
 	}

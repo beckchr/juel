@@ -16,26 +16,32 @@
 package de.odysseus.el.tree.impl.ast;
 
 import de.odysseus.el.TestCase;
+import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 public class AstEvalTest extends TestCase {
 	AstEval parseNode(String expression) {
 		return (AstEval)parse(expression).getRoot();
 	}
 
+	@Test
 	public void testIsLeftValue() {
 		assertFalse(parseNode("${1}").isLeftValue());
 		assertTrue(parseNode("${foo.bar}").isLeftValue());
 	}
 
+	@Test
 	public void testIsDeferred() {
 		assertTrue(parseNode("#{1}").isDeferred());
 		assertFalse(parseNode("${1}").isDeferred());		
 	}
 
+	@Test
 	public void testEval() {
 		assertEquals(1l, parseNode("${1}").eval(null, null));
 	}
 
+	@Test
 	public void testAppendStructure() {
 		StringBuilder s = new StringBuilder();
 		parseNode("${1}").appendStructure(s, null);

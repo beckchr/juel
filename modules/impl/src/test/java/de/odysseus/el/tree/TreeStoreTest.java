@@ -19,8 +19,12 @@ import de.odysseus.el.TestCase;
 import de.odysseus.el.tree.Tree;
 import de.odysseus.el.tree.TreeStore;
 import de.odysseus.el.tree.impl.Cache;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TreeStoreTest extends TestCase {
+	@Test
 	public void test() {
 		TreeStore store = new TreeStore(BUILDER, new Cache(1));
 		assertSame(BUILDER, store.getBuilder());

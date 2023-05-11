@@ -27,8 +27,13 @@ import java.util.concurrent.TimeUnit;
 
 import de.odysseus.el.TestCase;
 import de.odysseus.el.tree.Tree;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class CacheTest extends TestCase {
+	@Test
 	public void testSingleThread() {
 		Cache cache = null;
 
@@ -96,6 +101,7 @@ public class CacheTest extends TestCase {
 		return result;
 	}
 
+	@Test
 	public void testMultiThread() throws Exception {
 		testMultiThread(10000, 1, 100000);
 		testMultiThread(1000, 10, 10000);

@@ -16,26 +16,32 @@
 package de.odysseus.el.tree.impl.ast;
 
 import de.odysseus.el.TestCase;
+import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 public class AstNestedTest extends TestCase {
 	AstNested parseNode(String expression) {
 		return (AstNested)parse(expression).getRoot().getChild(0);
 	}
 
+	@Test
 	public void testIsLeftValue() {
 		assertFalse(parseNode("${(a)}").isLeftValue());
 	}
 
+	@Test
 	public void testEval() {
 		assertEquals(1l, parseNode("${(1)}").eval(null, null));
 	}
 
+	@Test
 	public void testAppendStructure() {
 		StringBuilder s = new StringBuilder();
 		parseNode("${(1)}").appendStructure(s, null);
 		assertEquals("(1)", s.toString());
 	}
 
+	@Test
 	public void testGetValueReference() {
 		assertNull(parseNode("${(1)}").getValueReference(null, null));
 	}
