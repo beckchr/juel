@@ -149,7 +149,7 @@ public class BooleanOperations {
 			return converter.convert(o1, Double.class).equals(converter.convert(o2, Double.class));
 		}
 		if (BigInteger.class.isAssignableFrom(t1) || BigInteger.class.isAssignableFrom(t2)) {
-			return converter.convert(o1, BigInteger.class).equals(converter.convert(o2, BigInteger.class));
+			return converter.convert(o1, BigInteger.class).compareTo(converter.convert(o2, BigInteger.class)) == 0;
 		}
 		if (SIMPLE_INTEGER_TYPES.contains(t1) || SIMPLE_INTEGER_TYPES.contains(t2)) {
 			return converter.convert(o1, Long.class).equals(converter.convert(o2, Long.class));
