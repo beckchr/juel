@@ -18,6 +18,7 @@ package de.odysseus.el;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
+import java.util.Date;
 
 import javax.el.ELContext;
 import javax.el.ELException;
@@ -33,6 +34,8 @@ import de.odysseus.el.tree.NodePrinter;
 import de.odysseus.el.tree.Tree;
 import de.odysseus.el.tree.TreeBuilder;
 import de.odysseus.el.tree.TreeStore;
+import de.odysseus.el.tree.impl.ast.AstObject;
+import de.odysseus.el.tree.impl.ast.AstTextForNull;
 
 /**
  * A value expression is ready to be evaluated (by calling either
@@ -73,12 +76,20 @@ public final class TreeValueExpression extends javax.el.ValueExpression {
 		this.bindings = tree.bind(functions, variables, converter);
 		this.expr = expr;
 		this.type = type;
-		this.node = tree.getRoot();
+		this.node = getRootBasedOnType(tree, type);
 		this.deferred = tree.isDeferred();
 		
 		if (type == null) {
 			throw new NullPointerException(LocalMessages.get("error.value.notype"));
 		}
+	}
+
+	private ExpressionNode getRootBasedOnType(Tree tree, Class<?> type) {
+		ExpressionNode expressionNode = tree.getRoot();
+		if(expressionNode instanceof AstTextForNull && type != String.class){
+			return new AstObject("");
+		}
+		return tree.getRoot();
 	}
 
 	private String getStructuralId() {

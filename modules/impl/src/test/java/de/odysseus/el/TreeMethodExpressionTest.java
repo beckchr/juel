@@ -34,6 +34,10 @@ public class TreeMethodExpressionTest extends TestCase {
 		return 0;
 	}
 
+	public void voidMethod(){
+
+	}
+
 	SimpleContext context;
 	TreeStore store = new TreeStore(new Builder(Feature.METHOD_INVOCATIONS), null);
 	
@@ -81,6 +85,15 @@ public class TreeMethodExpressionTest extends TestCase {
 	public void testInvoke() {
 		assertEquals(0, new TreeMethodExpression(store, null, null, null, "${base.foo}", null, new Class[0]).invoke(context, null));
 		assertEquals(0, new TreeMethodExpression(store, null, null, null, "${base.foo()}", null, null).invoke(context, null));
+	}
+
+	public void testInvokeVoid() {
+		assertEquals(null, new TreeMethodExpression(store, null, null, null, "#{base.voidMethod}", Void.TYPE, new Class[0]).invoke(context, null));
+		assertEquals(null, new TreeMethodExpression(store, null, null, null, "#{base.voidMethod}", Void.class, new Class[0]).invoke(context, null));
+		assertEquals(null, new TreeMethodExpression(store, null, null, null, "#{base.voidMethod()}", null, null).invoke(context, null));
+
+		// TODO: Should this only be supported via the returnType flag?
+		// assertEquals(null, new TreeMethodExpression(store, null, null, null, "#{base.voidMethod}", Object.class, new Class[0]).invoke(context, null));
 	}
 
 

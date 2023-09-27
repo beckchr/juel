@@ -23,7 +23,7 @@ import javax.el.ValueReference;
 import de.odysseus.el.misc.LocalMessages;
 import de.odysseus.el.tree.Bindings;
 
-public final class AstText extends AstNode {
+public class AstText extends AstNode {
 	private final String value;
 
 	public AstText(String value) {
